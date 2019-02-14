@@ -27,12 +27,7 @@ class Web extends CI_Controller
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
-	        'font_path'     => './assets/font/comic.ttf',
-	        'img_width'     => '150',
-	        'img_height'    => 40,
-	        'expiration'    => 7200,
 	        'word_length'   => 5,
-	        'font_size'     => 14,
 	        'colors'        => array(
 	                'background' => array(255, 255, 255),
                 	'border' => array(255, 255, 255),
@@ -40,12 +35,21 @@ class Web extends CI_Controller
                 	'grid' => array(255, 40, 40)
 	        )
 		);
-		$image = create_captcha($captcha);
+		$cap = create_captcha($captcha);
 		$data = array(
 			'title'=>'ثبت نام',
 			'url'=>base_url(),
-			'captcha'=>$image
+			'captcha'=>$cap
 			);
+		
+		$capcha_data = array(
+		        'captcha_time'  => $cap['time'],
+		        'ip_address'    => $this->input->ip_address(),
+		        'word'          => $cap['word']
+		);
+		$this->load->model('captcha_model');
+		$this->captcha_model->insert($capcha_data);
+
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/register',$data);
 	}
@@ -55,12 +59,7 @@ class Web extends CI_Controller
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
-	        'font_path'     => './assets/font/comic.ttf',
-	        'img_width'     => '150',
-	        'img_height'    => 40,
-	        'expiration'    => 7200,
 	        'word_length'   => 5,
-	        'font_size'     => 14,
 	        'colors'        => array(
 	                'background' => array(255, 255, 255),
                 	'border' => array(255, 255, 255),
@@ -68,12 +67,21 @@ class Web extends CI_Controller
                 	'grid' => array(255, 40, 40)
 	        )
 		);
-		$image = create_captcha($captcha);
+		$cap = create_captcha($captcha);
 		$data = array(
 			'title'=>'ورود',
 			'url'=>base_url(),
-			'captcha'=>$image
+			'captcha'=>$cap
 			);
+
+		$capcha_data = array(
+		        'captcha_time'  => $cap['time'],
+		        'ip_address'    => $this->input->ip_address(),
+		        'word'          => $cap['word']
+		);
+		$this->load->model('captcha_model');
+		$this->captcha_model->insert($capcha_data);
+
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/login',$data);
 	}
@@ -83,12 +91,7 @@ class Web extends CI_Controller
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
-	        'font_path'     => './assets/font/comic.ttf',
-	        'img_width'     => '150',
-	        'img_height'    => 40,
-	        'expiration'    => 7200,
 	        'word_length'   => 5,
-	        'font_size'     => 14,
 	        'colors'        => array(
 	                'background' => array(255, 255, 255),
                 	'border' => array(255, 255, 255),
@@ -96,12 +99,21 @@ class Web extends CI_Controller
                 	'grid' => array(255, 40, 40)
 	        )
 		);
-		$image = create_captcha($captcha);
+		$cap = create_captcha($captcha);
 		$data = array(
 			'title'=>'فراموشی رمز عبور',
 			'url'=>base_url(),
-			'captcha'=>$image
+			'captcha'=>$cap
 			);
+
+		$capcha_data = array(
+		        'captcha_time'  => $cap['time'],
+		        'ip_address'    => $this->input->ip_address(),
+		        'word'          => $cap['word']
+		);
+		$this->load->model('captcha_model');
+		$this->captcha_model->insert($capcha_data);
+
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/forget',$data);
 	}

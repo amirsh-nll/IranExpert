@@ -3,7 +3,7 @@
 			<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
 		</div>
 		<div class="box">
-			<?php echo form_open('user/auth', 'method="post"'); ?>
+			<?php echo form_open('user/login', 'method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$email_input = array(
