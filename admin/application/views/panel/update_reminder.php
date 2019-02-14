@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) یادآور ها -) ویرایش</h2>
 <?php
-	echo form_open('admin/update_reminder', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/update_reminder', 'method="post" class="panel_form"');
 
 	$reminder_item 	= $reminder_item[0];
 

@@ -25,7 +25,7 @@ class contact_model extends CI_Model
 			'mobile_number'		=>	'',
 			'phone_number'		=>	'',
 			'postal_code'		=>	'',
-			'province_id'		=>	0,
+			'province_id'		=>	1,
 			'city_name'			=>	'',
 			'address'			=>	''
 		);

@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) لیست کاربران -) ارسال پیام</h2>
 <?php
-	echo form_open('admin/user_message', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/user_message', 'method="post" class="panel_form"');
 	$title_input = array(
 		'name'			=>	'title',
 		'placeholder'	=>	'عنوان (اختیاری)',

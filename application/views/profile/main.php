@@ -259,7 +259,7 @@
 		</div>
 		<div class="content_item_left">
 			<?php
-				echo form_open("profile/send_message/" . $data['middle_name'], 'method="post" class="message_box"');
+				echo form_open($url . "profile/send_message/" . $data['middle_name'], 'method="post" class="message_box"');
 				$name_input = array(
 					'name'			=>	'name',
 					'placeholder'	=>	'نام (اختیاری)',

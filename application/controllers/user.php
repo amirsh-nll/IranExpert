@@ -1829,6 +1829,8 @@ class user extends IREX_Controller
 
 				if($user!=0)
 				{
+					$this->session->set_userdata('user_id');
+					$this->session->set_userdata('login');
 					redirect(base_url() . 'login/6');
 				}
 				else

@@ -323,7 +323,7 @@ class form extends CI_Controller
 				if($user_id!=0)
 				{
 					$this->user_model->forget_password($user_id);
-					redirect(base_url() . 'forget/3');
+					redirect(base_url() . 'login/8');
 				}
 				else
 				{
@@ -333,6 +333,98 @@ class form extends CI_Controller
 			else
 			{
 				redirect(base_url() . 'forget/2');
+			}
+		}
+	}
+
+	public function send_message()
+	{
+		$rules = array(
+				array(
+					'field'		=>	'name',
+					'label'		=>	'نام شما',
+					'rules'		=>	'max_length[100]',
+					'errors'	=>	array(
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'title',
+					'label'		=>	'موضوع پیام',
+					'rules'		=>	'max_length[100]',
+					'errors'	=>	array(
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'email',
+					'label'		=>	'ایمیل',
+					'rules'		=>	'required|valid_email|min_length[5]|max_length[70]',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'message',
+					'label'		=>	'پیام شما',
+					'rules'		=>	'required|min_length[5]|max_length[2000]',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'captcha',
+					'label'		=>	'کد امنیتی',
+					'rules'		=>	'required',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+			);
+
+		$this->form_validation->set_rules($rules);
+
+		$this->load->model('captcha_model');
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'contact/1#message_form');
+		}
+		else
+		{
+			$user_id 		= 1;
+			$full_name		= $this->input->post('name',true);
+			$title 			= $this->input->post('title',true);
+			$email 			= $this->input->post('email',true);
+			$message 		= $this->input->post('message',true);
+			$captcha 		= $this->input->post('captcha',true);
+			$description 	= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+
+			if($this->captcha_model->check($code))
+			{
+				if($email==='no_reply@localhost.com' || $full_name==='مدیر')
+				{
+					redirect(base_url() . 'profile/' . $middle_name . '/4#message_form');
+				}
+				$this->load->model('message_model');
+				$message = $this->message_model->insert_message($user_id, $full_name, $title, $email, $message, $description);
+				if($message==1)
+				{
+					redirect(base_url() . 'contact/2#message_form');
+				}
+				else
+				{
+					redirect(base_url() . 'contact/1#message_form');
+				}
+			}
+			else
+			{
+				redirect(base_url() . 'contact/3#message_form');
 			}
 		}
 	}

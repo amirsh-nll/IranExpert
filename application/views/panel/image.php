@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) تصویر کاربری</h2>
 <?php
-	echo form_open_multipart('user/add_image', 'method="post" class="panel_form"');
+	echo form_open_multipart($url . 'user/add_image', 'method="post" class="panel_form"');
 
 	$image_file_input 	= '<input type="file" load-image="true" href-image="#imgTest" accept="image/png, image/jpeg" id="btnImageFile" name="userfile" />';
 	$image_submit 		= array(

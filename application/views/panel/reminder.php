@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) یادآور ها</h2>
 <?php
-	echo form_open('user/add_reminder', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_reminder', 'method="post" class="panel_form"');
 
 	$reminder_title_input = array(
 		'name'			=>	'reminder_title',

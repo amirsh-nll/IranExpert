@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) زمینه فعالیت</h2>
 <?php 
-	echo form_open('admin/insert_activity', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/insert_activity', 'method="post" class="panel_form"');
 	$activity_input = array(
 		'name'			=>	'activity',
 		'placeholder'	=>	'زمینه فعالیت',

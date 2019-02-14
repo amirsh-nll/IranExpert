@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) پروژه ها</h2>
 <?php
-	echo form_open('user/add_project', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_project', 'method="post" class="panel_form"');
 
 	$project_title_input = array(
 		'name'			=>	'project_title',

@@ -33,6 +33,7 @@ class province_model extends CI_Model
 			$page = $page * 10 - 9;
 		}
 		$this->db->limit(10, $page);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('province');
 
 		if($result->num_rows()>0)

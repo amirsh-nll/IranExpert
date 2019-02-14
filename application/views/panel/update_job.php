@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات شغلی -) ویرایش</h2>
 <?php
-	echo form_open('user/update_job', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_job', 'method="post" class="panel_form"');
 
 	$job_item 		= $job_item[0];
 	$start 			= explode('/', $job_item['start']);

@@ -18,7 +18,7 @@
 <div id="suspend_view">&nbsp;</div>
 <p><strong>انسداد حساب کاربری:</strong></p>
 <?php
-	echo form_open('user/suspend_accont', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/suspend_accont', 'method="post" class="panel_form"');
 	$password_input = array(
 		'name'			=>	'password',
 		'place_holder'	=>	'رمز عبور',

@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) رسمی کردن پروفایل</h2>
 <?php
-	echo form_open_multipart('user/certificate', 'method="post" class="panel_form"');
+	echo form_open_multipart($url . 'user/certificate', 'method="post" class="panel_form"');
 
 	$identity_card_1_input 	= '<input type="file" load-image="true" href-image="#imgTest1" accept="image/png, image/jpeg" id="btnImageFile" name="userfile1" />';
 	$identity_card_2_input 	= '<input type="file" load-image="true" href-image="#imgTest2" accept="image/png, image/jpeg" id="btnImageFile" name="userfile2" />';

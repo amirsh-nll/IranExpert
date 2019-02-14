@@ -645,6 +645,9 @@ class admin extends CI_Controller
 			$user_id 		= $this->session->userdata('user_id');
 			$message_unread = $this->message_model->message_unread($user_id);
 
+			$this->load->model('reminder_model');
+			$reminder_count = $this->reminder_model->reminder_count($user_id);
+
 			$i=0;
 			$users = '';
 			$this->load->model('login_model');
@@ -659,11 +662,14 @@ class admin extends CI_Controller
 				$i+=1;
 			}
 
+			$users = $this->sort->array_sort($users, 'last_login', SORT_DESC);
+
 			$data = array(
 				'title'				=>	'پنل مدیریت - جستجو کاربران',
 				'url'				=>	base_url(),
 				'message_unread'	=>	$message_unread,
-				'user'				=>	$users
+				'user'				=>	$users,
+				'reminder_count'	=>	$reminder_count
 			);
 			$this->load->view('panel/header', $data);
 			$this->load->view('panel/search_user', $data);
@@ -1051,6 +1057,56 @@ class admin extends CI_Controller
 		else
 		{
 			redirect(base_url() . 'panel/reminder/4');
+		}
+	}
+
+	public function search_image()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'search',
+				'label'		=>	'جستجو کاربر',
+				'rules'		=>	'max_length[70]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/list_image');
+		}
+		else
+		{
+			$search = $this->input->post('search', true);
+			$this->load->model('image_model');
+			$image = $this->image_model->search_image($search);
+			
+			$this->load->model('message_model');
+			$user_id 		= $this->session->userdata('user_id');
+			$message_unread = $this->message_model->message_unread($user_id);
+
+			$this->load->model('reminder_model');
+			$reminder_count = $this->reminder_model->reminder_count($user_id);
+
+			$i=0;
+			$images = '';
+
+			$images = $this->sort->array_sort($image, 'last_login', SORT_DESC);
+
+			$data = array(
+				'title'				=>	'پنل مدیریت - جستجو تصاویر',
+				'url'				=>	base_url(),
+				'message_unread'	=>	$message_unread,
+				'images'			=>	$images,
+				'reminder_count'	=>	$reminder_count
+			);
+			$this->load->view('panel/header', $data);
+			$this->load->view('panel/search_image', $data);
+			$this->load->view('panel/footer', $data);
 		}
 	}
 }

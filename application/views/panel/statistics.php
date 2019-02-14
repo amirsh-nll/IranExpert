@@ -3,6 +3,7 @@
 <?php
 	echo $chart;
 ?>
+<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="statistics" href="http://localhost/panel/statistics">بروز رسانی</a><div class="clear"></div>
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
 <p>در این بخش شما می توانید تعداد بازدید کنندگان رزومه خود را ببینید.</p>

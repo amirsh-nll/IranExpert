@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) شبکه های اجتماعی</h2>
 <?php
-	echo form_open('user/add_social', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_social', 'method="post" class="panel_form"');
 
 	$social_url_input = array(
 		'name'			=>	'social_url',

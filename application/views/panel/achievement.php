@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) افتخارات</h2>
 <?php
-	echo form_open('user/add_achievement', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_achievement', 'method="post" class="panel_form"');
 
 	$achievement_title_input = array(
 		'name'			=>	'achievement_title',

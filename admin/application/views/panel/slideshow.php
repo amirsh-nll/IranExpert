@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) اسلایدشو</h2>
 <?php 
-	echo form_open_multipart('admin/new_slideshow', 'method="post" class="panel_form"');
+	echo form_open_multipart($url . 'admin/new_slideshow', 'method="post" class="panel_form"');
 
 	$image_file_input 	= '<input type="file" load-image="true" href-image="#imgTest" accept="image/png, image/jpeg" id="btnImageFile" name="userfile" />';
 	$title_input = array(
@@ -36,7 +36,7 @@
 <?php
 	if($notice == 1)
 	{
-		echo '<p style="color:#f00;">اطلاعات وارد شده نامعتبر می باشند.</p>';
+		echo '<p style="color:#f00;">فایل اسلاید شو مورد نظر شما امکان آپلود ندارد.</p>';
 	}
 	elseif ($notice == 2)
 	{

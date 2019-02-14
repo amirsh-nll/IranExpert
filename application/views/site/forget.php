@@ -1,5 +1,5 @@
 		<div class="box">
-			<?php echo form_open('form/forget', 'method="post"'); ?>
+			<?php echo form_open($url . 'form/forget', 'method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$email_input = array(
@@ -46,10 +46,6 @@
 						elseif($notice==2)
 						{
 							echo '<p style="color:#f77;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
-						}
-						elseif($notice==3)
-						{
-							echo '<p style="color:#0f0;">رمز عبور جدید شما : 123456789 می باشد.</p>';
 						}
 					?>
 				</div>

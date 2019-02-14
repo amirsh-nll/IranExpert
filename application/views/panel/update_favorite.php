@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) علاقه مندی ها -) ویرایش</h2>
 <?php
-	echo form_open('user/update_favorite', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_favorite', 'method="post" class="panel_form"');
 
 	$favorite_item = $favorite_item[0];
 

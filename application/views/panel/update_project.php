@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) پروژه ها -) ویرایش</h2>
 <?php
-	echo form_open('user/update_project', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_project', 'method="post" class="panel_form"');
 
 	$project_item 	= $project_item[0];
 	$start 			= explode('/', $project_item['start']);

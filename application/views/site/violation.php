@@ -1,5 +1,5 @@
 		<div class="box">
-			<?php echo form_open('form/violation', 'method="post"'); ?>
+			<?php echo form_open($url . 'form/violation', 'method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$violation_type_item = array(

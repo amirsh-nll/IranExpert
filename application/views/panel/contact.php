@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات تماس</h2>
 <?php
-	echo form_open('user/update_contact', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_contact', 'method="post" class="panel_form"');
 
 	$email_input = array(
 		'name'			=>	'contact_email',

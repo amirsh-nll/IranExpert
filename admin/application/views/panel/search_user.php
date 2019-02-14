@@ -1,7 +1,7 @@
 <h2>پنل مدیریت -) لیست کاربران -) جستجو</h2>
 <p><strong>جستجو کاربران:</strong></p>
 <?php
-	echo form_open('admin/search_user', 'method="post" class="search_user"');
+	echo form_open($url . 'admin/search_user', 'method="post" class="search_user"');
 	$search_input = array(
 		'name'			=>	'search',
 		'placeholder'	=>	'جستجو کاربر',
@@ -40,7 +40,7 @@
 				<tr style="font-size:19px;">
 					<td style="width:20%; padding:5px; text-align:center;"><?php echo $my_user['middle_name']; ?></td>
 					<td style="width:40%; padding:5px; text-align:center;"><?php echo $my_user['email']; ?></td>
-					<td style="width:20%; padding:5px; text-align:center;"><?php echo $my_user['last_login']; ?></td>
+					<td style="width:20%; padding:5px; text-align:center;"><?php echo $this->jdf->jdate('Y/n/j', $my_user['last_login']); ?></td>
 					<td style="width:20%; text-align:center;">
 						<a href="<?=$url; ?>panel/view_user_information/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_eye" title="نمایش اطلاعات"><span class="fa fa-lg fa-eye"></span></a>
 						<a href="<?=$url; ?>panel/user_edit/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_edit" title="ویرایش اطلاعات"><span class="fa fa-lg fa-edit"></span></a>

@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) توانایی ها</h2>
 <?php
-	echo form_open('user/add_ability', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_ability', 'method="post" class="panel_form"');
 
 	$ability_title_input = array(
 		'name'			=>	'ability_title',

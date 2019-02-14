@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) علاقه مندی ها</h2>
 <?php
-	echo form_open('user/add_favorite', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_favorite', 'method="post" class="panel_form"');
 
 	$favorite_title_input = array(
 		'name'			=>	'favorite_title',

@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) تنظیمات</h2>
 <?php
-	echo form_open('user/change_setting', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/change_setting', 'method="post" class="panel_form"');
 
 	$middle_name_input = array(
 		'name'			=>	'middle_name',

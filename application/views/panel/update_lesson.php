@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات تحصیلی -) ویرایش</h2>
 <?php
-	echo form_open('user/update_lesson', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_lesson', 'method="post" class="panel_form"');
 
 	$lesson_item 	= $lesson_item[0];
 	$start 			= explode('/', $lesson_item['start']);

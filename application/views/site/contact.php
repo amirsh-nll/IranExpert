@@ -1,7 +1,7 @@
 		<div class="content">
 			<h2>تماس با ما:</h2>
 			<?php
-				echo form_open("web/send_message", 'method="post" class="message_box" id="message_form"');
+				echo form_open($url . "form/send_message", 'method="post" class="message_box" id="message_form"');
 				$name_input = array(
 					'name'			=>	'name',
 					'placeholder'	=>	'نام (اختیاری)',

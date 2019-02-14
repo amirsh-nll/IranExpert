@@ -16,7 +16,7 @@
 		<script type="text/javascript" src="../../../assets/js/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function () {
-			    var imgRegex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+			    var imgRegex = /^([a-zA-Z0-9\s_\(\)\,\!\@\#\$\%\^\&\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
 			    $("input[load-image=true]").change(function (evt) {
 			        var changeBtn = $(this);
 			        if (typeof (FileReader) === "undefined") { alert("This browser does not support HTML5 FileReader."); return; }
@@ -34,6 +34,20 @@
 			        });
 			    });
 			});
+		</script>
+		<script>
+		   $(document).ready(function(){
+		 
+		        $.ajaxSetup({cache:false});
+		        $(".refresh_key").click(function(){
+		            var refresh_key = $(this).attr("href");
+		 
+		            $("#refresh_key").html("لطفا منتظر بمانید...");
+		            $("#body").load(refresh_key);
+		        return false;
+		        });
+		 
+		    });
 		</script>
 		<!--JS-->
 	</head>
@@ -70,14 +84,14 @@
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
-	<body>
+	<body id="body">
 		<div class="header">
 			<div class="header_content">
 				<div class="logo">
 					<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
 				</div>
 				<div class="navbar">
-					<a style="color:#ff951a;" href="<?=$url; ?>panel/reminder" title="<?=$reminder_count; ?> یادآور">
+					<a style="color:#ff951a;" href="<?=$url; ?>panel/reminder#table_view" title="<?=$reminder_count; ?> یادآور">
 						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($reminder_count); ?></span><span class="fa fa-lg fa-bell"></span>
 					</a>
 					<a style="color:#49b73c;" href="<?=$url; ?>panel/message" title="<?=$message_unread; ?> پیام ها خوانده نشده">

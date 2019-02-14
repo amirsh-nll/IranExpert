@@ -23,6 +23,7 @@ class violation_model extends CI_Model
 			$page = $page * 10 - 10;
 		}
 		$this->db->limit(10, $page);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('violation');
 
 		if($result->num_rows()>0)

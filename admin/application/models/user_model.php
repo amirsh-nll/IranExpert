@@ -92,6 +92,7 @@ class user_model extends CI_Model
 			$page = $page * 10 - 9;
 		}
 		$this->db->limit(10, $page);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('user');
 
 		if($result->num_rows()>0)
@@ -272,11 +273,26 @@ class user_model extends CI_Model
 	public function search_user($middle_name)
 	{
 		$this->db->like('middle_name', $middle_name);
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 40);
 
 		if($result->num_rows()>0)
 		{
 			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function search_image_user($middle_name)
+	{
+		$this->db->like('middle_name', $middle_name);
+		$result = $this->db->get('user', 12);
+
+		if($result->num_rows()>0)
+		{
+			return $result;
 		}
 		else
 		{
@@ -342,6 +358,25 @@ class user_model extends CI_Model
 			$email = $row->email;
 		}
 		return $email;
+	}
+
+	public function fetch_register_time($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		if($result->num_rows()!=1)
+		{
+			return 0;
+		}
+		else
+		{
+			foreach($result->result() as $row)
+			{
+				$time = $row->time;
+			}
+			return $time;
+		}
 	}
 }
 

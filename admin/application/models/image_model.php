@@ -48,6 +48,7 @@ class image_model extends CI_Model
 			$page = $page * 9 - 8;
 		}
 		$this->db->limit(9, $page);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('image');
 
 		if($result->num_rows()>0)
@@ -76,6 +77,47 @@ class image_model extends CI_Model
 	public function image_undefault_count()
 	{
 		return $this->image_count() - $this->image_default_count();
+	}
+
+	public function search_image($middle_name)
+	{
+		$this->load->model('user_model');
+		$user = $this->user_model->search_image_user($middle_name);
+
+		if($user===0 || $user->num_rows()<1)
+		{
+			return 0;
+		}
+		else
+		{
+			$user = $user->result_array();
+		}
+
+		$image 	= $this->db->get('image');
+		$image 	= $image->result_array();
+		$images = '';
+
+		foreach ($image as $my_image) {
+			$images[$my_image['user_id']] = $my_image['file_name'];
+		}
+
+		$i=0;
+		$result='';
+		$this->load->model('login_model');
+		foreach ($user as $my_user) {
+			if(isset($images[$my_user['id']]))
+			{
+				$result[$i] = array
+				(
+					'middle_name'	=>	$my_user['middle_name'],
+					'file_name'		=>	$images[$my_user['id']],
+					'last_login'	=>	$this->login_model->last_login($my_user['id'])
+				);
+				$i+=1;
+			}
+		}
+
+		return $result;
 	}
 }
 

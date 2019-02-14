@@ -496,7 +496,7 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'title'				=>	'پنل مدیریت - پیام ها',
+			'title'				=>	'پنل مدیریت - مشاهده پیام',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'notice'			=>	$notice,
@@ -1100,7 +1100,7 @@ class panel extends IREX_Controller
 		}
 
 		$data = array(
-			'title'				=>	'پنل مدیریت - مجوزهای رسمیت',
+			'title'				=>	'پنل مدیریت - تخلف کاربران',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'page'				=>	$page,

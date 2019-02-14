@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) تنظیمات</h2>
 <?php
-	echo form_open('admin/change_password', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/change_password', 'method="post" class="panel_form"');
 
 	$old_password_input = array(
 		'name'			=>	'old_password',

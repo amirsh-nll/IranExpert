@@ -68,6 +68,10 @@
 						{
 							echo '<p style="color:#f77;">حساب کاربری شما مسدود/غیرفعال شده است. در صورت بروز سوال به صفحه <a style="color:#f77; border-bottom:1px solid #f77;" href="' . $url . 'contact" title="تماس با ما">تماس با ما</a> بروید.</p>';
 						}
+						elseif($notice==8)
+						{
+							echo '<p style="color:#0f0;">رمز عبور جدید شما : 123456789 می باشد.</p>';
+						}
 					?>
 				</div>
 				<div class="clear"></div>

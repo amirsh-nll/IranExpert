@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) مجوزهای رسمیت -) مدیریت مجوز</h2>
 <?php
-	echo form_open('admin/certificate_manage', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/certificate_manage', 'method="post" class="panel_form"');
 	$status_item = array(
 		'0'	=>	'غیر فعال',
 		'1'	=>	'فعال'

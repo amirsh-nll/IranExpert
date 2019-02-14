@@ -53,7 +53,7 @@ class social_model extends CI_Model
 		}
 	}
 
-	public function update_social($user_id, $job_id, $url, $type)
+	public function update_social($user_id, $social_id, $url, $type)
 	{
 		$data = array(
 			'url'			=>	$url,

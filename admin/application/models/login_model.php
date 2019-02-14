@@ -33,15 +33,21 @@ class login_model extends CI_Model
 	public function last_login($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('login');
-		$result = $result->result_array();
-		$last_time = 0;
-
-		foreach ($result as $my_result) {
-			$last_time = $my_result['time'];
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('login',1);
+		if($result->num_rows()==0)
+		{
+			$this->load->model('user_model');
+			$last_time = $this->user_model->fetch_register_time($user_id);
+			return $last_time;
 		}
-
-		return $this->jdf->jdate('Y/n/j', $last_time);
+		else
+		{
+			$result = $result->result_array();
+			$result = $result[0];
+			$last_time = $result['time'];
+			return $last_time;
+		}
 	}
 
 	public function login_today()

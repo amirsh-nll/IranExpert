@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) لیست کاربران -) ویرایش اطلاعات</h2>
 <?php 
-	echo form_open('admin/user_edit', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/user_edit', 'method="post" class="panel_form"');
 	$middle_name_input = array(
 		'name'			=>	'middle_name_user',
 		'placeholder'	=>	'نام',

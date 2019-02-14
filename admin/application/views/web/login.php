@@ -18,7 +18,7 @@
 			<img src="<?=$url; ?>assets/image/logo.png" title="سامانه پروفایل آنلاین ایرانیان" alt="سامانه پروفایل آنلاین ایرانیان" />
 		</div>
 		<div class="box">
-			<?php echo form_open('web/auth', 'method="post"'); ?>
+			<?php echo form_open($url . 'web/auth', 'method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$email_input = array(

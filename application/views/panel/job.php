@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات شغلی</h2>
 <?php
-	echo form_open('user/add_job', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_job', 'method="post" class="panel_form"');
 
 	$job_title_input = array(
 		'name'			=>	'job_title',

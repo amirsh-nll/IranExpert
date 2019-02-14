@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) مقالات -) ویرایش</h2>
 <?php
-	echo form_open('user/update_article', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_article', 'method="post" class="panel_form"');
 
 	$article_item 	= $article_item[0];
 	$start 			= explode('/', $article_item['start']);

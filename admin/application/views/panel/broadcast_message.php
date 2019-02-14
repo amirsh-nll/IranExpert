@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) ارسال پیام گروهی</h2>
 <?php
-	echo form_open('admin/broadcast_message', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/broadcast_message', 'method="post" class="panel_form"');
 	$radio_input_1 = array(
 		'name'          => 'type',
         'value'         => '1',

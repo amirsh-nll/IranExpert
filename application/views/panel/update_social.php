@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) شبکه های اجتماعی -) ویرایش</h2>
 <?php
-	echo form_open('user/update_social', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_social', 'method="post" class="panel_form"');
 
 	$social_item = $social_item[0];
 

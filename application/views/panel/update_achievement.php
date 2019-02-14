@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) افتخارات -) ویرایش</h2>
 <?php
-	echo form_open('user/update_achievement', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_achievement', 'method="post" class="panel_form"');
 
 	$achievement_item 	= $achievement_item[0];
 

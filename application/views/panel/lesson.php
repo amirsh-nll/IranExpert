@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات تحصیلی</h2>
 <?php
-	echo form_open('user/add_lesson', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/add_lesson', 'method="post" class="panel_form"');
 
 	$lesson_title_input = array(
 		'name'			=>	'lesson_title',

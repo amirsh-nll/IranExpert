@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) استان ها</h2>
 <?php 
-	echo form_open('admin/insert_province', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/insert_province', 'method="post" class="panel_form"');
 	$province_input = array(
 		'name'			=>	'province',
 		'placeholder'	=>	'نام استان',

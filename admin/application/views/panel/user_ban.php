@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) لیست کاربران -) وضعیت کاربر</h2>
 <?php
-	echo form_open('admin/user_ban', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/user_ban', 'method="post" class="panel_form"');
 	$status_item = array(
 		'0'	=>	'غیر فعال',
 		'1'	=>	'فعال'

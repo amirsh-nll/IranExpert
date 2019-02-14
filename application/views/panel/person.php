@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات فردی</h2>
 <?php
-	echo form_open('user/update_person', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_person', 'method="post" class="panel_form"');
 
 	$first_name_input = array(
 		'name'			=>	'person_first_name',

@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) توانایی ها -) ویرایش</h2>
 <?php
-	echo form_open('user/update_ability', 'method="post" class="panel_form"');
+	echo form_open($url . 'user/update_ability', 'method="post" class="panel_form"');
 
 	$ability_item 	= $ability_item[0];
 

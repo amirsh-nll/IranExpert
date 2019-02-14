@@ -339,6 +339,25 @@ class user_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function fetch_register_time($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		if($result->num_rows()!=1)
+		{
+			return 0;
+		}
+		else
+		{
+			foreach($result->result() as $row)
+			{
+				$time = $row->time;
+			}
+			return $time;
+		}
+	}
 }
 
 ?>

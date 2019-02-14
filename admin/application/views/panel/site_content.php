@@ -1,6 +1,6 @@
 <h2>پنل مدیریت -) محتوای سایت</h2>
 <?php
-	echo form_open('admin/site_content', 'method="post" class="panel_form"');
+	echo form_open($url . 'admin/site_content', 'method="post" class="panel_form"');
 	$rules_page_input = array(
 		'name'			=>	'rules_page',
 		'maxlength'		=>	'5000',
