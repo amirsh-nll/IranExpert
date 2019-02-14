@@ -96,6 +96,7 @@ class panel extends IREX_Controller
 			'birth_day_value'	=>	$birthday[2],
 			'birth_month_value'	=>	$birthday[1],
 			'birth_year_value'	=>	$birthday[0],
+			'activity_value'	=>	$person['activity'],
 			'gender_value'		=>	$person['gender'],
 			'marriage_value'	=>	$person['marriage'],
 			'about_value'		=>	$person['about']

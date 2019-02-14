@@ -51,7 +51,7 @@ class user_model extends CI_Model
 	{
 		$this->db->where('email', $email);
 		$this->db->where('password', do_hash($password, 'md5'));
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 1);
 
 		if($result->num_rows()>0)
 		{
@@ -78,7 +78,7 @@ class user_model extends CI_Model
 	public function fetch_middle_name($user_id)
 	{
 		$this->db->where('id', $user_id);
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 1);
 
 		foreach($result->result() as $row)
 		{
@@ -90,7 +90,7 @@ class user_model extends CI_Model
 	public function fetch_user_id_with_middle_name($middle_name)
 	{
 		$this->db->where('middle_name', $middle_name);
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 1);
 
 		if($result->num_rows()!=1)
 		{
@@ -109,7 +109,7 @@ class user_model extends CI_Model
 	public function fetch_email($user_id)
 	{
 		$this->db->where('id', $user_id);
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 1);
 
 		foreach($result->result() as $row)
 		{

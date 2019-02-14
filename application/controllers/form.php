@@ -162,8 +162,9 @@ class form extends CI_Controller
 				$login = $this->user_model->check_user_for_login($email, $password);
 				if($login!=0)
 				{
+					$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
 					$this->load->model('login_model');
-					$this->login_model->login($login, $this->agent->agent_string());
+					$this->login_model->login($login, $description);
 					$session = array(
 						'user_id'	=>	$login,
 						'login'		=>	true
@@ -180,6 +181,75 @@ class form extends CI_Controller
 			else
 			{
 				redirect(base_url() . 'login/2');
+			}
+		}
+	}
+
+	public function report()
+	{
+		$rules = array(
+				array(
+					'field'		=>	'report_type',
+					'label'		=>	'نوع تخلف',
+					'rules'		=>	'required|numeric',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'report_reason',
+					'label'		=>	'شرح تخلف',
+					'rules'		=>	'min_length[3]|max_length[1000]',
+					'errors'	=>	array(
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'captcha',
+					'label'		=>	'کد امنیتی',
+					'rules'		=>	'required',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+			);
+
+		$this->form_validation->set_rules($rules);
+
+		$this->load->model('captcha_model');
+		
+		$middle_name = $this->session->userdata('report_middle_name');
+		if(empty($middle_name))
+		{
+			redirect(base_url() . 'index');
+		}
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'report/' . $middle_name . '/1');
+		}
+		else
+		{
+			$report_type 	= $this->input->post('report_type', true);
+			$report_reason 	= $this->input->post('report_reason', true);
+			$code 			= $this->input->post('captcha', true);
+			$description 	= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+
+			if($this->captcha_model->check($code))
+			{
+				$this->load->model('user_model');
+				$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
+
+				$this->load->model('report_model');
+				$this->report_model->report_user($user_id, $report_type, $report_reason, $description);
+
+				redirect(base_url() . 'report/' . $middle_name . '/3');
+			}
+			else
+			{
+				redirect(base_url() . 'report/' . $middle_name . '/2');
 			}
 		}
 	}

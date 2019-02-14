@@ -24,6 +24,7 @@ class person_model extends CI_Model
 			'first_name'	=>	'',
 			'last_name' 	=>	'',
 			'birthday'		=>	'1395/01/01',
+			'activity'		=>	0,
 			'gender'		=>	0,
 			'marriage'		=>	0,
 			'about'			=>	''
@@ -47,12 +48,13 @@ class person_model extends CI_Model
 		}
 	}
 
-	public function update_person($user_id, $first_name, $lastname, $birthday, $gender, $marriage, $about)
+	public function update_person($user_id, $first_name, $lastname, $birthday, $activity, $gender, $marriage, $about)
 	{
 		$data = array(
 			'first_name'	=>	$first_name,
 			'last_name'		=>	$lastname,
 			'birthday'		=>	$birthday,
+			'activity'		=>	$activity,
 			'gender'		=>	$gender,
 			'marriage'		=>	$marriage,
 			'about'			=>	$about

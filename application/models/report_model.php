@@ -15,4 +15,18 @@ class report_model extends CI_Model
 	{
 		parent::__construct();
 	}
+
+	public function report_user($user_id, $report_type, $report_reason, $report_description)
+	{
+		$data = array
+		(
+			'user_id'		=>	$user_id,
+			'type'			=>	$report_type,
+			'reason'		=>	$report_reason,
+			'description'	=>	$report_description
+		);
+		$this->db->insert('report', $data);
+
+		return 1;
+	}
 }

@@ -52,7 +52,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><?php echo $captcha['image']; ?></td>
+		<td><div class="captcha_suspend_accont"><?php echo $captcha['image']; ?></div></td>
 	</tr>
 	<tr>
 		<td><strong>کد امنیتی</strong></td>

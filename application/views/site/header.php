@@ -4,6 +4,7 @@
 		<!--Meta-->
 		<meta charset="utf-8">
 		<title><?=$title; ?></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!--Meta-->
 		<!--Assets-->
 		<link rel="stylesheet" href="<?=$url; ?>assets/css/web.css" />
@@ -20,19 +21,21 @@
 	<body>
 		<div class="header">
 			<div class="right_header">
-				<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
+				<img src="<?=$url; ?>assets/image/logo.png" title="سامانه پروفایل آنلاین ایرانیان" alt="سامانه پروفایل آنلاین ایرانیان" />
 			</div>
 			<div class="left_header">
 				<ul>
-					<li><a href="<?=$url; ?>index" title="iranExpert HomePage">صفحه اصلی</a></li>
+					<li><a href="<?=$url; ?>index" title="صفحه اصلی">صفحه اصلی</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>register" title="iranExpert Register">ثبت نام</a></li>
+					<li><a href="<?=$url; ?>register" title="ثبت نام">ثبت نام</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>login" title="iranExpert Login">ورود</a></li>
+					<li><a href="<?=$url; ?>login" title="ورود">ورود</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>rules" title="iranExpert Rules">قوانین</a></li>
+					<li><a href="<?=$url; ?>search" title="جستجو افراد">جستجو افراد</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>about" title="iranExpert About Team">درباره ما</a></li>
+					<li><a href="<?=$url; ?>rules" title="قوانین">قوانین</a></li>
+					<li id="pipe">|</li>
+					<li><a href="<?=$url; ?>about" title="درباره ما">درباره ما</a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>
@@ -42,8 +45,8 @@
 
 		<div class="slideshow">
 			<ul>
-				<li><img src="<?=$url; ?>assets/image/slide1.png" title="iranExpert Slide 1" alt="iranExpert"></li>
-    			<li><img src="<?=$url; ?>assets/image/slide2.png" title="iranExpert Slide 2" alt="iranExpert"></li>
+				<li><img src="<?=$url; ?>assets/image/slide1.png" title="اسلاید شماره 1" alt="اسلاید شماره 1"></li>
+    			<li><img src="<?=$url; ?>assets/image/slide2.png" title="اسلاید شماره 2" alt="اسلاید شماره 2"></li>
 			</ul>
 		</div>
 		<div class="clear"></div>

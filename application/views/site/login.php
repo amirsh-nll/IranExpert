@@ -1,7 +1,3 @@
-	<body>
-		<div class="logo">
-			<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
-		</div>
 		<div class="box">
 			<?php echo form_open('form/login', 'method="post"'); ?>
 				<div class="box_right">
@@ -20,7 +16,7 @@
 						);
 						$captcha_input = array(
 							'name'			=>	'captcha',
-							'placeholder'	=>	'گد امنیتی',
+							'placeholder'	=>	'کد امنیتی',
 							'required'		=>	'required',
 							'maxlength'		=> 	'5'
 						);

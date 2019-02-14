@@ -27,7 +27,7 @@ class statistics_model extends CI_Model
 			'last_visit'=> 	now()
 		);
 
-		$this->db->insert('state', $data);
+		$this->db->insert('statistics', $data);
 	}
 
 	public function statistics_calculator($user_id)

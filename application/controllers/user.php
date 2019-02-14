@@ -36,9 +36,10 @@ class user extends IREX_Controller
         else
         {
         	$data = array('upload_data' => $this->upload->data());
+        	$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
 
         	$this->load->model('image_model');
-        	$image = $this->image_model->update_image($user_id, $this->upload->data('file_name'));
+        	$image = $this->image_model->update_image($user_id, $this->upload->data('file_name'), $description);
 
 			redirect(base_url() . 'panel/image/2#content_view');
         }
@@ -47,9 +48,9 @@ class user extends IREX_Controller
 	public function delete_image()
 	{
 		$user_id = $this->session->userdata('user_id');
-
+		$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
 		$this->load->model('image_model');
-        $image = $this->image_model->delete_image($user_id);
+        $image = $this->image_model->delete_image($user_id, $description);
 
         if($image==1)
         {
@@ -112,6 +113,15 @@ class user extends IREX_Controller
 				)
 			),
 			array(
+				'field'		=>	'person_activity',
+				'label'		=>	'زمینه فعالیت',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
 				'field'		=>	'person_gender',
 				'label'		=>	'جنسیت',
 				'rules'		=>	'required|numeric',
@@ -151,12 +161,13 @@ class user extends IREX_Controller
 			$first_name = 	$this->input->post('person_first_name', true);
 			$last_name 	= 	$this->input->post('person_last_name', true);
 			$birthday 	= 	$this->input->post('person_birth_year', true) . '/' . $this->input->post('person_birth_month', true) . '/' . $this->input->post('person_birth_day', true);
+			$activity 	= 	$this->input->post('person_activity', true);
 			$gender 	= 	$this->input->post('person_gender', true);
 			$marriage 	= 	$this->input->post('person_marriage', true);
 			$about 		=	$this->input->post('person_about', true);
 
 			$this->load->model('person_model');
-			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $gender, $marriage, $about);
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity, $gender, $marriage, $about);
 
 			redirect(base_url() . 'panel/person/2#content_view');
 		}
@@ -306,6 +317,18 @@ class user extends IREX_Controller
 		}
 		else
 		{
+			if($this->input->post('lesson_start_year', true) > $this->input->post('lesson_end_year', true))
+			{
+				redirect(base_url() . 'panel/lesson/7#content_view');
+			}
+			elseif($this->input->post('lesson_start_year', true) == $this->input->post('lesson_end_year', true))
+			{
+				if($this->input->post('lesson_start_month', true) > $this->input->post('lesson_end_month', true))
+				{
+					redirect(base_url() . 'panel/lesson/7#content_view');
+				}
+			}
+
 			$user_id = $this->session->userdata('user_id');
 
 			$lesson_title 	= $this->input->post('lesson_title', true);
@@ -402,8 +425,21 @@ class user extends IREX_Controller
 		}
 		else
 		{
-			$user_id 		= $this->session->userdata('user_id');
 			$lesson_id 		= $this->session->userdata('lesson_id_for_update');
+			
+			if($this->input->post('lesson_start_year', true) > $this->input->post('lesson_end_year', true))
+			{
+				redirect(base_url() . 'panel/update_lesson/' . $lesson_id . '/7#content_view');
+			}
+			elseif($this->input->post('lesson_start_year', true) == $this->input->post('lesson_end_year', true))
+			{
+				if($this->input->post('lesson_start_month', true) > $this->input->post('lesson_end_month', true))
+				{
+					redirect(base_url() . 'panel/update_lesson/' . $lesson_id . '/7#content_view');
+				}
+			}
+
+			$user_id 		= $this->session->userdata('user_id');
 
 			$lesson_title 	= $this->input->post('lesson_title', true);
 			$start_date 	= $this->input->post('lesson_start_year', true) . '/' . $this->input->post('lesson_start_month', true);
@@ -507,6 +543,18 @@ class user extends IREX_Controller
 		}
 		else
 		{
+			if($this->input->post('job_start_year', true) > $this->input->post('job_end_year', true))
+			{
+				redirect(base_url() . 'panel/job/7#content_view');
+			}
+			elseif($this->input->post('job_start_year', true) == $this->input->post('job_end_year', true))
+			{
+				if($this->input->post('job_start_month', true) > $this->input->post('job_end_month', true))
+				{
+					redirect(base_url() . 'panel/job/7#content_view');
+				}
+			}
+
 			$user_id = $this->session->userdata('user_id');
 
 			$job_title 		= $this->input->post('job_title', true);
@@ -603,8 +651,21 @@ class user extends IREX_Controller
 		}
 		else
 		{
-			$user_id 		= $this->session->userdata('user_id');
 			$job_id 		= $this->session->userdata('job_id_for_update');
+
+			if($this->input->post('job_start_year', true) > $this->input->post('job_end_year', true))
+			{
+				redirect(base_url() . 'panel/update_job/' . $job_id . '/7#content_view');
+			}
+			elseif($this->input->post('job_start_year', true) == $this->input->post('job_end_year', true))
+			{
+				if($this->input->post('job_start_month', true) > $this->input->post('job_end_month', true))
+				{
+					redirect(base_url() . 'panel/update_job/' . $job_id . '/7#content_view');
+				}
+			}
+
+			$user_id 		= $this->session->userdata('user_id');
 
 			$job_title 	= $this->input->post('job_title', true);
 			$start_date 	= $this->input->post('job_start_year', true) . '/' . $this->input->post('job_start_month', true);
@@ -832,6 +893,18 @@ class user extends IREX_Controller
 		}
 		else
 		{
+			if($this->input->post('project_start_year', true) > $this->input->post('project_end_year', true))
+			{
+				redirect(base_url() . 'panel/project/7#content_view');
+			}
+			elseif($this->input->post('project_start_year', true) == $this->input->post('project_end_year', true))
+			{
+				if($this->input->post('project_start_month', true) > $this->input->post('project_end_month', true))
+				{
+					redirect(base_url() . 'panel/project/7#content_view');
+				}
+			}
+
 			$user_id = $this->session->userdata('user_id');
 
 			$project_title 	= $this->input->post('project_title', true);
@@ -928,8 +1001,21 @@ class user extends IREX_Controller
 		}
 		else
 		{
-			$user_id 		= $this->session->userdata('user_id');
 			$project_id 	= $this->session->userdata('project_id_for_update');
+
+			if($this->input->post('project_start_year', true) > $this->input->post('project_end_year', true))
+			{
+				redirect(base_url() . 'panel/update_project/' . $project_id . '/7#content_view');
+			}
+			elseif($this->input->post('project_start_year', true) == $this->input->post('project_end_year', true))
+			{
+				if($this->input->post('project_start_month', true) > $this->input->post('project_end_month', true))
+				{
+					redirect(base_url() . 'panel/update_project/' . $project_id . '/7#content_view');
+				}
+			}
+
+			$user_id 		= $this->session->userdata('user_id');
 
 			$project_title 	= $this->input->post('project_title', true);
 			$start_date 	= $this->input->post('project_start_year', true) . '/' . $this->input->post('project_start_month', true);
@@ -1033,6 +1119,18 @@ class user extends IREX_Controller
 		}
 		else
 		{
+			if($this->input->post('article_start_year', true) > $this->input->post('article_end_year', true))
+			{
+				redirect(base_url() . 'panel/article/7#content_view');
+			}
+			elseif($this->input->post('article_start_year', true) == $this->input->post('article_end_year', true))
+			{
+				if($this->input->post('article_start_month', true) > $this->input->post('article_end_month', true))
+				{
+					redirect(base_url() . 'panel/article/7#content_view');
+				}
+			}
+
 			$user_id = $this->session->userdata('user_id');
 
 			$article_title 	= $this->input->post('article_title', true);
@@ -1129,8 +1227,21 @@ class user extends IREX_Controller
 		}
 		else
 		{
-			$user_id 		= $this->session->userdata('user_id');
 			$article_id 	= $this->session->userdata('article_id_for_update');
+
+			if($this->input->post('article_start_year', true) > $this->input->post('article_end_year', true))
+			{
+				redirect(base_url() . 'panel/update_article/' . $article_id . '/7#content_view');
+			}
+			elseif($this->input->post('article_start_year', true) == $this->input->post('article_end_year', true))
+			{
+				if($this->input->post('article_start_month', true) > $this->input->post('article_end_month', true))
+				{
+					redirect(base_url() . 'panel/update_article/' . $article_id . '/7#content_view');
+				}
+			}
+
+			$user_id 		= $this->session->userdata('user_id');
 
 			$article_title 	= $this->input->post('article_title', true);
 			$start_date 	= $this->input->post('article_start_year', true) . '/' . $this->input->post('article_start_month', true);

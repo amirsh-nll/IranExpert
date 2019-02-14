@@ -16,7 +16,7 @@ class image_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function default_image($user_id)
+	public function default_image($user_id, $description)
 	{
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('image', 1);
@@ -26,7 +26,7 @@ class image_model extends CI_Model
 			$data = array
 			(
 				'file_name'		=>	'default.png',
-				'description'	=>	'IP:' . $this->input->ip_address()
+				'description'	=>	 $description
 			);
 			$this->db->set($data);
 			$this->db->where('user_id', $user_id);
@@ -46,12 +46,12 @@ class image_model extends CI_Model
 		}
 	}
 	
-	public function update_image($user_id, $new_file_name)
+	public function update_image($user_id, $new_file_name, $description)
 	{
 		$data = array
 		(
 			'file_name'		=>	$new_file_name,
-			'description'	=>	'IP:' . $this->input->ip_address()
+			'description'	=>	$description
 		);
 		$this->db->set($data);
 		$this->db->where('user_id', $user_id);
@@ -67,9 +67,9 @@ class image_model extends CI_Model
 		return $result->result_array();
 	}
 
-	public function delete_image($user_id)
+	public function delete_image($user_id, $description)
 	{
-		$this->default_image($user_id);
+		$this->default_image($user_id, $description);
 		return 1;
 	}
 }

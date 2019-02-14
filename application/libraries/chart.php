@@ -6,21 +6,18 @@ class chart {
 	{
 		$max 				= max($today, $yesterday, $total);
 		$min 				= min($today, $yesterday, $total);
-		$number 	 		= 1;
-		$today_capacity 	= 1;
-		$yesterday_capacity = 1;
+
+		$number 	 		= 0;
+		$today_capacity 	= 0;
+		$yesterday_capacity = 0;
 		$total_capacity 	= 0;
+
 		$number_up			= $max/5;
-		$chart_number[0]	= 0;
-		$chart_number[1]  	= $min;
-		$row[0]				= '';
-		$row[1]				= '';
+		$row				= array('', '', '', '', '', '', '', '', '');
+		$chart_number		= array(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-		for($i=2; $i<=9;$i++)
+		for($i=0;$i<=7;$i++)
 		{
-			$number = $number + $number_up;
-			$row[$i] = '';
-
 			if($today >= $number)
 			{
 				$today_capacity = $today_capacity + 1;
@@ -34,25 +31,42 @@ class chart {
 				$total_capacity = $total_capacity + 1;
 			}
 
-			if($max <= $number)
+			if($max < $number)
 			{
-				$chart_number[$i] 	= $max;
-				$chart_number[$i+1] = $max + $number_up;
+				if($chart_number[$i-1] != $max)
+				{
+					$chart_number[$i] = $max;
+					$chart_number[$i+1] = $max + $number_up;
+				}
+				else
+				{
+					$chart_number[$i] = $max + $number_up;
+				}
 				break;
 			}
 			else
 			{
 				$chart_number[$i]	= $number;
 			}
+
+			$number = $number + $number_up;
 		}
 
 		$table = '<table class="chart" width="100%" cellspacing="0" cellpadding="0">';
-		for($i=0;$i<=9;$i++)
+
+		for($i=0;$i<=7;$i++)
 		{
 			$row[$i] = $row[$i] . '<tr>';
 			if($today_capacity != 0)
 			{
-				$row[$i] = $row[$i] . '<td><p class="bar1">' . $this->tr_num($today) . '</p></td>';
+				if($today_capacity!=1)
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar1">&nbsp;</p></td>';
+				}
+				else
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar1">' . $this->tr_num($today) . '</p></td>';
+				}
 				$today_capacity = $today_capacity - 1;
 			}
 			else
@@ -62,7 +76,14 @@ class chart {
 
 			if($yesterday_capacity != 0)
 			{
-				$row[$i] = $row[$i] . '<td><p class="bar2">' . $this->tr_num($yesterday) . '</p></td>';
+				if($yesterday_capacity!=1)
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar2">&nbsp;</p></td>';
+				}
+				else
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar2">' . $this->tr_num($yesterday) . '</p></td>';
+				}
 				$yesterday_capacity = $yesterday_capacity - 1;
 			}
 			else
@@ -72,25 +93,31 @@ class chart {
 
 			if($total_capacity != 0)
 			{
-				$row[$i] = $row[$i] . '<td><p class="bar3">' . $this->tr_num($total) . '</p></td>';
+				if($total_capacity!=1)
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar3">&nbsp;</p></td>';
+				}
+				else
+				{
+					$row[$i] = $row[$i] . '<td><p class="bar3">' . $this->tr_num($total) . '</p></td>';
+				}
 				$total_capacity = $total_capacity - 1;
 			}
 			else
 			{
 				$row[$i] = $row[$i] . '<td></td>';
 			}
+
 			$row[$i] = $row[$i] . '<td>' . $this->tr_num(round($chart_number[$i])) . '</td></tr>';
 		}
 
-		for($i=0;$i<=7;$i++)
+		for($i=6;$i>=0;$i--)
 		{
-			$table = $row[$i];
+			$table = $table . $row[$i];
 		}
 
-		$table = $table . '</table>';
+		$table = $table . '<tr><td>بازدید امروز</td><td>بازدید دیروز</td><td>بازدید کل</td><td>آمار</td></tr></table>';
 		
-
-
 		return $table;
 	}
 

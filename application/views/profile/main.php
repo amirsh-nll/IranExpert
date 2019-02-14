@@ -1,29 +1,37 @@
 <div class="intero">
 	<div class="intero_section1">
 		<img src="<?=$url; ?>upload/<?=$data['image']; ?>" title="<?=$data['full_name']; ?>" alt="<?=$data['full_name']; ?>" />
-		<div class="social">
-			<?php
-				foreach ($data['social'] as $social) {
-					switch($social['type'])
-					{
-						case 1 :{ $social_icon = "facebook-square"; $social_type = "فیس بوک"; } break;
-						case 2 :{ $social_icon = "linkedin-square"; $social_type = "لینداین"; } break;
-						case 3 :{ $social_icon = "instagram"; $social_type = "اینستاگرام"; } break;
-						case 4 :{ $social_icon = "twitter-square"; $social_type = "توییتر"; } break;
-						case 5 :{ $social_icon = "google-plus-square"; $social_type = "گوگل پلاس"; } break;
-						case 6 :{ $social_icon = "send-o"; $social_type = "تلگرام"; } break;
-						default:{ $social_icon = "share-square"; $social_type = "نامشخص"; }
-					};
+		<?php
+			if($data['social']!=0)
+			{
+				?>
+				<div class="social">
+					<?php
+						foreach ($data['social'] as $social) {
+							switch($social['type'])
+							{
+								case 1 :{ $social_icon = "facebook-square"; $social_type = "فیس بوک"; } break;
+								case 2 :{ $social_icon = "linkedin-square"; $social_type = "لینداین"; } break;
+								case 3 :{ $social_icon = "instagram"; $social_type = "اینستاگرام"; } break;
+								case 4 :{ $social_icon = "twitter-square"; $social_type = "توییتر"; } break;
+								case 5 :{ $social_icon = "google-plus-square"; $social_type = "گوگل پلاس"; } break;
+								case 6 :{ $social_icon = "send-o"; $social_type = "تلگرام"; } break;
+								default:{ $social_icon = "share-square"; $social_type = "نامشخص"; }
+							};
 
-					echo '<a href="' . $social['url'] . '" title="' . $social_type . '"><span class="fa fa-lg fa-' . $social_icon . '"></span></a>';
-				}
-			?>
-		</div>
+							echo '<a href="' . $social['url'] . '" title="' . $social_type . '"><span class="fa fa-lg fa-' . $social_icon . '"></span></a>';
+						}
+					?>
+				</div>
+				<?php
+			}
+		?>
 	</div>
 	<div class="intero_section2">
-		<h1><?=$data['full_name']; ?> <p class="report_profile"><a title="گزارش تخلف" href="">[ <span>گزارش تخلف پروفایل</span><span class="fa fa-lg fa-bullhorn"></span> ]</a></p></h1>
+		<h1><?=$data['full_name']; ?> <p class="report_profile"><a title="گزارش تخلف" href="<?=$url; ?>report/<?=$data['middle_name']; ?>">[ <span>گزارش تخلف پروفایل</span><span class="fa fa-lg fa-bullhorn"></span> ]</a></p></h1>
 		<p>تاریخ تولد : <?=$this->jdf->tr_num($data['birthday']); ?></p>
 		<p>وضعیت تاهل : <?=$data['marriage']; ?></p>
+		<p>زمینه فعالیت : <?=$data['activity']; ?></p>
 		<p>جنسیت : <?=$data['gender']; ?></p>
 		<p>شماره همراه : <span dir="ltr"><?=$this->jdf->tr_num($data['mobile']); ?></span></p>
 		<p>شماره تماس : <span dir="ltr"><?=$this->jdf->tr_num($data['phone']); ?></span></p>

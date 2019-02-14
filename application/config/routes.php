@@ -61,6 +61,8 @@ $route['login'] 					= 'web/login';
 $route['login/(:num)'] 				= 'web/login/$1';
 $route['forget'] 					= 'web/forget';
 $route['forget/(:num)'] 			= 'web/forget/$1';
+$route['report/(:any)'] 			= 'web/report/$1';
+$route['report/(:any)/(:num)'] 		= 'web/report/$1/$2';
 $route['rules'] 					= 'web/rules';
 $route['about'] 					= 'web/about';
 
