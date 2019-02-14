@@ -120,18 +120,23 @@ class panel extends IREX_Controller
 		$this->load->model('contact_model');
 		$contact = $this->contact_model->read_contact($user_id);
 		$contact = $contact[0];
+
+		$this->load->model('province_model');
+		$province = $this->province_model->read_all_province();
 		
 		$data = array
 		(
 			'url'					=>	base_url(),
 			'title'					=>	'پنل کاربری - اطلاعات تماس',
 			'notice'				=>	$notice,
-			'message_unread'	=>	$this->message_unread_count(),
+			'message_unread'		=>	$this->message_unread_count(),
 			'mobile_number_value'	=>	$contact['mobile_number'],
 			'phone_number_value'	=>	$contact['phone_number'],
 			'postal_code_value'		=>	$contact['postal_code'],
-			'province_value'		=>	$contact['province'],
+			'province_id_value'		=>	$contact['province_id'],
+			'city_name_value'		=>	$contact['city_name'],
 			'address_value'			=>	$contact['address'],
+			'province'				=>	$province
 		);
 
 		$this->load->view('panel/header', $data);

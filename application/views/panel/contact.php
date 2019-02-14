@@ -6,7 +6,6 @@
 		'name'			=>	'contact_mobile_number',
 		'placeholder'	=>	'همراه',
 		'maxlength'		=>	'20',
-		'required'		=>	'required',
 		'value'			=>	$mobile_number_value
 	);
 	$phone_number_input = array(
@@ -22,40 +21,15 @@
 		'value'			=>	$postal_code_value
 	);
 
-	$province_item = array(
-		'0'		=>	'نامشخص',
-		'1'		=>	'اردبیل',
-		'2'		=>	'اصفهان',
-		'3'		=>	'البرز',
-		'4'		=>	'ایلام',
-		'5'		=>	'آذربایجان شرقی',
-		'6'		=>	'آذربایجان غربی',
-		'7'		=>	'بوشهر',
-		'8'		=>	'تهران',
-		'9'		=>	'چهارمحال و بختیاری',
-		'10'	=>	'خراسان جنوبی',
-		'11'	=>	'خراسان رضوی',
-		'12'	=>	'خراسان شمالی',
-		'13'	=>	'خوزستان',
-		'14'	=>	'زنجان',
-		'15'	=>	'سمنان',
-		'16'	=>	'سیستان و بلوچستان',
-		'17'	=>	'فارس',
-		'18'	=>	'قزوین',
-		'19'	=>	'قم',
-		'20'	=>	'کردستان',
-		'21'	=>	'کرمان',
-		'22'	=>	'کرمانشاه',
-		'23'	=>	'کهگیلویه و بویراحمد',
-		'24'	=>	'گلستان',
-		'25'	=>	'گیلان',
-		'26'	=>	'لرستان',
-		'27'	=>	'مازندران',
-		'28'	=>	'مرکزی',
-		'29'	=>	'هرمزگان',
-		'30'	=>	'همدان',
-		'31'	=>	'یزد'
+	$province_item 	= $province;
+	
+	$city_name_input = array(
+		'name'			=>	'contact_city_name',
+		'placeholder'	=>	'نام شهر',
+		'maxlength'		=>	'50',
+		'value'			=>	$city_name_value
 	);
+	
 	$address_input = array(
 		'name'			=>	'contact_address',
 		'maxlength'		=>	'500',
@@ -82,7 +56,11 @@
 	</tr>
 	<tr>
 		<td><strong>استان</strong></td>
-		<td><?php echo form_dropdown('contact_province', $province_item, $province_value); ?></td>
+		<td><?php echo form_dropdown('contact_province', $province_item, $province_id_value); ?></td>
+	</tr>
+	<tr>
+		<td><strong>شهر</strong></td>
+		<td><?php echo form_input($city_name_input); ?></td>
 	</tr>
 	<tr>
 		<td><strong>آدرس</strong></td>

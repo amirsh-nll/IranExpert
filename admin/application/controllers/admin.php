@@ -190,11 +190,20 @@ class admin extends CI_Controller
 				)
 			),
 			array(
-				'field'		=>	'contact_province',
+				'field'		=>	'contact_province_id',
 				'label'		=>	'استان',
 				'rules'		=>	'numeric',
 				'errors'	=>	array(
 					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'contact_city_name',
+				'label'		=>	'نام شهر',
+				'rules'		=>	'min_length[2]|max_length[50]',
+				'errors'	=>	array(
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
 			),
 			array(
@@ -229,14 +238,15 @@ class admin extends CI_Controller
 			$mobile_number 		= 	$this->input->post('contact_mobile_number', true);
 			$phone_number 		= 	$this->input->post('contact_phone_number', true);
 			$postal_code 		= 	$this->input->post('contact_postal_code', true);
-			$province 			= 	$this->input->post('contact_province', true);
+			$province_id		= 	$this->input->post('contact_province_id', true);
+			$city_name 			= 	$this->input->post('contact_city_name', true);
 			$address 			= 	$this->input->post('contact_address', true);
 
 			$this->load->model('person_model');
 			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity, $gender, $marriage, $about);
 
 			$this->load->model('contact_model');
-			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $address);
+			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address);
 
 			$this->user_model->change_middle_name($user_id, $new_middle_name);
 

@@ -24,7 +24,8 @@ class contact_model extends CI_Model
 			'mobile_number'		=>	'',
 			'phone_number'		=>	'',
 			'postal_code'		=>	'',
-			'province'			=>	0,
+			'province_id'		=>	0,
+			'city_name'			=>	'',
 			'address'			=>	''
 		);
 
@@ -46,13 +47,14 @@ class contact_model extends CI_Model
 		}
 	}
 
-	public function update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $address)
+	public function update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address)
 	{
 		$data = array(
 			'mobile_number'		=>	$mobile_number,
 			'phone_number'		=>	$phone_number,
 			'postal_code'		=>	$postal_code,
-			'province'			=>	$province,
+			'province_id'		=>	$province_id,
+			'city_name'			=>	$city_name,
 			'address'			=>	$address
 		);
 		$this->db->set($data);

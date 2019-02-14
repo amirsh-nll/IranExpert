@@ -179,9 +179,8 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'contact_mobile_number',
 				'label'		=>	'همراه',
-				'rules'		=>	'required|numeric|min_length[10]|max_length[20]',
+				'rules'		=>	'numeric|min_length[10]|max_length[20]',
 				'errors'	=>	array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
@@ -190,9 +189,8 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'contact_phone_number',
 				'label'		=>	'تلفن تماس',
-				'rules'		=>	'required|numeric|min_length[6]|max_length[20]',
+				'rules'		=>	'numeric|min_length[6]|max_length[20]',
 					'errors'	=>	array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
@@ -201,9 +199,8 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'contact_postal_code',
 				'label'		=>	'کد پستی',
-				'rules'		=>	'required|numeric|min_length[9]|max_length[20]',
+				'rules'		=>	'numeric|min_length[9]|max_length[20]',
 				'errors'	=>	array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
@@ -219,6 +216,15 @@ class user extends IREX_Controller
 				)
 			),
 			array(
+				'field'		=>	'contact_city_name',
+				'label'		=>	'نام شهر',
+				'rules'		=>	'min_length[2]|max_length[50]',
+				'errors'	=>	array(
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
 				'field'		=>	'contact_address',
 				'label'		=>	'آدرس',
 				'rules'		=>	'max_length[500]',
@@ -229,7 +235,7 @@ class user extends IREX_Controller
 		);
 
 		$this->form_validation->set_rules($rules);
-
+		
 		if($this->form_validation->run()==false)
 		{
 			redirect(base_url() . 'panel/contact/1#content_view');
@@ -241,10 +247,11 @@ class user extends IREX_Controller
 			$phone_number 		= 	$this->input->post('contact_phone_number', true);
 			$postal_code 		= 	$this->input->post('contact_postal_code', true);
 			$province 			= 	$this->input->post('contact_province', true);
+			$city_name 			= 	$this->input->post('contact_city_name', true);
 			$address 			= 	$this->input->post('contact_address', true);
 
 			$this->load->model('contact_model');
-			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $address);
+			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $city_name, $address);
 
 			redirect(base_url() . 'panel/contact/2#content_view');
 		}

@@ -391,50 +391,25 @@ class panel extends IREX_Controller
 			$postal_code = $contact['postal_code'];
 		}
 
-		switch($contact['province'])
-		{
-			case 0  : { $province = '&nbsp;';					} break;
-			case 1  : { $province = 'استان اردبیل';				} break;
-			case 2  : { $province = 'استان اصفهان';				} break;
-			case 3  : { $province = 'استان البرز';				} break;
-			case 4  : { $province = 'استان ایلام';				} break;
-			case 5  : { $province = 'استان آذربایجان شرقی';		} break;
-			case 6  : { $province = 'استان آذربایجان غربی';		} break;
-			case 7  : { $province = 'استان بوشهر';				} break;
-			case 8  : { $province = 'استان تهران';				} break;
-			case 9  : { $province = 'استان چهارمحال و بختیاری';	} break;
-			case 10 : { $province = 'استان خراسان جنوبی';			} break;
-			case 11 : { $province = 'استان خراسان رضوی';			} break;
-			case 12 : { $province = 'استان خراسان شمالی';			} break;
-			case 13 : { $province = 'استان خوزستان';				} break;
-			case 14 : { $province = 'استان زنجان';				} break;
-			case 15 : { $province = 'استان سمنان';				} break;
-			case 16 : { $province = 'استان سیستان و بلوچستان';	} break;
-			case 17 : { $province = 'استان فارس';				} break;
-			case 18 : { $province = 'استان قزوین';				} break;
-			case 19 : { $province = 'استان قم';					} break;
-			case 20 : { $province = 'استان کردستان';				} break;
-			case 21 : { $province = 'استان کرمان';				} break;
-			case 22 : { $province = 'استان کرمانشاه';				} break;
-			case 23 : { $province = 'استان کهگیلویه و بویراحمد';	} break;
-			case 24 : { $province = 'استان گلستان';				} break;
-			case 25 : { $province = 'استان گیلان';				} break;
-			case 26 : { $province = 'استان لرستان';				} break;
-			case 27 : { $province = 'استان مازندران';				} break;
-			case 28 : { $province = 'استان مرکزی';				} break;
-			case 29 : { $province = 'استان هرمزگان';				} break;
-			case 30 : { $province = 'استان همدان';				} break;
-			case 31 : { $province = 'استان یزد';					} break;
-			default : { $province = '&nbsp;';					} break;
-		};
+		$this->load->model('province_model');
+		$province = $this->province_model->fetch_province_name($contact['province_id']);
 
-		if(empty($contact['address']))
+		if($contact['city_name']=='')
 		{
-			$address = $province;
+			$city = 'شهر:{نامشخص}';
 		}
 		else
 		{
-			$address = $province . " / " . $contact['address'];
+			$city = 'شهر:{' . $contact['city_name'] . '}';
+		}
+
+		if(empty($contact['address']))
+		{
+			$address = $province . ' / ' . $city;
+		}
+		else
+		{
+			$address = $province . ' / ' . $city . " / " . $contact['address'];
 		}
 
 		$data = array(
@@ -488,6 +463,9 @@ class panel extends IREX_Controller
 		$contact = $this->contact_model->read_contact($user_id_for_read);
 		$contact = $contact[0];
 
+		$this->load->model('province_model');
+		$province = $this->province_model->read_all_province();
+
 		$data = array(
 			'title'					=>	'پنل مدیریت - ویرایش اطلاعات کاربر',
 			'url'					=>	base_url(),
@@ -505,9 +483,11 @@ class panel extends IREX_Controller
 			'mobile_number_value'	=>	$contact['mobile_number'],
 			'phone_number_value'	=>	$contact['phone_number'],
 			'postal_code_value'		=>	$contact['postal_code'],
-			'province_value'		=>	$contact['province'],
+			'province_id_value'		=>	$contact['province_id'],
+			'city_name_value'		=>	$contact['city_name'],
 			'address_value'			=>	$contact['address'],
-			'notice'				=>	$notice
+			'notice'				=>	$notice,
+			'province'				=>	$province
 		);
 
 		$this->load->view('panel/header', $data);
