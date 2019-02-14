@@ -37,7 +37,7 @@
 		<p>شماره همراه : <span dir="ltr"><?=$this->jdf->tr_num($data['mobile']); ?></span></p>
 		<p>شماره تماس : <span dir="ltr"><?=$this->jdf->tr_num($data['phone']); ?></span></p>
 		<p>وبسایت/وبلاگ : <span dir="ltr"><a href="<?=$data['webpage']; ?>" title="وبلاگ/وبسایت <?=$data['full_name']; ?>" rel="no-follow"><?=$data['webpage']; ?></a></span></p>
-		<p>آدرس ایمیل : <span dir="ltr"><a href="<?=$data['email']; ?>" title="ایمیل <?=$data['full_name']; ?>"><?=$data['email']; ?></a></span></p>
+		<p>آدرس ایمیل : <span dir="ltr"><a href="mailto:<?=$data['email']; ?>" title="ایمیل <?=$data['full_name']; ?>"><?=$data['email']; ?></a></span></p>
 		<p style="line-height:25px; !important">آدرس محل سکونت : <?=$data['address']; ?></p>
 	</div>
 	<div class="clear"></div>

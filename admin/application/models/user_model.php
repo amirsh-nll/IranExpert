@@ -164,12 +164,42 @@ class user_model extends CI_Model
 
 	public function change_middle_name($user_id, $middle_name)
 	{
-		$data = array(
-			'middle_name'	=>	$middle_name
-		);
-		$this->db->set($data);
-		$this->db->where('id', $user_id);
-		$this->db->update('user');
+		$this->db->where('middle_name', $middle_name);
+		$result = $this->db->get('user', 1);
+		if($result->num_rows()==0)
+		{
+			$data = array(
+				'middle_name'	=>	$middle_name
+			);
+			$this->db->set($data);
+			$this->db->where('id', $user_id);
+			$this->db->update('user');
+
+			return $middle_name;
+		}
+		else
+		{
+			$this->db->where('id', $user_id);
+			$result = $this->db->get('user', 1);
+			$result = $result->result_array();
+			$result = $result[0];
+			return $result['middle_name'];
+		}
+	}
+
+	public function change_email($user_id, $email)
+	{
+		$this->db->where('email', $email);
+		$result = $this->db->get('user', 1);
+		if($result->num_rows()==0)
+		{
+			$data = array(
+				'email'			=>	$email
+			);
+			$this->db->set($data);
+			$this->db->where('id', $user_id);
+			$this->db->update('user');
+		}
 	}
 
 	public function suspend_user($user_id)
@@ -278,6 +308,16 @@ class user_model extends CI_Model
 		}
 	}
 
+	public function change_user_password($user_id, $new)
+	{
+		$data = array(
+			'password'	=>	do_hash($new, 'md5')
+		);
+		$this->db->set($data);
+		$this->db->where('id', $user_id);
+		$this->db->update('user');
+	}
+
 	public function read_all_user()
 	{
 		$result = $this->db->get('user');
@@ -290,6 +330,18 @@ class user_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+
+	public function fetch_email($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		foreach($result->result() as $row)
+		{
+			$email = $row->email;
+		}
+		return $email;
 	}
 }
 

@@ -66,6 +66,7 @@
 			case 'setting':{$active_menu_number = 15;}				break;
 			case 'suspend_accont':{$active_menu_number = 15;}		break;
 			case 'certificate':{$active_menu_number = 16;}			break;
+			case 'reminder':{$active_menu_number = 17;}				break;
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
@@ -76,6 +77,9 @@
 					<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
 				</div>
 				<div class="navbar">
+					<a style="color:#ff951a;" href="<?=$url; ?>panel/reminder" title="<?=$reminder_count; ?> یادآور">
+						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($reminder_count); ?></span><span class="fa fa-lg fa-bell"></span>
+					</a>
 					<a style="color:#49b73c;" href="<?=$url; ?>panel/message" title="<?=$message_unread; ?> پیام ها خوانده نشده">
 						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($message_unread); ?></span><span class="fa fa-lg fa-envelope"></span>
 					</a>
@@ -91,24 +95,25 @@
 			<div class="right_content">
 				<div class="menu">
 					<ul>
-						<li <?php if($active_menu_number==1){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/home" titile="پیشخوان">پیشخوان</a></li>
-						<li <?php if($active_menu_number==2){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/image" titile="تصویر کاربری">تصویر کاربری</a></li>
-						<li <?php if($active_menu_number==3){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/person" titile="اطلاعات فردی">اطلاعات فردی</a></li>
-						<li <?php if($active_menu_number==4){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/contact" titile="اطلاعات تماس">اطلاعات تماس</a></li>
-						<li <?php if($active_menu_number==5){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/lesson" titile="اطلاعات تحصیلی">اطلاعات تحصیلی</a></li>
-						<li <?php if($active_menu_number==6){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/job" titile="اطلاعات شغلی">اطلاعات شغلی</a></li>
-						<li <?php if($active_menu_number==7){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/ability" titile="توانایی ها">توانایی ها</a></li>
-						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/project" titile="پروژه ها">پروژه ها</a></li>
-						<li <?php if($active_menu_number==9){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/article" titile="مقالات">مقالات</a></li>
-						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/achievement" titile="افتخارات">افتخارات</a></li>
-						<li <?php if($active_menu_number==11){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/favorite" titile="علاقه مندی ها">علاقه مندی ها</a></li>
-						<li <?php if($active_menu_number==12){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/social" titile="شبکه های اجتماعی">شبکه های اجتماعی</a></li>
-						<li <?php if($active_menu_number==13){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/statistics" titile="آمار">آمار</a></li>
-						<li <?php if($active_menu_number==14){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
-						<li <?php if($active_menu_number==15){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
-						<li <?php if($active_menu_number==16){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" titile="رسمی کردن پروفایل">رسمی کردن پروفایل</a></li>
+						<li <?php if($active_menu_number==1){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/home" title="پیشخوان">پیشخوان</a></li>
+						<li <?php if($active_menu_number==2){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/image" title="تصویر کاربری">تصویر کاربری</a></li>
+						<li <?php if($active_menu_number==3){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/person" title="اطلاعات فردی">اطلاعات فردی</a></li>
+						<li <?php if($active_menu_number==4){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/contact" title="اطلاعات تماس">اطلاعات تماس</a></li>
+						<li <?php if($active_menu_number==5){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/lesson" title="اطلاعات تحصیلی">اطلاعات تحصیلی</a></li>
+						<li <?php if($active_menu_number==6){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/job" title="اطلاعات شغلی">اطلاعات شغلی</a></li>
+						<li <?php if($active_menu_number==7){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/ability" title="توانایی ها">توانایی ها</a></li>
+						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/project" title="پروژه ها">پروژه ها</a></li>
+						<li <?php if($active_menu_number==9){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/article" title="مقالات">مقالات</a></li>
+						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/achievement" title="افتخارات">افتخارات</a></li>
+						<li <?php if($active_menu_number==11){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/favorite" title="علاقه مندی ها">علاقه مندی ها</a></li>
+						<li <?php if($active_menu_number==12){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/social" title="شبکه های اجتماعی">شبکه های اجتماعی</a></li>
+						<li <?php if($active_menu_number==13){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/statistics" title="آمار">آمار</a></li>
+						<li <?php if($active_menu_number==14){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" title="پیام ها">پیام ها</a></li>
+						<li <?php if($active_menu_number==15){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/setting" title="تنظیمات">تنظیمات</a></li>
+						<li <?php if($active_menu_number==16){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" title="رسمی کردن پروفایل">رسمی کردن پروفایل</a></li>
+						<li <?php if($active_menu_number==17){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/reminder" title="یادآورها">یادآورها</a></li>
 						<li class="profile_menu"><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل" target="_blank">مشاهده پروفایل</a></li>
-						<li class="out_menu"><a href="<?=$url; ?>panel/out" titile="مشاهده پروفایل">خروج</a></li>
+						<li class="out_menu"><a href="<?=$url; ?>panel/out" title="مشاهده پروفایل">خروج</a></li>
 					</ul>
 				</div>
 			</div>

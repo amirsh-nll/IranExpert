@@ -2,6 +2,12 @@
 <?php
 	echo form_open('user/update_contact', 'method="post" class="panel_form"');
 
+	$email_input = array(
+		'name'			=>	'contact_email',
+		'placeholder'	=>	'ایمیل قابل نمایش در رزومه',
+		'maxlength'		=>	'70',
+		'value'			=>	$email_value
+	);
 	$mobile_number_input = array(
 		'name'			=>	'contact_mobile_number',
 		'placeholder'	=>	'همراه',
@@ -42,6 +48,10 @@
 ?>
 
 <table>
+	<tr>
+		<td><strong>ایمیل عمومی</strong></td>
+		<td><?php echo form_input($email_input); ?></td>
+	</tr>
 	<tr>
 		<td><strong>شماره همراه</strong></td>
 		<td><?php echo form_input($mobile_number_input); ?></td>
@@ -88,6 +98,7 @@
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این صفحه شما میتوانید اطلاعات تماس خود را وارد کنید تا افراد بازدید کننده به راحتی بتوانند با شما ارتباط برقرار کنند.</p>
 <p>از توزیع اطلاعات شخصی و محرمانه سایر افراد و یا استفاده از حساب شخص دیگری یا باز کردن حساب به نام فرد دیگر خودداری فرمایید.</p>
+<p>برای امنیت ایمیل شخصی شما در برابر اسپمرها، ما در این سامانه ایمیل قابل نمایش شما را با ایمیل ورود به سامانه جدا ساختیم تا بتوانید به انتخاب خودتان ایمیل مورد نظرتان را در رزومه خود نمایش دهید.</p>
 
 <?php
 	echo form_close();

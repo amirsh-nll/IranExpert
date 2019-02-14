@@ -195,6 +195,16 @@ class user extends IREX_Controller
 	{
 		$rules = array(
 			array(
+				'field'		=>	'contact_email',
+				'label'		=>	'ایمیل',
+				'rules'		=>	'valid_email|min_length[5]|max_length[70]',
+				'errors'	=>	array(
+					'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
 				'field'		=>	'contact_mobile_number',
 				'label'		=>	'همراه',
 				'rules'		=>	'numeric|min_length[10]|max_length[20]',
@@ -261,6 +271,7 @@ class user extends IREX_Controller
 		else
 		{
 			$user_id 			= 	$this->session->userdata('user_id');
+			$email 				= 	$this->input->post('contact_email', true);
 			$mobile_number 		= 	$this->input->post('contact_mobile_number', true);
 			$phone_number 		= 	$this->input->post('contact_phone_number', true);
 			$postal_code 		= 	$this->input->post('contact_postal_code', true);
@@ -269,7 +280,7 @@ class user extends IREX_Controller
 			$address 			= 	$this->input->post('contact_address', true);
 
 			$this->load->model('contact_model');
-			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $city_name, $address);
+			$this->contact_model->update_contact($user_id, $email, $mobile_number, $phone_number, $postal_code, $province, $city_name, $address);
 
 			redirect(base_url() . 'panel/contact/2#content_view');
 		}
@@ -1679,9 +1690,18 @@ class user extends IREX_Controller
 		}
 	}
 
-	public function change_password()
+	public function change_setting()
 	{
 		$rules = array(
+			array(
+				'field'		=>	'middle_name',
+				'label'		=>	'نام کاربری',
+				'rules'		=>	'required|max_length[70]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
 			array(
 				'field'		=>	'old_password',
 				'label'		=>	'رمز عبور فعلی',
@@ -1695,7 +1715,7 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'new_password',
 				'label'		=>	'رمز عبور جدید',
-				'rules'		=>	'required|min_length[5]|max_length[40]',
+				'rules'		=>	'min_length[5]|max_length[40]',
 				'errors'	=>	array(
 					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
@@ -1705,7 +1725,7 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'new_repassword',
 				'label'		=>	'تکرار رمز عبور',
-				'rules'		=>	'required|matches[new_password]',
+				'rules'		=>	'matches[new_password]',
 				'errors'	=>	array(
 					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'matches'		=>	'فیلد %s معتبر نمی باشد.'
@@ -1717,27 +1737,44 @@ class user extends IREX_Controller
 		
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'panel/setting/3#table_view');
+			redirect(base_url() . 'panel/setting/1#table_view');
 		}
 		else
 		{
 			$user_id 		= $this->session->userdata('user_id');
+			$middle_name 	= $this->input->post('middle_name', true);
 			$old_password 	= $this->input->post('old_password', true);
-			$new_password 	= $this->input->post('new_password', true);
-			$new_repassword = $this->input->post('new_repassword', true);
+			$new_password 	= ltrim(rtrim($this->input->post('new_password', true)));
+			$new_repassword = ltrim(rtrim($this->input->post('new_repassword', true)));
 
 			$this->load->model('user_model');
-			$setting = $this->user_model->change_password($user_id, $old_password, $new_password, $new_repassword);
-
-			if($setting!=1)
+			$check_password = $this->user_model->check_password($user_id, $old_password);
+			if($check_password!=0)
 			{
-				redirect(base_url() . 'panel/setting/1#table_view');
+				if($new_password!="" && $new_repassword!="")
+				{
+					$this->user_model->change_middle_name($user_id, $middle_name);
+					$setting = $this->user_model->change_password($user_id, $old_password, $new_password, $new_repassword);
+					if($setting==1)
+					{
+						redirect(base_url() . 'panel/setting/3#table_view');
+					}
+				}
+				else
+				{
+					$setting = $this->user_model->change_middle_name($user_id, $middle_name);
+					if($setting==1)
+					{
+						redirect(base_url() . 'panel/setting/4#table_view');
+					}
+				}
 			}
 			else
 			{
 				redirect(base_url() . 'panel/setting/2#table_view');
 			}
 		}
+		redirect(base_url() . 'panel/setting/1#table_view');
 	}
 
 	public function suspend_accont()
@@ -1883,6 +1920,130 @@ class user extends IREX_Controller
         	}
         	redirect(base_url() . 'panel/certificate/1#content_view');
         }
+	}
+
+	public function add_reminder()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'reminder_title',
+				'label'		=>	'عنوان یادآور',
+				'rules'		=>	'required|min_length[3]|max_length[75]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'reminder_description',
+				'label'		=>	'توضیحات',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/reminder/1#content_view');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$reminder_title = $this->input->post('reminder_title', true);
+			$description 	= $this->input->post('reminder_description', true);
+
+			$this->load->model('reminder_model');
+			$reminder = $this->reminder_model->insert_reminder($user_id, $reminder_title, $description);
+
+			if($reminder == 1)
+			{
+				redirect(base_url() . 'panel/reminder/2#table_view');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/reminder/3#content_view');
+			}
+		}
+	}
+
+	public function update_reminder()
+	{
+		$reminder_id = $this->session->userdata('reminder_id_for_update');
+		
+		if(empty($reminder_id))
+		{
+			redirect(base_url() . 'panel/reminder#content_view');
+		}
+
+		$rules = array(
+			array(
+				'field'		=>	'reminder_title',
+				'label'		=>	'عنوان یادآور',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'reminder_description',
+				'label'		=>	'توضیحات',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			$reminder_id 	= $this->session->userdata('reminder_id_for_update');
+			redirect(base_url() . 'panel/update_reminder/' . $reminder_id . '/1#content_view');
+		}
+		else
+		{
+			$user_id 		= $this->session->userdata('user_id');
+			$reminder_id 	= $this->session->userdata('reminder_id_for_update');
+			$reminder_title 	= $this->input->post('reminder_title', true);
+			$description 	= $this->input->post('reminder_description', true);
+
+			$this->load->model('reminder_model');
+			$reminder = $this->reminder_model->update_reminder($user_id, $reminder_id, $reminder_title, $description);
+
+			redirect(base_url() . 'panel/update_reminder/' . $reminder_id . '/2#content_view');
+		}
+	}
+
+	public function delete_reminder($id)
+	{
+		$id = xss_clean($id);
+		if(is_numeric($id))
+		{
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('reminder_model');
+			$reminder = $this->reminder_model->delete_reminder($id, $user_id);
+			if($reminder == 1)
+			{
+				redirect(base_url() . 'panel/reminder/5#table_view');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/reminder/4#table_view');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/reminder/4');
+		}
 	}
 }
 

@@ -36,9 +36,11 @@ class message_model extends CI_Model
 
 	public function read_message($user_id)
 	{
+		$this->db->limit(40);
 		$this->db->where('user_id', $user_id);
+		$this->db->order_by('status', 'DESC');
 		$this->db->order_by('id', 'DESC');
-		$result = $this->db->get('message', 20);
+		$result = $this->db->get('message');
 
 		if($result->num_rows()>0)
 		{

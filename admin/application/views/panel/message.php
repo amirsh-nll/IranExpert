@@ -13,7 +13,7 @@
 				<td></td>
 			</tr>
 			<?php foreach ($message_item as $my_message): ?>
-				<tr>
+				<tr<?php if($my_message['status']==1){echo ' style="background:#ccf;"';} ?>>
 					<td style="width:25%; padding-right:5px;"><?php echo $my_message['full_name']; ?></td>
 					<td style="width:50%; padding-right:5px;"><?php echo $my_message['title']; ?></td>
 					<td style="width:20%; text-align:center;"><?php echo $this->jdf->jdate("j F Y", $my_message['time']); ?></td>
@@ -43,4 +43,4 @@
 
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
-<p>پیام های شما در بالا لیست شده است بهتر است.</p>
+<p>پیام های شما در بالا لیست شده است.</p>

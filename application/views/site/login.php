@@ -1,5 +1,5 @@
 		<div class="box">
-			<?php echo form_open('form/login', 'method="post"'); ?>
+			<?php echo form_open($url . 'form/login', 'method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$email_input = array(

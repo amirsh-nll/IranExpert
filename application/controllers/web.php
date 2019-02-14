@@ -231,10 +231,14 @@ class web extends CI_Controller
 
 	public function rules()
 	{
+		$this->load->model('page_model');
+		$rules_content = $this->page_model->read_page(2);
+
 		$data = array(
-			'url'		=>	base_url(),
-			'title'		=>	'پروفایل آنلاین ایرانیان - قوانین',
-			'page'		=>	'rules'
+			'url'			=>	base_url(),
+			'title'			=>	'پروفایل آنلاین ایرانیان - قوانین',
+			'page'			=>	'rules',
+			'rules_content'	=>	$rules_content['content']
 			);
 
 		$this->statistics();
@@ -246,11 +250,15 @@ class web extends CI_Controller
 
 	public function about()
 	{
+		$this->load->model('page_model');
+		$about_content = $this->page_model->read_page(1);
+
 		$data = array(
-			'url'		=>	base_url(),
-			'title'		=>	'پروفایل آنلاین ایرانیان - درباره ما',
-			'page'		=>	'about'
-			);
+			'url'			=>	base_url(),
+			'title'			=>	'پروفایل آنلاین ایرانیان - درباره ما',
+			'page'			=>	'about',
+			'about_content'	=>	$about_content['content']
+		);
 		
 		$this->statistics();
 

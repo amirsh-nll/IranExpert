@@ -21,20 +21,16 @@ class panel extends IREX_Controller
 	{
 		$user_id = $this->session->userdata('user_id');
 
-		$this->load->model('person_model');
-		$person = $this->person_model->fetch_full_name($user_id);
-		
-		if($person==0)
-		{
-			$person = "کاربر";
-		}
+		$this->load->model('page_model');
+		$user_panel_content = $this->page_model->read_page(3);
 
 		$data = array
 		(
 			'url'				=>base_url(),
 			'title'				=>'پنل کاربری - پیشخوان',
 			'message_unread'	=>	$this->message_unread_count(),
-			'full_name'			=>	$person
+			'reminder_count'	=>	$this->reminder_count(),
+			'user_panel_content'=>	$user_panel_content['content']
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/home', $data);
@@ -62,7 +58,8 @@ class panel extends IREX_Controller
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
 			'active_image'		=>	$image['file_name'],
-			'key'				=>	do_hash($user_id, 'md5')
+			'key'				=>	do_hash($user_id, 'md5'),
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/image', $data);
@@ -105,7 +102,8 @@ class panel extends IREX_Controller
 			'marriage_value'	=>	$person['marriage'],
 			'webpage_url_value'	=>	$person['webpage_url'],
 			'about_value'		=>	$person['about'],
-			'activity'			=>	$activity
+			'activity'			=>	$activity,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 
 		$this->load->view('panel/header', $data);
@@ -136,13 +134,15 @@ class panel extends IREX_Controller
 			'title'					=>	'پنل کاربری - اطلاعات تماس',
 			'notice'				=>	$notice,
 			'message_unread'		=>	$this->message_unread_count(),
+			'email_value'			=>	$contact['email'],
 			'mobile_number_value'	=>	$contact['mobile_number'],
 			'phone_number_value'	=>	$contact['phone_number'],
 			'postal_code_value'		=>	$contact['postal_code'],
 			'province_id_value'		=>	$contact['province_id'],
 			'city_name_value'		=>	$contact['city_name'],
 			'address_value'			=>	$contact['address'],
-			'province'				=>	$province
+			'province'				=>	$province,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 
 		$this->load->view('panel/header', $data);
@@ -174,7 +174,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - اطلاعات تحصیلی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'lesson_item'		=>	$lesson
+			'lesson_item'		=>	$lesson,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/lesson', $data);
@@ -208,7 +209,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش اطلاعات تحصیلی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'lesson_item'		=>	$lesson
+			'lesson_item'		=>	$lesson,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_lesson', $data);
@@ -230,11 +232,12 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - اطلاعات شغلی',
-			'notice'		=>	$notice,
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - اطلاعات شغلی',
+			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'job_item'		=>	$job
+			'job_item'			=>	$job,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/job', $data);
@@ -268,7 +271,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش اطلاعات شغلی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'job_item'			=>	$job
+			'job_item'			=>	$job,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_job', $data);
@@ -294,7 +298,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - توانایی ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'ability_item'		=>	$ability
+			'ability_item'		=>	$ability,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/ability', $data);
@@ -328,7 +333,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش توانایی ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'ability_item'		=>	$ability
+			'ability_item'		=>	$ability,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_ability', $data);
@@ -354,7 +360,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - پروژه ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'project_item'		=>	$project
+			'project_item'		=>	$project,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/project', $data);
@@ -388,7 +395,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش پروژه ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'project_item'		=>	$project
+			'project_item'		=>	$project,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_project', $data);
@@ -414,7 +422,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - مقالات',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'article_item'		=>	$article
+			'article_item'		=>	$article,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/article', $data);
@@ -448,7 +457,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش مقالات',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'article_item'		=>	$article
+			'article_item'		=>	$article,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_article', $data);
@@ -474,7 +484,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - افتخارات',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'achievement_item'	=>	$achievement
+			'achievement_item'	=>	$achievement,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/achievement', $data);
@@ -508,7 +519,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش افتخارات',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'achievement_item'	=>	$achievement
+			'achievement_item'	=>	$achievement,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_achievement', $data);
@@ -534,7 +546,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - علاقه مندی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'favorite_item'		=>	$favorite
+			'favorite_item'		=>	$favorite,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/favorite', $data);
@@ -568,7 +581,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش علاقه مندی ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'favorite_item'		=>	$favorite
+			'favorite_item'		=>	$favorite,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_favorite', $data);
@@ -594,7 +608,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - شبکه های اجتماعی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'social_item'		=>	$social
+			'social_item'		=>	$social,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/social', $data);
@@ -628,7 +643,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - ویرایش شبکه های اجتماعی',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'social_item'		=>	$social
+			'social_item'		=>	$social,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/update_social', $data);
@@ -650,7 +666,8 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - آمار',
 			'chart'				=>	$chart,
-			'message_unread'	=>	$this->message_unread_count()
+			'message_unread'	=>	$this->message_unread_count(),
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/statistics', $data);
@@ -660,13 +677,18 @@ class panel extends IREX_Controller
 	public function setting($notice=0)
 	{
 		$notice = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('user_model');
+		$middle_name = $this->user_model->fetch_middle_name($user_id);
 
 		$data = array
 		(
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - تنظیمات',
 			'notice'			=>	$notice,
-			'message_unread'	=>	$this->message_unread_count()
+			'message_unread'	=>	$this->message_unread_count(),
+			'middle_name_value'	=>	$middle_name,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/setting', $data);
@@ -695,7 +717,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - انسداد حساب کاربری',
 			'notice'			=>	$notice,
 			'captcha'			=>	$cap,
-			'message_unread'	=>	$this->message_unread_count()
+			'message_unread'	=>	$this->message_unread_count(),
+			'reminder_count'	=>	$this->reminder_count()
 		);
 
 		$capcha_data = array(
@@ -730,7 +753,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - پیام ها',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'message_item'		=>	$message
+			'message_item'		=>	$message,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/message', $data);
@@ -765,20 +789,12 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - مشاهده پیام',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'message_item'		=>	$message
+			'message_item'		=>	$message,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/read_message', $data);
 		$this->load->view('panel/footer', $data);
-	}
-
-	private function message_unread_count()
-	{
-		$user_id = $this->session->userdata('user_id');
-
-		$this->load->model('message_model');
-		$message_unread = $this->message_model->message_unread($user_id);
-		return $message_unread;
 	}
 
 	public function certificate($notice=0)
@@ -800,10 +816,73 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - رسمی کردن پروفایل',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'certificate_status'=>	$certificate
+			'certificate_status'=>	$certificate,
+			'reminder_count'	=>	$this->reminder_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/certificate', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function reminder($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/reminder');
+		}
+
+		$this->load->model('reminder_model');
+		$reminder = $this->reminder_model->read_reminder($user_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - یادآور ها',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'reminder_item'		=>	$reminder,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/reminder', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function update_reminder($reminder_id = 0, $notice = 0)
+	{
+		$reminder_id = xss_clean($reminder_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($reminder_id) || $reminder_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/reminder');
+		}
+
+		$this->load->model('reminder_model');
+		$reminder = $this->reminder_model->fetch_record_with_id($user_id, $reminder_id);
+
+		if($reminder==0)
+		{
+			redirect(base_url() . 'panel/reminder');
+		}
+
+		$this->session->set_userdata('reminder_id_for_update', $reminder_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش یادآور ها',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'reminder_item'		=>	$reminder,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_reminder', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
@@ -821,6 +900,23 @@ class panel extends IREX_Controller
 		$this->session->set_userdata('user_id');
 		$this->session->set_userdata('login');
 		redirect(base_url() . 'login');
+	}
+
+	private function message_unread_count()
+	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+		return $message_unread;
+	}
+	private function reminder_count()
+	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('reminder_model');
+		$reminder_count = $this->reminder_model->reminder_count($user_id);
+		return $reminder_count;
 	}
 }
 

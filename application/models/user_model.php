@@ -230,6 +230,115 @@ class user_model extends CI_Model
 		$this->db->where('id', $user_id);
 		$this->db->update('user');
 	}
+
+	public function search_user($key)
+	{
+		$this->db->like('middle_name', $key);
+		$result = $this->db->get('user');
+		if($result->num_rows()>0)
+		{
+			$i=0;
+			$result = $result->result_array();
+			$this->load->model('person_model');
+			$this->load->model('login_model');
+
+			foreach ($result as $my_result) {
+				$user[$i] = array(
+					'id'			=>	$my_result['id'],
+					'full_name'		=>	$this->person_model->fetch_full_name($my_result['id']),
+					'middle_name'	=>	$my_result['middle_name'],
+					'last_login'	=>	$this->login_model->last_login_time($my_result['id'])
+				);
+				$i+=1;
+			}
+			$person = $this->person_model->search_user($key);
+			if($person!==0)
+			{
+				foreach ($person as $my_person) {
+					$user[$i] = array(
+						'id'			=>	$my_person['user_id'],
+						'full_name'		=>	$my_person['first_name'] . " " . $my_person['last_name'],
+						'middle_name'	=>	$this->fetch_middle_name($my_person['user_id']),
+						'last_login'	=>	$this->login_model->last_login_time($my_person['user_id'])
+					);
+					$i+=1;
+				}
+				return $user;
+			}
+			else
+			{
+				return $user;
+			}
+		}
+		else
+		{
+			$this->load->model('person_model');
+			$this->load->model('login_model');
+			$person = $this->person_model->search_user($key);
+			if($person!==0)
+			{
+				$i=0;
+				foreach ($person as $my_person) {
+					$user[$i] = array(
+						'id'			=>	$my_person['user_id'],
+						'full_name'		=>	$my_person['first_name'] . " " . $my_person['last_name'],
+						'middle_name'	=>	$this->fetch_middle_name($my_person['user_id']),
+						'last_login'	=>	$this->login_model->last_login_time($my_person['user_id'])
+					);
+					$i+=1;
+				}
+				return $user;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+	}
+
+	public function check_password($user_id, $password)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+		$result = $result->result_array();
+		$result = $result[0];
+		if($result['password'] == do_hash($password, 'md5'))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function change_middle_name($user_id, $middle_name)
+	{
+		$this->db->where('middle_name', $middle_name);
+		$result = $this->db->get('user', 1);
+		if($result->num_rows()==0)
+		{
+			$data = array(
+				'middle_name'	=>	$middle_name
+			);
+			$this->db->set($data);
+			$this->db->where('id', $user_id);
+			$result = $this->db->update('user');
+
+			if($result==1)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

@@ -138,6 +138,22 @@ class person_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function search_user($key)
+	{
+		$this->db->like('first_name', $key);
+		$this->db->or_like('last_name', $key);
+		$result = $this->db->get('person');
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

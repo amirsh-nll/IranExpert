@@ -451,7 +451,7 @@ border-top:1px solid #000;
 	.left_content
 	{
 		width:690px;
-		min-height:900px;
+		min-height:1100px;
 	}
 	.panel_form td:nth-child(odd)
 	{
@@ -484,7 +484,7 @@ border-top:1px solid #000;
 	.left_content
 	{
 		width:500px;
-		min-height:800px;
+		min-height:1100px;
 	}
 	.panel_form td:nth-child(odd)
 	{
@@ -522,7 +522,7 @@ border-top:1px solid #000;
 	.left_content
 	{
 		width:300px;
-		min-height:900px;
+		min-height:1300px;
 	}
 	.panel_form td:nth-child(odd)
 	{
@@ -596,7 +596,7 @@ border-top:1px solid #000;
 	}
 	.navbar
 	{
-		width:100px;
+		width:130px;
 		text-align:center;
 		float:none;
 		margin:0px auto;
@@ -625,7 +625,7 @@ border-top:1px solid #000;
 	}
 	.left_content
 	{
-		min-height:900px;
+		min-height:1300px;
 	}
 	.panel_form td:nth-child(odd)
 	{
@@ -721,5 +721,17 @@ border-top:1px solid #000;
 	.retrive_once_message
 	{
 		word-break:break-all;
+	}
+	#imgTest
+	{
+		width:130px;
+	}
+	.panel_form input[type="submit"]
+	{
+		font-size:15px;
+	}
+	.retrive_once_message
+	{
+		word-wrap:break-all;
 	}
 }

@@ -21,6 +21,7 @@ class contact_model extends CI_Model
 		$data = array
 		(
 			'user_id'			=>	$user_id,
+			'email'				=>	'',
 			'mobile_number'		=>	'',
 			'phone_number'		=>	'',
 			'postal_code'		=>	'',
@@ -47,9 +48,10 @@ class contact_model extends CI_Model
 		}
 	}
 
-	public function update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address)
+	public function update_contact($user_id, $email, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address)
 	{
 		$data = array(
+			'email'				=>	$email,
 			'mobile_number'		=>	$mobile_number,
 			'phone_number'		=>	$phone_number,
 			'postal_code'		=>	$postal_code,
@@ -72,6 +74,7 @@ class contact_model extends CI_Model
 			$result = $result->result_array();
 			$result = $result[0];
 			if(
+				empty($result['email'])			||
 				empty($result['mobile_number'])	||
 				empty($result['phone_number']) 	||
 				empty($result['postal_code']) 	||

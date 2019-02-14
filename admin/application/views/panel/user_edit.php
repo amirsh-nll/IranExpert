@@ -7,6 +7,12 @@
 		'maxlength'		=>	'70',
 		'value'			=>	$middle_name_value
 	);
+	$email_input = array(
+		'name'			=>	'email_user',
+		'placeholder'	=>	'ایمیل اصلی',
+		'maxlength'		=>	'70',
+		'value'			=>	$email_value
+	);
 	$first_name_input = array(
 		'name'			=>	'person_first_name',
 		'placeholder'	=>	'نام',
@@ -55,6 +61,12 @@
 		'maxlength'		=>	'1000',
 		'value'			=>	$about_value
 	);
+	$general_email_input = array(
+		'name'			=>	'contact_general_email',
+		'placeholder'	=>	'ایمیل عمومی',
+		'maxlength'		=>	'70',
+		'value'			=>	$general_email_value
+	);
 	$mobile_number_input = array(
 		'name'			=>	'contact_mobile_number',
 		'placeholder'	=>	'همراه',
@@ -88,12 +100,21 @@
 		'maxlength'		=>	'500',
 		'value'			=>	$address_value
 	);
+	$new_password_input = array(
+		'name'			=>	'new_password',
+		'placeholder'	=>	'رمز عبور جدید',
+		'maxlength'		=>	'40'
+	);
 	$submit_input = array(
 		'name'			=>	'submit',
 		'value'			=>	'ثبت'
 	);
 ?>
 <table>
+	<tr>
+		<td><strong>ایمیل اصلی:</strong></td>
+		<td><?php echo form_input($email_input); ?></td>
+	</tr>
 	<tr>
 		<td><strong>نام کاربری:</strong></td>
 		<td><?php echo form_input($middle_name_input); ?></td>
@@ -131,6 +152,10 @@
 		<td><?php echo form_textarea($about_input); ?></td>
 	</tr>
 	<tr>
+		<td><strong>ایمیل عمومی:</strong></td>
+		<td><?php echo form_input($general_email_input); ?></td>
+	</tr>
+	<tr>
 		<td><strong>شماره همراه</strong></td>
 		<td><?php echo form_input($mobile_number_input); ?></td>
 	</tr>
@@ -155,6 +180,14 @@
 		<td><?php echo form_textarea($address_input); ?></td>
 	</tr>
 	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><strong>رمز عبور</strong></td>
+		<td><?php echo form_password($new_password_input); ?></td>
+	</tr>
+	<tr>
 		<td style="border:none;"></td>
 		<td>
 			<?php echo form_submit($submit_input); ?>
@@ -177,4 +210,5 @@
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
 <p>با کمک فرم بالا می تواند اطلاعات کاربر مورد نظر خود را ویرایش کنید.</p>
-<p>اطلاعات کاربران شما بعد از ویرایش قابل بازیابی نیستند پس حتما دقت کنید.
+<p>اطلاعات کاربران شما بعد از ویرایش قابل بازیابی نیستند پس حتما دقت کنید.</p>
+<p>در صورت خالی گذاشتن رمز عبور جدید در فرم بالا رمز عبور کاربر مورد نظر بدون تغییر باقی می ماند؛ برای تغییر رمز عبور کاربر دقت کنید به علت اینکه ممکن است کاربر دسترسی خود را به پنل کاربری از دست بدهد.</p>

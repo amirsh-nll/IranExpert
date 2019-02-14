@@ -10,7 +10,8 @@
 	);
 	$submit_input = array(
 		'name'			=>	'submit',
-		'value'			=>	'ثبت اسلاید'
+		'value'			=>	'ثبت اسلاید',
+		'style'		=>	'float:none !important; width:40% !important;'
 	);
 ?>
 <table>

@@ -27,7 +27,8 @@
 	);
 	$submit_input = array(
 		'name'			=>	'submit',
-		'value'			=> 	'ارسال پیام گروهی'
+		'value'			=> 	'ارسال پیام گروهی',
+		'style'			=>	'width:70% !important;'
 	);
 
 	$activity_item[0] = 'بر اساس زمینه فعالیت';

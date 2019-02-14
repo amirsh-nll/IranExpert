@@ -67,6 +67,8 @@ $route['rules'] 					= 'web/rules';
 $route['about'] 					= 'web/about';
 $route['contact'] 					= 'web/contact';
 $route['contact/(:num)'] 			= 'web/contact/$1';
+$route['search']		 			= 'form/search';
+$route['search/(:any)']		 		= 'form/search/$1';
 
 $route['panel'] 					= 'panel/index';
 

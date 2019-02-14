@@ -25,16 +25,16 @@
 		<td><?=$gender; ?></td>
 	</tr>
 	<tr>
+		<td>ایمیل عمومی:</td>
+		<td><span dir="ltr"><?=$general_email; ?></span></td>
+	</tr>
+	<tr>
 		<td>شماره همره:</td>
 		<td><span dir="ltr"><?=$this->jdf->tr_num($mobile); ?></span></td>
 	</tr>
 	<tr>
 		<td>شماره تماس:</td>
 		<td><span dir="ltr"><?=$this->jdf->tr_num($phone); ?></span></td>
-	</tr>
-	<tr>
-		<td>ایمیل:</td>
-		<td><span dir="ltr"><?=$email; ?></span></td>
 	</tr>
 	<tr>
 		<td>وبسایت/وبلاگ:</td>
@@ -51,6 +51,10 @@
 	<tr>
 		<td style="border:none;">&nbsp;</td>
 		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>ایمیل اصلی:</td>
+		<td><span dir="ltr"><?=$email; ?></span></td>
 	</tr>
 	<tr>
 		<td>وضعیت:</td>

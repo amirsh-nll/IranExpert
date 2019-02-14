@@ -50,11 +50,20 @@
 			<div class="clear"></div>
 		</div>
 
-		<div class="center_line">&nbsp;</div>
-
 		<?php
 			if($page=='index')
 			{
+				echo '<div class="searchbox">';
+				echo form_open($url . 'search', 'method="get" class="search_form"');
+				$search_input = array(
+					'name'			=>	'key',
+					'placeholder'	=>	'جستجوی کاربران + اینتر',
+					'maxlength'		=>	'100'
+				);
+				echo form_input($search_input);
+				echo form_close();
+				echo '</div>';
+
 				?>
 				<div class="slideshow">
 					<ul>
@@ -66,6 +75,10 @@
 					</ul>
 				</div>
 				<?php
+			}
+			else
+			{
+				echo '<div class="center_line">&nbsp;</div>';
 			}
 		?>
 		<div class="clear"></div>

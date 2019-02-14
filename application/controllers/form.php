@@ -18,11 +18,13 @@ class form extends CI_Controller
 				array(
 					'field'		=>	'email',
 					'label'		=>	'آدرس ایمیل',
-					'rules'		=>	'required|valid_email|is_unique[user.email]',
+					'rules'		=>	'required|valid_email|is_unique[user.email]|min_length[5]|max_length[70]',
 					'errors'	=>	array(
 						'required'		=>	'فیلد %s معتبر نمی باشد.',
 						'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
-						'is_unique'		=>	'فیلد %s معتبر نمی باشد.'
+						'is_unique'		=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)
 					),
 				array(
@@ -119,10 +121,12 @@ class form extends CI_Controller
 				array(
 					'field'		=>	'email',
 					'label'		=>	'آدرس ایمیل',
-					'rules'		=>	'required|valid_email',
+					'rules'		=>	'required|valid_email|min_length[5]|max_length[70]',
 					'errors'	=>	array(
 						'required'		=>	'فیلد %s معتبر نمی باشد.',
-						'valid_email'	=>	'فیلد %s معتبر نمی باشد.'
+						'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)
 					),
 				array(
@@ -280,10 +284,12 @@ class form extends CI_Controller
 				array(
 					'field'		=>	'email',
 					'label'		=>	'آدرس ایمیل',
-					'rules'		=>	'required|valid_email',
+					'rules'		=>	'required|valid_email|min_length[5]|max_length[70]',
 					'errors'	=>	array(
 						'required'		=>	'فیلد %s معتبر نمی باشد.',
-						'valid_email'	=>	'فیلد %s معتبر نمی باشد.'
+						'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)
 					),
 				array(
@@ -329,5 +335,23 @@ class form extends CI_Controller
 				redirect(base_url() . 'forget/2');
 			}
 		}
+	}
+
+	public function search($key='')
+	{
+		$key = ltrim(rtrim($this->input->get('key', true)));
+		
+		$this->load->model('user_model');
+		$user = $this->user_model->search_user($key);
+
+		$data = array(
+			'title'				=>	'پروفایل آنلاین ایرانیان - جستجو کاربر',
+			'url'				=>	base_url(),
+			'page'				=>	'search',
+			'user'				=>	$this->sort->array_sort($user, 'last_login', SORT_DESC)
+		);
+		$this->load->view('site/header',$data);
+		$this->load->view('site/search',$data);
+		$this->load->view('site/footer',$data);
 	}
 }

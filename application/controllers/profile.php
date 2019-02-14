@@ -160,7 +160,6 @@ class profile extends CI_Controller
 		/* User Profile Email */
 		$this->load->model('user_model');
 		$middle_name = $this->user_model->fetch_middle_name($user_id);
-		$email 		 = $this->user_model->fetch_email($user_id);
 
 		/* User Profile Image */
 		$this->load->model('image_model');
@@ -248,6 +247,7 @@ class profile extends CI_Controller
 		$contact = $this->contact_model->read_contact($user_id);
 		$contact = $contact[0];
 
+		$email = $contact['email'];
 		if(empty($contact['mobile_number']))
 		{
 			$mobile = "نامشخص";

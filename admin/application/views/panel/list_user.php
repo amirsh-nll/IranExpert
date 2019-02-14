@@ -32,7 +32,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
 				<td>نام کاربری</td>
-				<td>ایمیل</td>
+				<td>ایمیل اصلی</td>
 				<td>اخرین ورود به سایت</td>
 				<td>عملیات مدیریتی</td>
 			</tr>

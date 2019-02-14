@@ -73,10 +73,13 @@
 			case 'certificate':{$active_menu_number = 9;}			break;
 			case 'certificate_manage':{$active_menu_number = 9;}	break;
 			case 'violation_accont':{$active_menu_number = 10;}		break;
-			case 'broadcast_message':{$active_menu_number = 11;}	break;
-			case 'read_broadcast_message':{$active_menu_number=11;}	break;
-			case 'message':{$active_menu_number = 12;}				break;
-			case 'read_message':{$active_menu_number = 12;}			break;
+			case 'site_content':{$active_menu_number = 11;}			break;
+			case 'broadcast_message':{$active_menu_number = 12;}	break;
+			case 'read_broadcast_message':{$active_menu_number=12;}	break;
+			case 'message':{$active_menu_number = 13;}				break;
+			case 'read_message':{$active_menu_number = 13;}			break;
+			case 'setting':{$active_menu_number = 14;}				break;
+			case 'reminder':{$active_menu_number = 15;}				break;
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
@@ -87,6 +90,9 @@
 					<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
 				</div>
 				<div class="navbar">
+					<a style="color:#ff951a;" href="<?=$url; ?>panel/reminder" title="<?=$reminder_count; ?> یادآور">
+						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($reminder_count); ?></span><span class="fa fa-lg fa-bell"></span>
+					</a>
 					<a style="color:#49b73c;" href="<?=$url; ?>panel/message" title="<?=$message_unread; ?> پیام ها خوانده نشده">
 						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($message_unread); ?></span><span class="fa fa-lg fa-envelope"></span>
 					</a>
@@ -112,8 +118,11 @@
 						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/slideshow" titile="اسلاید شو">اسلاید شو</a></li>
 						<li <?php if($active_menu_number==9){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" titile="مجوزهای رسمیت">مجوزهای رسمیت</a></li>
 						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/violation_accont" titile="تخلف کاربران">تخلف کاربران</a></li>
-						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/broadcast_message" titile="ارسال پیام گروهی">ارسال پیام گروهی</a></li>
-						<li <?php if($active_menu_number==12){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
+						<li <?php if($active_menu_number==11){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/site_content" titile="محتوای سایت">محتوای سایت</a></li>
+						<li <?php if($active_menu_number==12){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/broadcast_message" titile="ارسال پیام گروهی">ارسال پیام گروهی</a></li>
+						<li <?php if($active_menu_number==13){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
+						<li <?php if($active_menu_number==14){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
+						<li <?php if($active_menu_number==15){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/reminder" title="یادآورها">یادآورها</a></li>
 						<li class="system_menu"><a target="_blank" href="<?php echo $system_address; ?>" titile="مشاهده سامانه">مشاهده سامانه</a></li>
 						<li class="out_menu"><a href="<?=$url; ?>panel/out" titile="خروج">خروج</a></li>
 					</ul>
