@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
  *
- * Name : Web Controller
+ * Name : Panel Controller
  * Date : 1395/08/10
  * Auther : A.shokri
  * Description : The Controller From Load User Panel.
@@ -31,9 +31,10 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'		=>base_url(),
-			'title'		=>'پنل کاربری - پیشخوان',
-			'full_name'	=>	$person
+			'url'				=>base_url(),
+			'title'				=>'پنل کاربری - پیشخوان',
+			'message_unread'	=>	$this->message_unread_count(),
+			'full_name'			=>	$person
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/home', $data);
@@ -59,6 +60,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - تصویر کاربری',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'active_image'		=>	$image['file_name']
 		);
 		$this->load->view('panel/header', $data);
@@ -88,6 +90,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - اطلاعات فردی',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'first_name_value'	=>	$person['first_name'],
 			'last_name_value'	=>	$person['last_name'],
 			'birth_day_value'	=>	$birthday[2],
@@ -122,6 +125,7 @@ class panel extends IREX_Controller
 			'url'					=>	base_url(),
 			'title'					=>	'پنل کاربری - اطلاعات تماس',
 			'notice'				=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'mobile_number_value'	=>	$contact['mobile_number'],
 			'phone_number_value'	=>	$contact['phone_number'],
 			'postal_code_value'		=>	$contact['postal_code'],
@@ -157,6 +161,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - اطلاعات تحصیلی',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'lesson_item'		=>	$lesson
 		);
 		$this->load->view('panel/header', $data);
@@ -190,6 +195,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش اطلاعات تحصیلی',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'lesson_item'		=>	$lesson
 		);
 		$this->load->view('panel/header', $data);
@@ -215,6 +221,7 @@ class panel extends IREX_Controller
 			'url'			=>	base_url(),
 			'title'			=>	'پنل کاربری - اطلاعات شغلی',
 			'notice'		=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'job_item'		=>	$job
 		);
 		$this->load->view('panel/header', $data);
@@ -248,6 +255,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش اطلاعات شغلی',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'job_item'			=>	$job
 		);
 		$this->load->view('panel/header', $data);
@@ -270,10 +278,11 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - توانایی ها',
-			'notice'		=>	$notice,
-			'ability_item'	=>	$ability
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - توانایی ها',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'ability_item'		=>	$ability
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/ability', $data);
@@ -306,6 +315,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش توانایی ها',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'ability_item'		=>	$ability
 		);
 		$this->load->view('panel/header', $data);
@@ -328,10 +338,11 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - پروژه ها',
-			'notice'		=>	$notice,
-			'project_item'	=>	$project
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - پروژه ها',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'project_item'		=>	$project
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/project', $data);
@@ -364,6 +375,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش پروژه ها',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'project_item'		=>	$project
 		);
 		$this->load->view('panel/header', $data);
@@ -386,10 +398,11 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - مقالات',
-			'notice'		=>	$notice,
-			'article_item'	=>	$article
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - مقالات',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'article_item'		=>	$article
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/article', $data);
@@ -422,6 +435,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش مقالات',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'article_item'		=>	$article
 		);
 		$this->load->view('panel/header', $data);
@@ -447,6 +461,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - افتخارات',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'achievement_item'	=>	$achievement
 		);
 		$this->load->view('panel/header', $data);
@@ -480,6 +495,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش افتخارات',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'achievement_item'	=>	$achievement
 		);
 		$this->load->view('panel/header', $data);
@@ -502,10 +518,11 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - علاقه مندی',
-			'notice'		=>	$notice,
-			'favorite_item'	=>	$favorite
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - علاقه مندی',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'favorite_item'		=>	$favorite
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/favorite', $data);
@@ -538,6 +555,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش علاقه مندی ها',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'favorite_item'		=>	$favorite
 		);
 		$this->load->view('panel/header', $data);
@@ -560,10 +578,11 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - شبکه های اجتماعی',
-			'notice'		=>	$notice,
-			'social_item'	=>	$social
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - شبکه های اجتماعی',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'social_item'		=>	$social
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/social', $data);
@@ -596,6 +615,7 @@ class panel extends IREX_Controller
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - ویرایش شبکه های اجتماعی',
 			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
 			'social_item'		=>	$social
 		);
 		$this->load->view('panel/header', $data);
@@ -607,8 +627,9 @@ class panel extends IREX_Controller
 	{
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - آمار'
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - آمار',
+			'message_unread'	=>	$this->message_unread_count(),
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/state', $data);
@@ -619,8 +640,9 @@ class panel extends IREX_Controller
 	{
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - تنظیمات'
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - تنظیمات',
+			'message_unread'	=>	$this->message_unread_count(),
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/setting', $data);
@@ -631,12 +653,22 @@ class panel extends IREX_Controller
 	{
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - پیام ها'
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - پیام ها',
+			'message_unread'	=>	$this->message_unread_count(),
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/message', $data);
 		$this->load->view('panel/footer', $data);
+	}
+
+	private function message_unread_count()
+	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+		return $message_unread;
 	}
 
 	public function profile()
@@ -652,7 +684,7 @@ class panel extends IREX_Controller
 	{
 		$this->session->set_userdata('user_id');
 		$this->session->set_userdata('login');
-		redirect(base_url() . 'web/login');
+		redirect(base_url() . 'login');
 	}
 }
 

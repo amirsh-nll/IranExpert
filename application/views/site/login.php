@@ -31,9 +31,9 @@
 						echo $captcha['image'];
 						echo form_input($captcha_input);
 					?>
-					<p><a href="<?=$url; ?>web/forget" title="Forget Password">رمز عبور خود را فراموش کرده اید؟</a></p>
-					<p><a href="<?=$url; ?>web/index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
-					<p><a href="<?=$url; ?>web/register" title="Register iranExpert">عضویت در سامانه</a></p>
+					<p><a href="<?=$url; ?>forget" title="Forget Password">رمز عبور خود را فراموش کرده اید؟</a></p>
+					<p><a href="<?=$url; ?>index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
+					<p><a href="<?=$url; ?>register" title="Register iranExpert">عضویت در سامانه</a></p>
 				</div>
 				<div class="box_left">
 					<?php

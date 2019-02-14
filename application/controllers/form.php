@@ -68,7 +68,7 @@ class form extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'web/register/1');
+			redirect(base_url() . 'register/1');
 		}
 		else
 		{
@@ -79,7 +79,7 @@ class form extends CI_Controller
 
 			if($rules_check!=1)
 			{
-				redirect(base_url() . 'web/register/3');
+				redirect(base_url() . 'register/3');
 			}
 
 			if($this->captcha_model->check($code))
@@ -100,12 +100,12 @@ class form extends CI_Controller
 				$this->load->model('image_model');
 				$this->image_model->default_image($user_id);
 
-				redirect(base_url() . 'web/login/4');
+				redirect(base_url() . 'login/4');
 
 			}
 			else
 			{
-				redirect(base_url() . 'web/register/2');
+				redirect(base_url() . 'register/2');
 			}
 		}
 	}
@@ -148,7 +148,7 @@ class form extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'web/login/1');
+			redirect(base_url() . 'login/1');
 		}
 		else
 		{
@@ -171,13 +171,13 @@ class form extends CI_Controller
 				}
 				else
 				{
-					redirect(base_url() . 'web/login/1');
+					redirect(base_url() . 'login/1');
 				}
 
 			}
 			else
 			{
-				redirect(base_url() . 'web/login/2');
+				redirect(base_url() . 'login/2');
 			}
 		}
 	}
@@ -208,7 +208,7 @@ class form extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'web/forget/1');
+			redirect(base_url() . 'forget/1');
 		}
 		else
 		{

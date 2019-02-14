@@ -24,15 +24,15 @@
 			</div>
 			<div class="left_header">
 				<ul>
-					<li><a href="<?=$url; ?>web/index" title="iranExpert HomePage">صفحه اصلی</a></li>
+					<li><a href="<?=$url; ?>index" title="iranExpert HomePage">صفحه اصلی</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>web/register" title="iranExpert Register">ثبت نام</a></li>
+					<li><a href="<?=$url; ?>register" title="iranExpert Register">ثبت نام</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>web/login" title="iranExpert Login">ورود</a></li>
+					<li><a href="<?=$url; ?>login" title="iranExpert Login">ورود</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>web/rules" title="iranExpert Rules">قوانین</a></li>
+					<li><a href="<?=$url; ?>rules" title="iranExpert Rules">قوانین</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>web/about" title="iranExpert About Team">درباره ما</a></li>
+					<li><a href="<?=$url; ?>about" title="iranExpert About Team">درباره ما</a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>

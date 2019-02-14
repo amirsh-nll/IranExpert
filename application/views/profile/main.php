@@ -241,6 +241,8 @@
 	</div>
 	<div class="clear"></div>
 
+	<div id="message_form">&nbsp;</div>
+
 	<div class="content_item">
 		<div class="content_item_right">
 			<h3>ارسال پیام برای من</h3>
@@ -258,14 +260,14 @@
 					'placeholder'	=>	'عنوان (اختیاری)',
 					'maxlength'		=> 	100
 				);
-				$emial_input = array(
+				$email_input = array(
 					'name'			=>	'email',
 					'required'		=>	'required',
 					'placeholder'	=>	'ایمیل (اجباری)',
 					'maxlength'		=> 	70
 				);
 				$message_input = array(
-					'name'			=>	'email',
+					'name'			=>	'message',
 					'maxlength'		=> 	500
 				);
 				$captcha_input = array(
@@ -281,7 +283,7 @@
 
 				echo '<p>' . form_input($name_input) . '<p>'		;
 				echo '<p>' . form_input($title_input) . '<p>'		;
-				echo '<p>' . form_input($emial_input) . '<p>'		;
+				echo '<p>' . form_input($email_input) . '<p>'		;
 				echo '<p>' . form_textarea($message_input) . '<p>'	;
 				echo '<p>' . $data['captcha']['image'] . '<p>'		;
 				echo '<p>' . form_input($captcha_input) . '<p>'		;
@@ -289,6 +291,21 @@
 			?>
 
 			<?php
+				if($notice!=0)
+				{
+					switch($notice)
+					{
+						case 1:{
+							echo '<p style="color:#f00;">اطلاعات فرم بالا نامعتبر می باشد.</p>';
+						} break;
+						case 2:{
+							echo '<p style="color:#3acc17;">دوست عزیز پیام شما با موفقیت ارسال گردید.</p>';
+						} break;
+						case 3:{
+							echo '<p style="color:#f00;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
+						} break;
+					}
+				}
 				echo form_close();
 			?>
 		</div>

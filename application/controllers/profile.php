@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
  *
- * Name : Profile
+ * Name : Profile Controller
  * Date : 1395/08/14
  * Auther : A.shokri
  * Description : The Controller From Load User Profile Page.
@@ -12,12 +12,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class profile extends CI_Controller
 {
-	public function index($middle_name = 0)
+	public function index($middle_name = 0, $notice=0)
 	{
 		$middle_name = strtolower(xss_clean($middle_name));
 		if($middle_name===0)
 		{
-			redirect(base_url() . 'web/index');
+			redirect(base_url() . 'index');
 		}
 		else
 		{
@@ -25,10 +25,11 @@ class profile extends CI_Controller
 			$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
 			if($user_id == 0)
 			{
-				redirect(base_url() . 'web/index');
+				redirect(base_url() . 'index');
 			}
 			$data = array(
 				'url'		=>	base_url(),
+				'notice'	=>	$notice,
 				'data'		=>	$this->load_data($user_id)
 			);
 
@@ -41,9 +42,9 @@ class profile extends CI_Controller
 	public function send_message($middle_name=0)
 	{
 		$middle_name = xss_clean($middle_name);
-		if($middle_name==0)
+		if($middle_name===0)
 		{
-			redirect(base_url() . 'web/index');
+			redirect(base_url() . 'index');
 		}
 
 		$rules = array(
@@ -103,25 +104,36 @@ class profile extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'profile/' . $middle_name . '/1');
+			redirect(base_url() . 'profile/' . $middle_name . '/1#message_form');
 		}
 		else
 		{
-			$name 		= $this->input->post('name',true);
-			$title 		= $this->input->post('title',true);
-			$email 		= $this->input->post('email',true);
-			$message 	= $this->input->post('message',true);
-			$captcha 	= $this->input->post('captcha',true);
+			$this->load->model('user_model');
+
+			$user_id 		= $this->user_model->fetch_user_id_with_middle_name($middle_name);
+			$name 			= $this->input->post('name',true);
+			$title 			= $this->input->post('title',true);
+			$email 			= $this->input->post('email',true);
+			$message 		= $this->input->post('message',true);
+			$captcha 		= $this->input->post('captcha',true);
+			$description 	= $this->agent->agent_string();
 
 			if($this->captcha_model->check($code))
 			{
 				$this->load->model('message_model');
-				$this->message_model->
-				redirect(base_url() . 'profile/' . $middle_name . '/2');
+				$message = $this->message_model->insert_message($user_id, $title, $email, $message, $description);
+				if($message==1)
+				{
+					redirect(base_url() . 'profile/' . $middle_name . '/2#message_form');
+				}
+				else
+				{
+					redirect(base_url() . 'profile/' . $middle_name . '/1#message_form');
+				}
 			}
 			else
 			{
-				redirect(base_url() . 'profile/' . $middle_name . '/1');
+				redirect(base_url() . 'profile/' . $middle_name . '/3#message_form');
 			}
 		}
 	}

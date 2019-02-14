@@ -49,8 +49,8 @@
 						}
 
 					?>
-					<p><a href="<?=$url; ?>web/index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
-					<p><a href="<?=$url; ?>web/login" title="Login iranExpert">ورود به سامانه</a></p>
+					<p><a href="<?=$url; ?>index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
+					<p><a href="<?=$url; ?>login" title="Login iranExpert">ورود به سامانه</a></p>
 				</div>
 				<div class="box_left">
 					<?php

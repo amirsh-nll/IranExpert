@@ -40,6 +40,6 @@
 			<div class="clear"></div>
 			<div class="shortcut">
 				<h3>این سامانه مورد نیاز شماست؟! پس همین حالا عضو شوید.</h3>
-				<a href="<?=$url; ?>web/register" title="Register On iranExpert"><div class="key">عضویت</div></a>
+				<a href="<?=$url; ?>register" title="Register On iranExpert"><div class="key">عضویت</div></a>
 			</div>
 		</div>
