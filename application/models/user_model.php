@@ -20,6 +20,7 @@ class user_model extends CI_Model
 	{
 		$data = array
 		(
+			'type'			=>	0,
 			'email'			=>	$email,
 			'password'		=>	do_hash($password, 'md5'),
 			'middle_name'	=>	$middle_name,
@@ -118,6 +119,23 @@ class user_model extends CI_Model
 		return $email;
 	}
 
+	public function fetch_user_id_with_email($email)
+	{
+		$this->db->where('email', $email);
+		$result = $this->db->get('user', 1);
+		
+		if($result->num_rows() < 1)
+		{
+			return 0;
+		}
+		
+		foreach($result->result() as $row)
+		{
+			$id = $row->id;
+		}
+		return $id;
+	}
+
 	public function change_password($user_id, $old, $new)
 	{
 		$this->db->where('id', $user_id);
@@ -177,6 +195,16 @@ class user_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+
+	public function forget_password($user_id)
+	{
+		$data = array(
+			'password'	=>	do_hash('123456789', 'md5')
+		);
+		$this->db->set($data);
+		$this->db->where('id', $user_id);
+		$this->db->update('user');
 	}
 }
 

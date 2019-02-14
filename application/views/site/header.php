@@ -31,8 +31,6 @@
 					<li id="pipe">|</li>
 					<li><a href="<?=$url; ?>login" title="ورود">ورود</a></li>
 					<li id="pipe">|</li>
-					<li><a href="<?=$url; ?>search" title="جستجو افراد">جستجو افراد</a></li>
-					<li id="pipe">|</li>
 					<li><a href="<?=$url; ?>rules" title="قوانین">قوانین</a></li>
 					<li id="pipe">|</li>
 					<li><a href="<?=$url; ?>about" title="درباره ما">درباره ما</a></li>

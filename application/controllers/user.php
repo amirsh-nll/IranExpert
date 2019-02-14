@@ -14,7 +14,7 @@ class user extends IREX_Controller
 {
 	public function index()
 	{
-		redirect('panel/index');
+		redirect(base_url() . 'panel/index');
 	}
 
 	public function add_image()

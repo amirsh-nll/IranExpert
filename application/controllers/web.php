@@ -10,7 +10,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
 */
 
-class Web extends CI_Controller
+class web extends CI_Controller
 {
 	public function index()
 	{
@@ -206,6 +206,11 @@ class Web extends CI_Controller
 
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/forget',$data);
+	}
+
+	public function forget_password($forget_key)
+	{
+		
 	}
 
 	public function rules()

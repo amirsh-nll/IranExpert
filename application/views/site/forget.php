@@ -47,6 +47,10 @@
 						{
 							echo '<p style="color:#f77;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
 						}
+						elseif($notice==3)
+						{
+							echo '<p style="color:#0f0;">رمز عبور جدید شما : 123456789 می باشد.</p>';
+						}
 					?>
 				</div>
 				<div class="clear"></div>

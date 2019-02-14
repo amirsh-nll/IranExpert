@@ -277,6 +277,7 @@ class form extends CI_Controller
 			);
 
 		$this->form_validation->set_rules($rules);
+		$this->load->model('captcha_model');
 
 		if($this->form_validation->run()==false)
 		{
@@ -284,7 +285,29 @@ class form extends CI_Controller
 		}
 		else
 		{
-			
+			$email 			= $this->input->post('email', true);
+			$code 			= $this->input->post('captcha', true);
+			$description 	= $this->agent->agent_string() . '// IP : ' . $this->input->ip_address();
+
+			if($this->captcha_model->check($code))
+			{
+				$this->load->model('user_model');
+				$user_id = $this->user_model->fetch_user_id_with_email($email);
+				
+				if($user_id!=0)
+				{
+					$this->user_model->forget_password($user_id);
+					redirect(base_url() . 'forget/3');
+				}
+				else
+				{
+					redirect(base_url() . 'forget/1');
+				}
+			}
+			else
+			{
+				redirect(base_url() . 'forget/2');
+			}
 		}
 	}
 }
