@@ -26,7 +26,7 @@
 	}
 	$project_description = array(
 		'name'			=>	'project_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 	);
 	$submit_input = array(
 		'name'			=>	'project_submit',
@@ -36,19 +36,19 @@
 
 <table>
 	<tr>
-		<td>عنوان پروژه</td>
+		<td><strong>عنوان پروژه</strong></td>
 		<td><?php echo form_input($project_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>شروع پروژه</td>
+		<td><strong>شروع پروژه</strong></td>
 		<td><?php echo form_dropdown('project_start_month', $project_start_month_item, '', 'class="project_item"'); echo form_dropdown('project_start_year', $project_start_year_item, '', 'class="project_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>پایان پروژه</td>
+		<td><strong>پایان پروژه</strong></td>
 		<td><?php echo form_dropdown('project_end_month', $project_end_month_item, '', 'class="project_item"'); echo form_dropdown('project_end_year', $project_end_year_item, '', 'class="project_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($project_description); ?></td>
 	</tr>
 	<tr>
@@ -72,8 +72,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست پروژه ها :</p>
+<p><strong>لیست پروژه ها:</strong></p>
 <?php
 	if($project_item!=0)
 	{
@@ -88,11 +89,14 @@
 			</tr>
 			<?php foreach ($project_item as $my_project): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_project['title']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_project['start']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_project['end']; ?></td>
-					<td style="width:60%;"><?php echo $my_project['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_project/' . $my_project['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:18%;"><?php echo $my_project['title']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_project['start']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_project['end']; ?></td>
+					<td style="width:45%;"><?php echo $my_project['description']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_update" href="<?php echo base_url() . 'panel/update_project/' . $my_project['id'] . '#content_view'; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_project/' . $my_project['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -103,10 +107,10 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">عنوان پروژه</td>
+				<td style="width:18%;">عنوان پروژه</td>
 				<td style="width:15%;">شروع پروژه</td>
 				<td style="width:15%;">پایان پروژه</td>
-				<td style="width:50%;">توضیحات</td>
+				<td style="width:45%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -129,10 +133,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 پروژه را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن پروژه های انجام شده توسط شما می توانید بازدیدکنندگان را مجذوب خود کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 پروژه را دارید و با این محدودیت شما می توانید پروژه های برجسته تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

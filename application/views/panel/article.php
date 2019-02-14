@@ -26,7 +26,7 @@
 	}
 	$article_description = array(
 		'name'			=>	'article_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500'
 	);
 	$submit_input = array(
 		'name'			=>	'article_submit',
@@ -36,19 +36,19 @@
 
 <table>
 	<tr>
-		<td>عنوان مقاله</td>
+		<td><strong>عنوان مقاله</strong></td>
 		<td><?php echo form_input($article_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>شروع مقاله</td>
+		<td><strong>شروع مقاله</strong></td>
 		<td><?php echo form_dropdown('article_start_month', $article_start_month_item, '', 'class="article_item"'); echo form_dropdown('article_start_year', $article_start_year_item, '', 'class="article_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>پایان مقاله</td>
+		<td><strong>پایان مقاله</strong></td>
 		<td><?php echo form_dropdown('article_end_month', $article_end_month_item, '', 'class="article_item"'); echo form_dropdown('article_end_year', $article_end_year_item, '', 'class="article_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($article_description); ?></td>
 	</tr>
 	<tr>
@@ -72,8 +72,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست مقاله ها :</p>
+<p><strong>لیست مقاله ها:</strong></p>
 <?php
 	if($article_item!=0)
 	{
@@ -88,11 +89,14 @@
 			</tr>
 			<?php foreach ($article_item as $my_article): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_article['title']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_article['start']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_article['end']; ?></td>
-					<td style="width:60%;"><?php echo $my_article['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_article/' . $my_article['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:18%;"><?php echo $my_article['title']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_article['start']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_article['end']; ?></td>
+					<td style="width:45%;"><?php echo $my_article['description']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_update" href="<?php echo base_url() . 'panel/update_article/' . $my_article['id']; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_article/' . $my_article['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -103,10 +107,10 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">عنوان مقاله</td>
+				<td style="width:18%;">عنوان مقاله</td>
 				<td style="width:15%;">شروع مقاله</td>
 				<td style="width:15%;">پایان مقاله</td>
-				<td style="width:50%;">توضیحات</td>
+				<td style="width:45%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -129,10 +133,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 مقاله را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن مقاله های خود می توانید بازدیدکنندگان را مجذوب کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 مقاله را دارید و با این محدودیت شما می توانید مقاله های برجسته تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

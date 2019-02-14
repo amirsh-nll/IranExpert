@@ -10,7 +10,7 @@
 	);
 	$favorite_description = array(
 		'name'			=>	'favorite_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500'
 	);
 	$submit_input = array(
 		'name'			=>	'favorite_submit',
@@ -20,11 +20,11 @@
 
 <table>
 	<tr>
-		<td>عنوان علاقه مندی</td>
+		<td><strong>عنوان علاقه مندی</strong></td>
 		<td><?php echo form_input($favorite_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($favorite_description); ?></td>
 	</tr>
 	<tr>
@@ -48,8 +48,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست علاقه مندی ها :</p>
+<p><strong>لیست علاقه مندی ها:</strong></p>
 <?php
 	if($favorite_item!=0)
 	{
@@ -62,9 +63,12 @@
 			</tr>
 			<?php foreach ($favorite_item as $my_favorite): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_favorite['title']; ?></td>
-					<td style="width:80%;"><?php echo $my_favorite['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_favorite/' . $my_favorite['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:23%;"><?php echo $my_favorite['title']; ?></td>
+					<td style="width:70%;"><?php echo $my_favorite['description']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_update" href="<?php echo base_url() . 'panel/update_favorite/' . $my_favorite['id']; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_favorite/' . $my_favorite['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -75,9 +79,9 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">نام علاقه مندی</td>
-				<td style="width:80%;">توضیحات</td>
-				<td></td>
+				<td style="width:23%;">نام علاقه مندی</td>
+				<td style="width:70%;">توضیحات</td>
+				<td style="width:7%;"></td>
 			</tr>
 			<tr>
 				<td colspan="5">هیچ علاقه مندی برای شما موجود نیست.</td>
@@ -99,10 +103,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 علاقه مندی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن علاقه مندی های خود می توانید شخصیت، رفتار و عملکرد خود را برای دیگران قابل درک کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 علاقه مندی را دارید و با این محدودیت شما می توانید علایق قوی تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

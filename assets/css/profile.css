@@ -13,7 +13,6 @@ body
 	margin:0;
 	padding:0;
 	background:#fafafa;
-	background-position:center 150px;
 	font-family:'irex', tahoma;
 }
 a
@@ -30,23 +29,15 @@ a
 }
 .note
 {
-	width:900px;
 	margin:0 auto;
 }
 .note a
 {
-	float:left;
 	color:#fff;
 }
 .intero
 {
-	width:900px;
 	margin:30px auto;
-}
-.intero_section1
-{
-	float:right;
-	width:210px;
 }
 .intero_section1 img
 {
@@ -64,25 +55,17 @@ a
 }
 .intero_section2
 {
-	float:left;
 	font-size:20px;
 	line-height:10px;
-	width:585px;
 }
 .content
 {
-	width:900px;
 	margin:0 auto;
 }
 .content_item
 {
 	border-top:2px solid #3e56a6;
 	margin-top:50px;
-}
-.content_item_right
-{
-	float:right;
-	width:200px;
 }
 .content_item_right h3
 {
@@ -99,10 +82,9 @@ a
 }
 .content_item_left
 {
-	float:left;
-	width:590px;
 	padding-top:30px;
 	font-size:20px;
+	text-align:justify;
 }
 .content_item_left h2
 {
@@ -117,19 +99,211 @@ a
 	margin:0;
 	text-align:justify;
 }
+.message_box input
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:50%;
+	outline:none;
+	border-right:5px solid #555 !important;
+	border:1px solid #555;
+	padding:4px;
+	margin:5px;
+}
+.message_box textarea
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:90%;
+	outline:none;
+	border-right:5px solid #555 !important;
+	border:1px solid #555;
+	height:200px;
+	resize:none;
+	margin:5px;
+}
+.message_box img
+{
+	display:block;
+	margin:5px;
+}
+.message_box input[type="submit"]
+{
+	border:1px solid #555 !important;
+	cursor:pointer;
+	width:20%;
+	margin-left:40px;
+}
 .footer
 {
-	width:900px;
 	margin:50px auto 0px auto;
 	border-top:2px solid #3e56a6;
 	font-size:20px;
 }
-.footer_right
-{
-	float:right;
-}
 .footer_left
 {
-	float:left;
 	direction:ltr;
+}
+
+/* Responsive */
+@media (min-width: 951px)
+{
+	.note, .intero, .content, .footer
+	{
+		width:900px;
+	}
+	.intero_section1
+	{
+		width:210px;
+	}
+	.intero_section1 img
+	{
+		width:200px;
+		height:300px;
+	}
+	.intero_section2
+	{
+		width:585px;
+	}
+	.content_item_right
+	{
+		width:200px;
+	}
+	.content_item_left
+	{
+		width:590px;
+	}
+	.intero_section1, .content_item_right, .footer_right
+	{
+		float:right;
+	}
+	.note a, .intero_section2, .content_item_left, .message_box input[type="submit"]
+	{
+		float:left;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 950px)
+{
+	.note, .intero, .content, .footer
+	{
+		width:700px;
+	}
+	.intero_section1
+	{
+		width:210px;
+	}
+	.intero_section1 img
+	{
+		width:200px;
+		height:300px;
+	}
+	.intero_section2
+	{
+		width:450px;
+	}
+	.content_item_right
+	{
+		width:150px;
+	}
+	.content_item_left
+	{
+		width:500px;
+	}
+	.intero_section1, .content_item_right, .footer_right
+	{
+		float:right;
+	}
+	.note a, .intero_section2, .content_item_left, .message_box input[type="submit"]
+	{
+		float:left;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 767px)
+{
+	.note, .intero, .content, .footer
+	{
+		width:450px;
+	}
+	.intero_section1, .intero_section2, .content_item_right, .content_item_left
+	{
+		width:100%;
+	}
+	.intero_section1 img
+	{
+		width:200px;
+		height:300px;
+	}
+	.intero_section1, .content_item_right, .footer_right, .note a, .intero_section2, .content_item_left
+	{
+		float:none;
+	}
+	.message_box input[type="submit"]
+	{
+		float:left;
+	}
+	.intero_section1, .intero_section2, .note, .footer
+	{
+		text-align:center;
+	}
+	.intero_section2, .content_item_left, .note
+	{
+		font-size:25px;
+	}
+	.content_item_right h3
+	{
+		margin:0px 70px !important;
+	}
+}
+
+@media (max-width: 480px)
+{
+	.note, .intero, .content, .footer
+	{
+		width:230px;
+	}
+	.intero_section1, .intero_section2, .content_item_right, .content_item_left
+	{
+		width:95%;
+	}
+	.intero_section1 img
+	{
+		width:200px;
+		height:300px;
+	}
+	.intero_section1, .content_item_right, .footer_right, .note a, .intero_section2, .content_item_left
+	{
+		float:none;
+	}
+	.message_box input
+	{
+		width:89%;
+	}
+	.message_box img
+	{
+		margin:0 auto;
+	}
+	.message_box input[type="submit"]
+	{
+		float:none;
+		width:50%;
+		margin-right:55px;
+	}
+	.intero_section1, .intero_section2, .note, .footer
+	{
+		text-align:center;
+		line-height:35px;
+	}
+	.intero_section2, .content_item_left, .note
+	{
+		font-size:25px;
+		padding-right:10px;
+		padding-left:10px;
+	}
+	.content_item_right h3
+	{
+		margin:0px 30px !important;
+		font-size:25px;
+	}
 }

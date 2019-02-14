@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) اطلاعات شغلی -) ویرایش اطلاعات شغلی</h2>
+<h2>پنل کاربری -) اطلاعات شغلی -) ویرایش</h2>
 <?php
 	echo form_open('user/update_job', 'method="post" class="panel_form"');
 

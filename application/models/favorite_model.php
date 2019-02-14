@@ -21,7 +21,7 @@ class favorite_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('favorite');
 
-		if($result->num_rows()<5)
+		if($result->num_rows()<20)
 		{
 			$data = array
 			(
@@ -42,7 +42,7 @@ class favorite_model extends CI_Model
 	public function read_favorite($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('favorite', 5);
+		$result = $this->db->get('favorite', 20);
 
 		if($result->num_rows()>0)
 		{
@@ -54,6 +54,18 @@ class favorite_model extends CI_Model
 		}
 	}
 
+	public function update_favorite($user_id, $favorite_id, $favorite_title, $description)
+	{
+		$data = array(
+			'title'			=>	$favorite_title,
+			'description'	=>	$description
+		);
+		$this->db->set($data);
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $favorite_id);
+		$this->db->update('favorite');
+	}
+
 	public function delete_favorite($id, $user_id)
 	{
 		$this->db->where('id', $id);
@@ -61,6 +73,22 @@ class favorite_model extends CI_Model
 		$result = $this->db->delete('favorite');
 
 		return $result;
+	}
+
+	public function fetch_record_with_id($user_id, $favorite_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $favorite_id);
+		$result = $this->db->get('favorite', 1);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }
 

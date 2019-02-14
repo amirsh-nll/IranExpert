@@ -5,7 +5,7 @@
 	$social_url_input = array(
 		'name'			=>	'social_url',
 		'placeholder'	=>	'آدرس http://test.com/user',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 		'required'		=>	'required'
 	);
 	$social_type_item = array(
@@ -13,7 +13,8 @@
 		'2'				=>	'لینکداین',
 		'3'				=>	'اینستاگرام',
 		'4'				=>	'توییتر',
-		'5'				=>	'گوگل پلاس'
+		'5'				=>	'گوگل پلاس',
+		'6'				=>	'تلگرام'
 	);
 	$submit_input = array(
 		'name'			=>	'social_submit',
@@ -23,11 +24,11 @@
 
 <table>
 	<tr>
-		<td>نوع شبکه اجتماعی</td>
+		<td><strong>نوع شبکه اجتماعی</strong></td>
 		<td><?php echo form_dropdown('social_type', $social_type_item); ?></td>
 	</tr>
 	<tr>
-		<td>آدرس پروفایل</td>
+		<td><strong>آدرس پروفایل</strong></td>
 		<td><?php echo form_input($social_url_input); ?></td>
 	</tr>
 	<tr>
@@ -51,8 +52,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست شبکه های اجتماعی :</p>
+<p><strong>لیست شبکه های اجتماعی:</strong></p>
 
 <?php
 	if($social_item!=0)
@@ -74,12 +76,16 @@
 							case 3:{$type = 'اینستاگرام';} break;
 							case 4:{$type = 'توییتر';} break;
 							case 5:{$type = 'گوگل پلاس';} break;
+							case 6:{$type = 'تلگرام';} break;
 							default:{$type= 'نامشخص';}
 						}
 					?>
-					<td style="width:20%;"><?php echo $type ?></td>
-					<td style="width:80%;"><?php echo $my_social['url']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_social/' . $my_social['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:28%;"><?php echo $type ?></td>
+					<td style="width:65%;"><?php echo $my_social['url']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_update" href="<?php echo base_url() . 'panel/update_social/' . $my_social['id']; ?>" title="حذف"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_social/' . $my_social['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -90,9 +96,9 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">شبکه اجتماعی</td>
-				<td style="width:80%;">آدرس</td>
-				<td></td>
+				<td style="width:28%;">شبکه اجتماعی</td>
+				<td style="width:65%;">آدرس</td>
+				<td style="width:7%;"></td>
 			</tr>
 			<tr>
 				<td colspan="5">شبکه ی اجتماعی خاصی برای نمایش موجود نیست.</td>
@@ -114,10 +120,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی : </p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 6 لینک شبکه اجتماعی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
-<p>در این بخش با وارد کردن پروفایل شبکه های اجتماعی دیگر می توانید به تسریع یافتن شما توسط افراد کمک کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 لینک شبکه اجتماعی را دارید و شما قادر هستید همه را برای یک نوع از شبکه های اجتماعی استفاده کنید و یا از هر کدام یکبار بهره ببرید.</p>
+<p>در این بخش با وارد کردن پروفایل شبکه های اجتماعی دیگر می توانید به یافتن خود توسط افراد دیگر کمک کنید.</p>
 
 <?php
 	echo form_close();

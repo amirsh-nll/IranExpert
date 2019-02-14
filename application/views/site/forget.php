@@ -7,18 +7,19 @@
 				<div class="box_right">
 					<?php
 						$email_input = array(
-							'name'=>'email',
-							'placeholder'=>'ایمیل',
-							'required'=>'required'
+							'name'			=>'email',
+							'placeholder'	=>'ایمیل',
+							'required'		=>'required'
 						);
 						$captcha_input = array(
-							'name'=>'captcha',
-							'placeholder'=>'گد امنیتی',
-							'required'=>'required'
+							'name'			=>'captcha',
+							'placeholder'	=>'گد امنیتی',
+							'required'		=>'required',
+							'maxlength'		=> 	5
 						);
 						$submit_input = array(
-							'name'=>'submit',
-							'value'=>'بازیابی'
+							'name'			=>'submit',
+							'value'			=>'بازیابی'
 						);
 						echo form_input($email_input);
 						echo $captcha['image'];

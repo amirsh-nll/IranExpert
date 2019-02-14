@@ -30,6 +30,7 @@ class Web extends CI_Controller
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
+	        'font_path'		=> './assets/font/stencilstd.otf',
 	        'colors'        => array(
 	                'background' 	=> array(255, 255, 255),
                 	'border' 		=> array(255, 255, 255),
@@ -74,6 +75,7 @@ class Web extends CI_Controller
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
+	        'font_path'		=> './assets/font/stencilstd.otf',
 	        'colors'        => array(
 	                'background' 	=> array(255, 255, 255),
                 	'border' 		=> array(255, 255, 255),
@@ -108,6 +110,7 @@ class Web extends CI_Controller
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
+	        'font_path'		=> './assets/font/stencilstd.otf',
 	        'colors'        => array(
 	                'background' 	=> array(255, 255, 255),
                 	'border' 		=> array(255, 255, 255),

@@ -21,7 +21,7 @@ class project_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('project');
 
-		if($result->num_rows()<5)
+		if($result->num_rows()<20)
 		{
 			$data = array
 			(
@@ -44,7 +44,7 @@ class project_model extends CI_Model
 	public function read_project($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('project', 5);
+		$result = $this->db->get('project', 20);
 
 		if($result->num_rows()>0)
 		{
@@ -56,6 +56,20 @@ class project_model extends CI_Model
 		}
 	}
 
+	public function update_project($user_id, $project_id, $project_title, $start_date, $end_date, $description)
+	{
+		$data = array(
+			'title'			=>	$project_title,
+			'start'			=>	$start_date,
+			'end'			=>	$end_date,
+			'description'	=>	$description
+		);
+		$this->db->set($data);
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $project_id);
+		$this->db->update('project');
+	}
+
 	public function delete_project($id, $user_id)
 	{
 		$this->db->where('id', $id);
@@ -63,6 +77,22 @@ class project_model extends CI_Model
 		$result = $this->db->delete('project');
 
 		return $result;
+	}
+
+	public function fetch_record_with_id($user_id, $project_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $project_id);
+		$result = $this->db->get('project', 1);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }
 

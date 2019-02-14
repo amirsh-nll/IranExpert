@@ -19,7 +19,8 @@
 						$captcha_input = array(
 							'name'			=>	'captcha',
 							'placeholder'	=>	'گد امنیتی',
-							'required'		=>	'required'
+							'required'		=>	'required',
+							'maxlength'		=> 	5
 						);
 						$submit_input = array(
 							'name'			=>	'submit',

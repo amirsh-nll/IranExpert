@@ -10,7 +10,7 @@
 	);
 	$achievement_description = array(
 		'name'			=>	'achievement_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 	);
 	$submit_input = array(
 		'name'			=>	'achievement_submit',
@@ -20,11 +20,11 @@
 
 <table>
 	<tr>
-		<td>عنوان افتخار</td>
+		<td><strong>عنوان افتخار</strong></td>
 		<td><?php echo form_input($achievement_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($achievement_description); ?></td>
 	</tr>
 	<tr>
@@ -48,8 +48,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست افتخارات :</p>
+<p><strong>لیست افتخارات:</strong></p>
 <?php
 	if($achievement_item!=0)
 	{
@@ -62,9 +63,12 @@
 			</tr>
 			<?php foreach ($achievement_item as $my_achievement): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_achievement['title']; ?></td>
-					<td style="width:80%;"><?php echo $my_achievement['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_achievement/' . $my_achievement['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:23%;"><?php echo $my_achievement['title']; ?></td>
+					<td style="width:70%;"><?php echo $my_achievement['description']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_update" href="<?php echo base_url() . 'panel/update_achievement/' . $my_achievement['id']; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_achievement/' . $my_achievement['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -75,9 +79,9 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">نام افتخار</td>
-				<td style="width:80%;">توضیحات</td>
-				<td></td>
+				<td style="width:23%;">نام افتخار</td>
+				<td style="width:70%;">توضیحات</td>
+				<td style="width:7%;"></td>
 			</tr>
 			<tr>
 				<td colspan="5">هیچ افتخاری برای شما موجود نیست.</td>
@@ -99,10 +103,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 فتخار را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن افتخارات خود در مراحل مختلف زندگی خود می توانید خود را با دیگران متمایز کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 فتخار را دارید و با این محدودیت شما می توانید افتخارات مهم تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

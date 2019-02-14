@@ -1,6 +1,6 @@
 <div class="intero">
 	<div class="intero_section1">
-		<img src="<?=$url; ?>upload/<?=$data['image']; ?>" width="200" height="300" title="<?=$data['full_name']; ?>" alt="<?=$data['full_name']; ?>" />
+		<img src="<?=$url; ?>upload/<?=$data['image']; ?>" title="<?=$data['full_name']; ?>" alt="<?=$data['full_name']; ?>" />
 		<div class="social">
 			<?php
 				foreach ($data['social'] as $social) {
@@ -11,6 +11,7 @@
 						case 3 :{ $social_icon = "instagram"; $social_type = "اینستاگرام"; } break;
 						case 4 :{ $social_icon = "twitter-square"; $social_type = "توییتر"; } break;
 						case 5 :{ $social_icon = "google-plus-square"; $social_type = "گوگل پلاس"; } break;
+						case 6 :{ $social_icon = "send-o"; $social_type = "تلگرام"; } break;
 						default:{ $social_icon = "share-square"; $social_type = "نامشخص"; }
 					};
 
@@ -92,7 +93,7 @@
 
 	<div class="content_item">
 		<div class="content_item_right">
-			<h3>تونایی ها</h3>
+			<h3>توانایی ها</h3>
 		</div>
 		<div class="content_item_left">
 			<?php
@@ -246,7 +247,45 @@
 		</div>
 		<div class="content_item_left">
 			<?php
-				echo form_open("profile/send_message/" . $data['middle_name'], 'method="post"');
+				echo form_open("profile/send_message/" . $data['middle_name'], 'method="post" class="message_box"');
+				$name_input = array(
+					'name'			=>	'name',
+					'placeholder'	=>	'نام (اختیاری)',
+					'maxlength'		=> 	100
+				);
+				$title_input = array(
+					'name'			=>	'title',
+					'placeholder'	=>	'عنوان (اختیاری)',
+					'maxlength'		=> 	100
+				);
+				$emial_input = array(
+					'name'			=>	'email',
+					'required'		=>	'required',
+					'placeholder'	=>	'ایمیل (اجباری)',
+					'maxlength'		=> 	70
+				);
+				$message_input = array(
+					'name'			=>	'email',
+					'maxlength'		=> 	500
+				);
+				$captcha_input = array(
+					'name'			=>	'captcha',
+					'required'		=>	'required',
+					'placeholder'	=>	'کد امنیتی را وارد کنید',
+					'maxlength'		=> 	5
+				);
+				$submit_input = array(
+					'name'			=>	'submit',
+					'value'			=> 	'ارسال پیام'
+				);
+
+				echo '<p>' . form_input($name_input) . '<p>'		;
+				echo '<p>' . form_input($title_input) . '<p>'		;
+				echo '<p>' . form_input($emial_input) . '<p>'		;
+				echo '<p>' . form_textarea($message_input) . '<p>'	;
+				echo '<p>' . $data['captcha']['image'] . '<p>'		;
+				echo '<p>' . form_input($captcha_input) . '<p>'		;
+				echo '<p>' . form_submit($submit_input) . '<p>'		;
 			?>
 
 			<?php

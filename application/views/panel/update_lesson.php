@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) اطلاعات تحصیلی -) ویرایش اطلاعات تحصیلی</h2>
+<h2>پنل کاربری -) اطلاعات تحصیلی -) ویرایش</h2>
 <?php
 	echo form_open('user/update_lesson', 'method="post" class="panel_form"');
 

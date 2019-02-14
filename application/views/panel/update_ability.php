@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) توانایی ها -) ویرایش توانایی ها</h2>
+<h2>پنل کاربری -) توانایی ها -) ویرایش</h2>
 <?php
 	echo form_open('user/update_ability', 'method="post" class="panel_form"');
 

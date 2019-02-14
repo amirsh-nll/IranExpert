@@ -271,7 +271,7 @@ class panel extends IREX_Controller
 		$data = array
 		(
 			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - علاقه مندی',
+			'title'			=>	'پنل کاربری - توانایی ها',
 			'notice'		=>	$notice,
 			'ability_item'	=>	$ability
 		);
@@ -338,6 +338,39 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function update_project($project_id = 0, $notice = 0)
+	{
+		$project_id = xss_clean($project_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($project_id) || $project_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/project');
+		}
+
+		$this->load->model('project_model');
+		$project = $this->project_model->fetch_record_with_id($user_id, $project_id);
+
+		if($project==0)
+		{
+			redirect(base_url() . 'panel/project');
+		}
+
+		$this->session->set_userdata('project_id_for_update', $project_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش پروژه ها',
+			'notice'			=>	$notice,
+			'project_item'		=>	$project
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_project', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function article($notice = 0)
 	{
 		$notice  = xss_clean($notice);
@@ -360,6 +393,39 @@ class panel extends IREX_Controller
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/article', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function update_article($article_id = 0, $notice = 0)
+	{
+		$article_id = xss_clean($article_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($article_id) || $article_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/article');
+		}
+
+		$this->load->model('article_model');
+		$article = $this->article_model->fetch_record_with_id($user_id, $article_id);
+
+		if($article==0)
+		{
+			redirect(base_url() . 'panel/article');
+		}
+
+		$this->session->set_userdata('article_id_for_update', $article_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش مقالات',
+			'notice'			=>	$notice,
+			'article_item'		=>	$article
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_article', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
@@ -388,6 +454,39 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function update_achievement($achievement_id = 0, $notice = 0)
+	{
+		$achievement_id = xss_clean($achievement_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($achievement_id) || $achievement_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/achievement');
+		}
+
+		$this->load->model('achievement_model');
+		$achievement = $this->achievement_model->fetch_record_with_id($user_id, $achievement_id);
+
+		if($achievement==0)
+		{
+			redirect(base_url() . 'panel/achievement');
+		}
+
+		$this->session->set_userdata('achievement_id_for_update', $achievement_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش افتخارات',
+			'notice'			=>	$notice,
+			'achievement_item'	=>	$achievement
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_achievement', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function favorite($notice = 0)
 	{
 		$notice  = xss_clean($notice);
@@ -413,6 +512,39 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function update_favorite($favorite_id = 0, $notice = 0)
+	{
+		$favorite_id = xss_clean($favorite_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($favorite_id) || $favorite_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/favorite');
+		}
+
+		$this->load->model('favorite_model');
+		$favorite = $this->favorite_model->fetch_record_with_id($user_id, $favorite_id);
+
+		if($favorite==0)
+		{
+			redirect(base_url() . 'panel/favorite');
+		}
+
+		$this->session->set_userdata('favorite_id_for_update', $favorite_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش علاقه مندی ها',
+			'notice'			=>	$notice,
+			'favorite_item'		=>	$favorite
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_favorite', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function social($notice = 0)
 	{
 		$notice  = xss_clean($notice);
@@ -435,6 +567,39 @@ class panel extends IREX_Controller
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/social', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function update_social($social_id = 0, $notice = 0)
+	{
+		$social_id = xss_clean($social_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($social_id) || $social_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/social');
+		}
+
+		$this->load->model('social_model');
+		$social = $this->social_model->fetch_record_with_id($user_id, $social_id);
+
+		if($social==0)
+		{
+			redirect(base_url() . 'panel/social');
+		}
+
+		$this->session->set_userdata('social_id_for_update', $social_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش شبکه های اجتماعی',
+			'notice'			=>	$notice,
+			'social_item'		=>	$social
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_social', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
