@@ -47,7 +47,7 @@
 		<td><?php echo form_password($password_input); ?></td>
 	</tr>
 	<tr>
-		<td><strong>دلیل شما(اختیاری)</strong></td>
+		<td id="reason_label"><strong>دلیل شما<br/>(اختیاری)</strong></td>
 		<td><?php echo form_textarea($reason_input); ?></td>
 	</tr>
 	<tr>

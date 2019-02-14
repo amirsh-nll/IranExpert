@@ -55,12 +55,12 @@
 				</tr>
 			<?php endforeach;?>
 		</table>
-		<table class="page_number">
+		<table class="page_number" width="100%">
 			<tr>
 				<?php
 					for($i=1;$i<=$page_count;$i++)
 					{
-						if($i/18==round($i/18))
+						if($i/10==round($i/10))
 						{
 							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/activity/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td></tr><tr>';
 						}

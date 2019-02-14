@@ -134,6 +134,10 @@ class profile extends CI_Controller
 
 			if($this->captcha_model->check($code))
 			{
+				if($email==='no_reply@localhost.com' || $full_name==='مدیر')
+				{
+					redirect(base_url() . 'profile/' . $middle_name . '/4#message_form');
+				}
 				$this->load->model('message_model');
 				$message = $this->message_model->insert_message($user_id, $full_name, $title, $email, $message, $description);
 				if($message==1)

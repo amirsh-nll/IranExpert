@@ -70,8 +70,30 @@ class certificate_model extends CI_Model
 		if($result->num_rows()>0)
 		{
 			$result 	= $result->result_array();
-			$$result 	= $result=
+			$result 	= $result[0];
+			$data 		= array(
+				'id'		=>	$result['id'],
+				'user_id'	=>	$result['user_id'],
+				'status'	=>	$result['status'],
+				'start_date'=>	$result['start_date'],
+				'end_date'	=>	$result['end_date']
+			);
+			return $data;
 		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function certificate_status_change($certificate_id, $status)
+	{
+		$data = array(
+			'status'	=>	$status
+		);
+		$this->db->set($data);
+		$this->db->where('id', $certificate_id);
+		$this->db->update('certificate');
 	}
 }
 

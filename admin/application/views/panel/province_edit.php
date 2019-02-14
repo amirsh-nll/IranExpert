@@ -1,4 +1,4 @@
-<h2>پنل مدیریت -) استان ها</h2>
+<h2>پنل مدیریت -) استان ها -) ویرایش</h2>
 <?php 
 	echo form_open('admin/edit_province', 'method="post" class="panel_form"');
 	$province_input = array(

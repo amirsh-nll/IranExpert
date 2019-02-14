@@ -239,6 +239,21 @@ class user_model extends CI_Model
 		return $i;
 	}
 
+	public function search_user($middle_name)
+	{
+		$this->db->like('middle_name', $middle_name);
+		$result = $this->db->get('user');
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
 	public function change_password($user_id, $old, $new)
 	{
 		$this->db->where('id', $user_id);

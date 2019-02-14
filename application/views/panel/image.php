@@ -5,11 +5,12 @@
 	$image_file_input 	= '<input type="file" load-image="true" href-image="#imgTest" accept="image/png, image/jpeg" id="btnImageFile" name="userfile" />';
 	$image_submit 		= array(
 		'name'		=>	'image_submit',
-		'value'		=>	'آپلود'
+		'value'		=>	'آپلود',
+		'style'		=>	'float:none !important; width:40% !important;'
 	);
 ?>
 <p><strong>بارگذاری تصویر جدید:</strong></p>
-<table>
+<table width="100%">
 	<tr>
 		<td><strong>تصویر شما</strong></td>
 		<td><?php echo $image_file_input; ?></td>

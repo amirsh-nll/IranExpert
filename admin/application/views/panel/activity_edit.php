@@ -1,4 +1,4 @@
-<h2>پنل مدیریت -) زمینه فعالیت</h2>
+<h2>پنل مدیریت -) زمینه فعالیت -) ویرایش</h2>
 <?php 
 	echo form_open('admin/edit_activity', 'method="post" class="panel_form"');
 	$activity_input = array(

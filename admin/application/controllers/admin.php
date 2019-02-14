@@ -535,5 +535,96 @@ class admin extends CI_Controller
 	        }
 		}
 	}
+
+	public function certificate_manage()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'certificate_status',
+				'label'		=>	'وضعیت',
+				'rules'		=>	'numeric',
+				'errors'	=>	array(
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+		$certificate_id = $this->session->userdata('certificate_id');
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/certificate_manage/' . $certificate_id . '/1');
+		}
+		else
+		{
+			$status = $this->input->post('certificate_status', true);
+			if($status==1 || $status==0)
+			{
+				$this->load->model('certificate_model');
+				$this->certificate_model->certificate_status_change($certificate_id, $status);
+				redirect(base_url() . 'panel/certificate_manage/' . $certificate_id . '/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/certificate_manage/' . $certificate_id . '/1');
+			}
+		}
+	}
+
+	public function search_user()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'search',
+				'label'		=>	'وضعیت',
+				'rules'		=>	'max_length[70]',
+				'errors'	=>	array(
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/list_user');
+		}
+		else
+		{
+			$search = $this->input->post('search', true);
+			$this->load->model('user_model');
+			$user = $this->user_model->search_user($search);
+			
+			$this->load->model('message_model');
+			$user_id 		= $this->session->userdata('user_id');
+			$message_unread = $this->message_model->message_unread($user_id);
+
+			$i=0;
+			$users = '';
+			$this->load->model('login_model');
+
+			foreach ($user as $my_user) {
+				$users[$i] = array(
+					'id'			=>	$my_user['id'],
+					'middle_name'	=>	$my_user['middle_name'],
+					'email'			=>	$my_user['email'],
+					'last_login'	=>	$this->login_model->last_login($my_user['id'])
+				);
+				$i+=1;
+			}
+
+			$data = array(
+				'title'				=>	'پنل مدیریت - جستجو کاربران',
+				'url'				=>	base_url(),
+				'message_unread'	=>	$message_unread,
+				'user'				=>	$users
+			);
+			$this->load->view('panel/header', $data);
+			$this->load->view('panel/search_user', $data);
+			$this->load->view('panel/footer', $data);
+		}
+	}
 }
 ?>

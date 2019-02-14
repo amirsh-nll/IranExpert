@@ -8,12 +8,20 @@
 		}
 		echo '<div class="clear"></div>';
 ?>
-		<table class="page_number">
+		<table class="page_number" width="100%">
 			<tr>
 				<?php
 					for($i=1;$i<=$page_count;$i++)
 					{
-						echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_image/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td>';
+
+						if($i/10==round($i/10))
+						{
+							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td></tr><tr>';
+						}
+						else
+						{
+							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td>';
+						}
 					}
 				?>
 			</tr>

@@ -594,48 +594,112 @@ class panel extends IREX_Controller
 		}
 	}
 
-	public function report()
+	public function report($report_number=0)
 	{
-		$user_id = $this->session->userdata('user_id');
+		if(!is_numeric($report_number))
+		{
+			$report_number=0;
+		}
+		elseif($report_number < 0 || $report_number > 7)
+		{
+			$report_number=0;
+		}
 
+		$user_id = $this->session->userdata('user_id');
 		$this->load->model('message_model');
 		$message_unread = $this->message_model->message_unread($user_id);
 
-		$this->load->model('statistics_model');
-		$statistics_1 = $this->statistics_model->read_main_website_statistics();
-		$statistics_2 = $this->statistics_model->read_all_user_statistics();
-
-		$this->load->model('user_model');
-		$user_count = $this->user_model->user_count();
-		$user_active_count = $this->user_model->user_active_count();
-		$user_deactive_count = $this->user_model->user_deactive_count();
-		$register_today = $this->user_model->register_today();
-		$register_month = $this->user_model->register_month();
-		$register_year = $this->user_model->register_year();
-
-		$this->load->model('image_model');
-		$all_image = $this->image_model->image_count();
-		$all_default_image = $this->image_model->image_default_count();
-		$all_undefault_image = $this->image_model->image_undefault_count();
-
-		$this->load->model('login_model');
-		$login_today = $this->login_model->login_today();
-		$login_month = $this->login_model->login_month();
-		$login_year = $this->login_model->login_year();
-
-		$this->load->model('person_model');
-		$birthday_today		= $this->person_model->birthday_today();
-		$birthday_yesterday = $this->person_model->birthday_yesterday();
-		$birthday_month 	= $this->person_model->birthday_month();
-
 		$this->load->library('chart');
-		$chart_1 = $this->chart->statistics_chart($statistics_1['today'], $statistics_1['yesterday'], $statistics_1['total']);
-		$chart_2 = $this->chart->statistics_chart($statistics_2['today'], $statistics_2['yesterday'], $statistics_2['total']);
-		$chart_3 = $this->chart->user_count_chart($user_deactive_count, $user_active_count, $user_count);
-		$chart_4 = $this->chart->image_chart($all_image, $all_undefault_image, $all_default_image);
-		$chart_5 = $this->chart->login_chart($login_today, $login_month, $login_year);
-		$chart_6 = $this->chart->register_chart($register_today, $register_month, $register_year);
-		$chart_7 = $this->chart->birthday_chart($birthday_today, $birthday_yesterday, $birthday_month);
+
+		$chart_1 = '';
+		$chart_2 = '';
+		$chart_3 = '';
+		$chart_4 = '';
+		$chart_5 = '';
+		$chart_6 = '';
+		$chart_7 = '';
+
+		switch($report_number)
+		{
+			case 0:{
+				$this->load->model('statistics_model');
+				$statistics_1 = $this->statistics_model->read_main_website_statistics();
+				$statistics_2 = $this->statistics_model->read_all_user_statistics();
+				$this->load->model('user_model');
+				$user_count = $this->user_model->user_count();
+				$user_active_count = $this->user_model->user_active_count();
+				$user_deactive_count = $this->user_model->user_deactive_count();
+				$register_today = $this->user_model->register_today();
+				$register_month = $this->user_model->register_month();
+				$register_year = $this->user_model->register_year();
+				$this->load->model('image_model');
+				$all_image = $this->image_model->image_count();
+				$all_default_image = $this->image_model->image_default_count();
+				$all_undefault_image = $this->image_model->image_undefault_count();
+				$this->load->model('login_model');
+				$login_today = $this->login_model->login_today();
+				$login_month = $this->login_model->login_month();
+				$login_year = $this->login_model->login_year();
+				$this->load->model('person_model');
+				$birthday_today		= $this->person_model->birthday_today();
+				$birthday_yesterday = $this->person_model->birthday_yesterday();
+				$birthday_month 	= $this->person_model->birthday_month();
+				$this->load->library('chart');
+				$chart_1 = $this->chart->statistics_chart($statistics_1['today'], $statistics_1['yesterday'], $statistics_1['total']);
+				$chart_2 = $this->chart->statistics_chart($statistics_2['today'], $statistics_2['yesterday'], $statistics_2['total']);
+				$chart_3 = $this->chart->user_count_chart($user_deactive_count, $user_active_count, $user_count);
+				$chart_4 = $this->chart->image_chart($all_image, $all_undefault_image, $all_default_image);
+				$chart_5 = $this->chart->login_chart($login_today, $login_month, $login_year);
+				$chart_6 = $this->chart->register_chart($register_today, $register_month, $register_year);
+				$chart_7 = $this->chart->birthday_chart($birthday_today, $birthday_yesterday, $birthday_month);
+			} break;
+			case 1:{
+				$this->load->model('statistics_model');
+				$statistics_1 = $this->statistics_model->read_main_website_statistics();
+				$chart_1 = $this->chart->statistics_chart($statistics_1['today'], $statistics_1['yesterday'], $statistics_1['total']);
+			} break;
+			case 2:{
+				$this->load->model('statistics_model');
+				$statistics_2 = $this->statistics_model->read_all_user_statistics();
+				$chart_2 = $this->chart->statistics_chart($statistics_2['today'], $statistics_2['yesterday'], $statistics_2['total']);
+			} break;
+			case 3:{
+				$this->load->model('user_model');
+				$user_count = $this->user_model->user_count();
+				$user_active_count = $this->user_model->user_active_count();
+				$user_deactive_count = $this->user_model->user_deactive_count();
+				$chart_3 = $this->chart->user_count_chart($user_deactive_count, $user_active_count, $user_count);
+			} break;
+			case 4:{
+				$this->load->model('image_model');
+				$all_image = $this->image_model->image_count();
+				$all_default_image = $this->image_model->image_default_count();
+				$all_undefault_image = $this->image_model->image_undefault_count();
+				$chart_4 = $this->chart->image_chart($all_image, $all_undefault_image, $all_default_image);
+			} break;
+			case 5:{
+				$this->load->model('login_model');
+				$login_today = $this->login_model->login_today();
+				$login_month = $this->login_model->login_month();
+				$login_year = $this->login_model->login_year();
+				$chart_5 = $this->chart->login_chart($login_today, $login_month, $login_year);
+			} break;
+			case 6:{
+				$this->load->model('user_model');
+				$register_today = $this->user_model->register_today();
+				$register_month = $this->user_model->register_month();
+				$register_year = $this->user_model->register_year();
+				$chart_6 = $this->chart->register_chart($register_today, $register_month, $register_year);
+			} break;
+			case 7:{
+				$this->load->model('person_model');
+				$birthday_today		= $this->person_model->birthday_today();
+				$birthday_yesterday = $this->person_model->birthday_yesterday();
+				$birthday_month 	= $this->person_model->birthday_month();
+				$chart_7 = $this->chart->birthday_chart($birthday_today, $birthday_yesterday, $birthday_month);
+			} break;
+			default:{redirect(base_url() . 'panel/report');}
+		}
 
 		$data = array
 		(
@@ -648,6 +712,7 @@ class panel extends IREX_Controller
 			'chart_5'			=>	$chart_5,
 			'chart_6'			=>	$chart_6,
 			'chart_7'			=>	$chart_7,
+			'report_section'	=>	$report_number,
 			'message_unread'	=>	$message_unread
 		);
 		$this->load->view('panel/header', $data);
@@ -957,11 +1022,11 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function certificate_manage($middle_name='', $notice=0)
+	public function certificate_manage($certificate_id='', $notice=0)
 	{
-		$middle_name = xss_clean($middle_name);
+		$certificate_id = xss_clean($certificate_id);
 		$notice = xss_clean($notice);
-		if(empty($middle_name))
+		if(empty($certificate_id))
 		{
 			redirect(base_url() . 'panel/certificate');
 		}
@@ -969,23 +1034,25 @@ class panel extends IREX_Controller
 		$this->load->model('message_model');
 		$user_id 		= $this->session->userdata('user_id');
 		$message_unread = $this->message_model->message_unread($user_id);
-
-		$this->load->model('user_model');
-		$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
 		
 		$this->load->model('certificate_model');
-		$this->certificate_model->
+		$certificate = $this->certificate_model->read_certificate_status($certificate_id);
+		$this->session->set_userdata('certificate_id', $certificate['id']);
 
-		$user_id_for_read = $this->user_model->fetch_user_id_with_middle_name($middle_name);
-		$user  = $this->user_model->read_user($user_id_for_read);
-		$this->session->set_userdata('user_for_edit', $user_id_for_read);
+		if($certificate==0)
+		{
+			redirect(base_url() . 'panel/certificate');
+		}
+
+		$this->load->model('user_model');
+		$middle_name = $this->user_model->fetch_middle_name_with_user_id($certificate['user_id']);
 
 		$data = array(
 			'title'				=>	'پنل مدیریت - مدیریت مجوز رسمیت',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'middle_name'		=>	$middle_name,
-			'status_value'		=>	$status,
+			'certificate'		=>	$certificate,
 			'notice'			=>	$notice
 		);
 		$this->load->view('panel/header', $data);

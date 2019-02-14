@@ -6,7 +6,8 @@
 	$identity_card_2_input 	= '<input type="file" load-image="true" href-image="#imgTest2" accept="image/png, image/jpeg" id="btnImageFile" name="userfile2" />';
 	$image_submit 		= array(
 		'name'		=>	'image_submit',
-		'value'		=>	'ثبت مدارک'
+		'value'		=>	'ثبت مدارک',
+		'style'		=>	'float:none !important; width:40% !important;'
 	);
 ?>
 <p><strong>وضعیت پروفایل رسمی:</strong>
@@ -23,7 +24,7 @@
 </p>
 <p>&nbsp;</p>
 <p><strong>بارگذاری مدارک:</strong></p>
-<table>
+<table width="100%">
 	<tr>
 		<td><strong>تصویر شناسنامه</strong></td>
 		<td><?php echo $identity_card_1_input; ?></td>

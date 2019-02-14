@@ -20,17 +20,18 @@
 						<a target="_blank" href="../../upload/<?php echo $my_certificate['identity_1']; ?>" target="_blank" class="retrive_data_table_upload" title="مشاهده مدرک شناسایی اول"><span class="fa fa-lg fa-upload"></span></a>
 						<a target="_blank" href="../../upload/<?php echo $my_certificate['identity_2']; ?>" class="retrive_data_table_upload" title="مشاهده مدرک شناسایی دوم"><span class="fa fa-lg fa-upload"></span></a>
 						<a href="<?=$url; ?>panel/certificate_manage/<?php echo $my_certificate['id']; ?>" class="retrive_data_table_certificate" title="مدیریت مجوز رسمیت"><span class="fa fa-lg fa-certificate"></span></a>
+						<a href="../../profile/<?php echo $my_certificate['middle_name']; ?>" target="_blank" class="retrive_data_table_globe" title="مشاهده پروفایل"><span class="fa fa-lg fa-globe"></span></a>
 					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
-		<table class="page_number">
+		<table class="page_number" width="100%">
 			<tr>
 				<?php
 					for($i=1;$i<=$page_count;$i++)
 					{
 
-						if($i/18==round($i/18))
+						if($i/10==round($i/10))
 						{
 							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td></tr><tr>';
 						}

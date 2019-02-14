@@ -1,4 +1,4 @@
-<h2>پنل مدیریت -) لیست کاربران</h2>
+<h2>پنل مدیریت -) لیست کاربران -) جستجو</h2>
 <p><strong>جستجو کاربران:</strong></p>
 <?php
 	echo form_open('admin/search_user', 'method="post" class="search_user"');
@@ -13,7 +13,7 @@
 		'value'			=>	'جستجو'
 	);
 ?>
-<table width="100%" id="search_box">
+<table width="100%">
 	<tr>
 		<td width="70%"><?php echo form_input($search_input); ?></td>
 		<td width="30%"><?php echo form_submit($submit_input); ?></td>
@@ -24,7 +24,7 @@
 ?>
 
 <p>&nbsp;</p>
-<p><strong>لیست کاربران:</strong></p>
+<p><strong>نیتجه جستجو:</strong></p>
 <?php
 	if($user!=0)
 	{
@@ -51,24 +51,6 @@
 				</tr>
 			<?php endforeach;?>
 		</table>
-		<table class="page_number" width="100%">
-			<tr>
-				<?php
-					for($i=1;$i<=$page_count;$i++)
-					{
-
-						if($i/10==round($i/10))
-						{
-							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td></tr><tr>';
-						}
-						else
-						{
-							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td>';
-						}
-					}
-				?>
-			</tr>
-		</table>
 		<?php
 	}
 	else
@@ -89,5 +71,5 @@
 ?>
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
-<p>در این صفحه با استفاده از عملیات های مدیریتی می توانید روی کاربران خود مدیریت داشته باشید.</p>
+<p>در این صفحه لیست کاربران را با توحه به عبارت جستجو شده مشاهده می کنید.</p>
 <p>عملیات های مدیریتی روی کاربران در حال حاظر روبروی آنها قرار دارد که با استفاده از هر مورد می توانید عملیات خود را روی کاربر مورد نظر انجام دهید.</p>
