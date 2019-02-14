@@ -68,9 +68,8 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'person_first_name',
 				'label'		=>	'نام',
-				'rules'		=>	'required|min_length[2]|max_length[50]',
+				'rules'		=>	'min_length[2]|max_length[50]',
 				'errors'	=>	array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
@@ -78,9 +77,8 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'person_last_name',
 				'label'		=>	'نام خانوادگی',
-				'rules'		=>	'required|min_length[2]|max_length[50]',
+				'rules'		=>	'min_length[2]|max_length[50]',
 				'errors'	=>	array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
@@ -113,7 +111,7 @@ class user extends IREX_Controller
 				)
 			),
 			array(
-				'field'		=>	'person_activity',
+				'field'		=>	'person_activity_id',
 				'label'		=>	'زمینه فعالیت',
 				'rules'		=>	'required|numeric',
 				'errors'	=>	array(
@@ -161,13 +159,13 @@ class user extends IREX_Controller
 			$first_name = 	$this->input->post('person_first_name', true);
 			$last_name 	= 	$this->input->post('person_last_name', true);
 			$birthday 	= 	$this->input->post('person_birth_year', true) . '/' . $this->input->post('person_birth_month', true) . '/' . $this->input->post('person_birth_day', true);
-			$activity 	= 	$this->input->post('person_activity', true);
+			$activity_id= 	$this->input->post('person_activity_id', true);
 			$gender 	= 	$this->input->post('person_gender', true);
 			$marriage 	= 	$this->input->post('person_marriage', true);
 			$about 		=	$this->input->post('person_about', true);
 
 			$this->load->model('person_model');
-			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity, $gender, $marriage, $about);
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $about);
 
 			redirect(base_url() . 'panel/person/2#content_view');
 		}

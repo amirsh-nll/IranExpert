@@ -128,7 +128,7 @@ class admin extends CI_Controller
 				)
 			),
 			array(
-				'field'		=>	'person_activity',
+				'field'		=>	'person_activity_id',
 				'label'		=>	'زمینه فعالیت',
 				'rules'		=>	'numeric',
 				'errors'	=>	array(
@@ -231,7 +231,7 @@ class admin extends CI_Controller
 			$first_name 		= 	$this->input->post('person_first_name', true);
 			$last_name 			= 	$this->input->post('person_last_name', true);
 			$birthday 			= 	$this->input->post('person_birth_year', true) . '/' . $this->input->post('person_birth_month', true) . '/' . $this->input->post('person_birth_day', true);
-			$activity 			= 	$this->input->post('person_activity', true);
+			$activity_id		= 	$this->input->post('person_activity_id', true);
 			$gender 			= 	$this->input->post('person_gender', true);
 			$marriage 			= 	$this->input->post('person_marriage', true);
 			$about 				=	$this->input->post('person_about', true);
@@ -243,7 +243,7 @@ class admin extends CI_Controller
 			$address 			= 	$this->input->post('contact_address', true);
 
 			$this->load->model('person_model');
-			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity, $gender, $marriage, $about);
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $about);
 
 			$this->load->model('contact_model');
 			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address);

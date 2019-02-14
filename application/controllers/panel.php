@@ -82,6 +82,9 @@ class panel extends IREX_Controller
 		$this->load->model('person_model');
 		$person = $this->person_model->read_person($user_id);
 		$person = $person[0];
+
+		$this->load->model('activity_model');
+		$activity = $this->activity_model->read_all_activity();
 		
 		$birthday = explode('/', $person['birthday']);
 		
@@ -96,10 +99,11 @@ class panel extends IREX_Controller
 			'birth_day_value'	=>	$birthday[2],
 			'birth_month_value'	=>	$birthday[1],
 			'birth_year_value'	=>	$birthday[0],
-			'activity_value'	=>	$person['activity'],
+			'activity_id_value'	=>	$person['activity_id'],
 			'gender_value'		=>	$person['gender'],
 			'marriage_value'	=>	$person['marriage'],
-			'about_value'		=>	$person['about']
+			'about_value'		=>	$person['about'],
+			'activity'			=>	$activity
 		);
 
 		$this->load->view('panel/header', $data);
