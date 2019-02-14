@@ -18,6 +18,30 @@ class user_model extends CI_Model
 
 	public function new_user($email, $password, $middle_name)
 	{
+		$rand_top = 100;
+		$new_middle_name = $middle_name;
+		$loop = 1;
+		while($loop)
+		{
+			$this->db->where('middle_name', $new_middle_name);
+			$result = $this->db->get('user');
+			if($result->num_rows()>0)
+			{
+				$new_middle_name = $middle_name . rand(1, $rand_top);
+				$rand_top*=10;
+				$loop=1;
+			}
+			else
+			{
+				$loop=0;
+				break;
+			}
+		}
+		if($new_middle_name != $middle_name)
+		{
+			$middle_name = $new_middle_name;
+		}
+
 		$data = array
 		(
 			'type'			=>	0,

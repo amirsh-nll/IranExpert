@@ -2,24 +2,12 @@
 <?php
 	if($images!=0)
 	{
-		?>
-		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
-			<tr>
-				<td>نام کاربری</td>
-				<td>نام فایل</td>
-				<td>عملیات مدیریتی</td>
-			</tr>
-			<?php foreach ($images as $my_image): ?>
-				<tr>
-					<td style="width:30%; padding:5px; text-align:center;"><?php echo $my_image['middle_name']; ?></td>
-					<td style="width:50%; padding:5px; text-align:center;"><?php echo $my_image['file_name']; ?></td>
-					<td style="width:20%; text-align:center;">
-						<a href="<?=$url; ?>panel/delete_image/<?php echo $my_image['middle_name'] . '/' . $current_page; ?>" class="retrive_data_table_delete" title="حذف تصویر"><span class="fa fa-lg fa-close"></span></a>
-						<a href="../../../../upload/<?php echo $my_image['file_name']; ?>" target="_blank" class="retrive_data_table_globe" title="مشاهده تصویر"><span class="fa fa-lg fa-globe"></span></a>
-					</td>
-				</tr>
-			<?php endforeach;?>
-		</table>
+		foreach ($images as $my_image)
+		{
+			echo '<div class="image_list_item"><img width="200" height="200" src="../../../../upload/' . $my_image['file_name'] . '" title="' . $my_image['middle_name'] . '" /><p>نام کاربری: ' . $my_image['middle_name'] . '</p><a class="delete_active_image" href="' . $url . 'panel/delete_image/' . $my_image['middle_name'] . '" title="حذف"><span class="fa fa-lg fa-close"></span><span style="font-size:20px;">حذف تصویر</span></a></div>';
+		}
+		echo '<div class="clear"></div>';
+?>
 		<table class="page_number">
 			<tr>
 				<?php
@@ -61,5 +49,4 @@
 ?>
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
-<p>در این صفحه با استفاده از عملیات های مدیریتی می توانید روی  تصاویر کاربران خود مدیریت داشته باشید.</p>
-<p>عملیات های مدیریتی روی تصاویر کاربران در حال حاظر روبروی آنها قرار دارد که با استفاده از هر مورد می توانید عملیات خود را روی تصاویر کاربر مورد نظر انجام دهید.</p>
+<p>در این صفحه می توانید تصاویر کاربران حتلف را مشاهده کنید و با حذف تصاویر غیر مجاز مدیریت قاطعی روی کاربران داشته باشید.</p>

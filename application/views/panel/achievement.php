@@ -59,7 +59,7 @@
 	if($achievement_item!=0)
 	{
 		?>
-		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
 				<td>نام افتخار</td>
 				<td>توضیحات</td>
@@ -81,7 +81,7 @@
 	else
 	{
 		?>
-		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
 				<td style="width:23%;">نام افتخار</td>
 				<td style="width:70%;">توضیحات</td>

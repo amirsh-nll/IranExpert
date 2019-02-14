@@ -374,7 +374,7 @@ class panel extends IREX_Controller
 		$this->session->set_userdata('user_for_edit', $user_id_for_read);
 
 		$data = array(
-			'title'				=>	'پنل مدیریت - مسدود سازی',
+			'title'				=>	'پنل مدیریت - وضعیت کاربر',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'middle_name'		=>	$middle_name,
@@ -514,6 +514,7 @@ class panel extends IREX_Controller
 			redirect(base_url() . 'panel/list_image/1');
 		}
 		$current_page = $page;
+		$this->session->set_userdata('page', $page);
 
 		$this->load->model('message_model');
 		$user_id 		= $this->session->userdata('user_id');
@@ -527,8 +528,8 @@ class panel extends IREX_Controller
 		}
 
 		$image_count = $this->image_model->image_count();
-		$page 		 = $image_count / 10;
-		if($page * 10 - 9 < $image_count)
+		$page 		 = $image_count / 9;
+		if($page * 9 - 8 < $image_count)
 		{
 			$page+=1;
 		}
@@ -556,10 +557,15 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function delete_image($middle_name='', $page=1)
+	public function delete_image($middle_name='')
 	{
 		$middle_name = xss_clean($middle_name);
-		$page 		 = xss_clean($page);
+		$page 		 = $this->session->userdata('page');
+		if(!is_numeric($page) || $page < 0)
+		{
+			$page = 1;
+		}
+		
 		if($middle_name=='')
 		{
 			redirect(base_url() . 'panel/list_image/' . $page . '/1#notice_view');
@@ -840,6 +846,46 @@ class panel extends IREX_Controller
 		else
 		{
 			redirect(base_url() . 'panel/province/1/4#retrive_data_table');
+		}
+	}
+
+	public function slideshow($notice=0)
+	{
+		$notice = xss_clean($notice);
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('slideshow_model');
+		$slideshow = $this->slideshow_model->read_slideshow();
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - اسلایدشو',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'slideshow_item'	=>	$slideshow
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/slideshow', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function delete_slideshow($slideshow_id=0)
+	{
+		$slideshow_id = xss_clean($slideshow_id);
+
+		if($slideshow_id==0)
+		{
+			redirect(base_url() . 'panel/slideshow/4#slideshow_item');
+		}
+		else
+		{
+			$this->load->model('slideshow_model');
+			$this->slideshow_model->delete_slideshow($slideshow_id);
+
+			redirect(base_url() . 'panel/slideshow/5#slideshow_item');
 		}
 	}
 

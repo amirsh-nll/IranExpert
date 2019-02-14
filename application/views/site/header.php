@@ -58,8 +58,11 @@
 				?>
 				<div class="slideshow">
 					<ul>
-						<li><img src="<?=$url; ?>assets/image/slide1.png" title="اسلاید شماره 1" alt="اسلاید شماره 1"></li>
-		    			<li><img src="<?=$url; ?>assets/image/slide2.png" title="اسلاید شماره 2" alt="اسلاید شماره 2"></li>
+						<?php
+							foreach ($slideshow as $my_slideshow) {
+								echo '<li><img src="' . $url . 'upload/' . $my_slideshow['file_name'] . '" title="' . $my_slideshow['title'] . '" alt="' . $my_slideshow['title'] . '" /></li>';
+							}
+						?>
 					</ul>
 				</div>
 				<?php

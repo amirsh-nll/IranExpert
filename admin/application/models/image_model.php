@@ -45,9 +45,9 @@ class image_model extends CI_Model
 	{
 		if($page!=1)
 		{
-			$page = $page * 10 - 9;
+			$page = $page * 9 - 8;
 		}
-		$this->db->limit(10, $page);
+		$this->db->limit(9, $page);
 		$result = $this->db->get('image');
 
 		if($result->num_rows()>0)

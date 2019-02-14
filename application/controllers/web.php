@@ -20,10 +20,14 @@ class web extends CI_Controller
 
 	public function index()
 	{
+		$this->load->model('slideshow_model');
+		$slideshow = $this->slideshow_model->read_slideshow();
+
 		$data = array(
 			'url'		=>	base_url(),
 			'title'		=>	'پروفایل آنلاین ایرانیان',
-			'page'		=>	'index'
+			'page'		=>	'index',
+			'slideshow'	=>	$slideshow
 			);
 
 		$this->statistics();

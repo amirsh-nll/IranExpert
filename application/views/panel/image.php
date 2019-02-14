@@ -2,17 +2,25 @@
 <?php
 	echo form_open_multipart('user/add_image', 'method="post" class="panel_form"');
 
-	$image_file_input 	= '<input type="file" name="userfile" />';
+	$image_file_input 	= '<input type="file" load-image="true" href-image="#imgTest" accept="image/png, image/jpeg" id="btnImageFile" name="userfile" />';
 	$image_submit 		= array(
 		'name'		=>	'image_submit',
 		'value'		=>	'آپلود'
 	);
 ?>
 <p><strong>بارگذاری تصویر جدید:</strong></p>
-<table class="image_upload_table">
+<table>
 	<tr>
-		<td style="width:50%;"><?php echo $image_file_input; ?></td>
-		<td style="width:50%;"><?php echo form_submit($image_submit); ?></td>
+		<td><strong>تصویر شما</strong></td>
+		<td><?php echo $image_file_input; ?></td>
+	</tr>
+	<tr>
+		<td><strong>پیشنمایش</strong></td>
+		<td><img src="<?=$url; ?>assets/image/preview.png" width="200" height="100" alt="Not found..." id="imgTest" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><?php echo form_submit($image_submit); ?></td>
 	</tr>
 </table>
 

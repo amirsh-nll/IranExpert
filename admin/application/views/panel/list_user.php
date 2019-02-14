@@ -18,7 +18,7 @@
 					<td style="width:20%; text-align:center;">
 						<a href="<?=$url; ?>panel/view_user_information/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_eye" title="نمایش اطلاعات"><span class="fa fa-lg fa-eye"></span></a>
 						<a href="<?=$url; ?>panel/user_edit/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_edit" title="ویرایش اطلاعات"><span class="fa fa-lg fa-edit"></span></a>
-						<a href="<?=$url; ?>panel/user_ban/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_ban" title="مسدود سازی"><span class="fa fa-lg fa-ban"></span></a>
+						<a href="<?=$url; ?>panel/user_ban/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_ban" title="وضعیت کاربر"><span class="fa fa-lg fa-ban"></span></a>
 						<a href="<?=$url; ?>panel/user_message/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_comment" title="ارسال پیام"><span class="fa fa-lg fa-comment"></span></a>
 						<a href="../../profile/<?php echo $my_user['middle_name']; ?>" target="_blank" class="retrive_data_table_globe" title="مشاهده پروفایل"><span class="fa fa-lg fa-globe"></span></a>
 					</td>

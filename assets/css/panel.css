@@ -53,13 +53,10 @@ a
 }
 .right_content li
 {
-	background:#fff;
+	background:#23282d;
+	border-right:10px solid #3e56a6;
 	margin-bottom:10px;
 	padding:5px;
-}
-.right_content li
-{
-	background:#3e56a6;
 }
 .right_content a
 {
@@ -178,7 +175,7 @@ a
 {
 	color:#e50;
 }
-.image_upload_table input[type="file"]
+.panel_form input[type="file"]
 {
 	font-size:15px !important;
 	font-family:'irex', tahoma;
@@ -276,6 +273,20 @@ border-top:1px solid #000;
 	text-align:center;
 	width:70px;
 	background:#fc0;
+}
+.active_menu
+{
+	background:#3e56a6 !important;
+}
+.out_menu
+{
+	background:#aa0000 !important;
+	border-right:10px solid #550000 !important;
+}
+.profile_menu
+{
+	background:#999900 !important;
+	border-right:10px solid #333300 !important;
 }
 .footer
 {

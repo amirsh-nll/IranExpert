@@ -57,6 +57,11 @@ a
 	margin:0px;
 	padding:0px;
 }
+.slideshow img
+{
+	width:900px;
+	height:300px;
+}
 .ability
 {
 	margin:30px auto;
@@ -244,7 +249,8 @@ a
 	}
 	.slideshow img
 	{
-		width:450px;
+		width:450px !important;
+		height:200px !important;
 	}
 	.content
 	{
@@ -304,7 +310,8 @@ a
 	}
 	.slideshow img
 	{
-		width:220px;
+		width:220px !important;
+		height:150px !important;
 	}
 	.content
 	{

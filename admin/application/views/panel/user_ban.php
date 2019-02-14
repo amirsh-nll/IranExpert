@@ -1,4 +1,4 @@
-<h2>پنل مدیریت -) لیست کاربران -) مسدودسازی</h2>
+<h2>پنل مدیریت -) لیست کاربران -) وضعیت کاربر</h2>
 <?php
 	echo form_open('admin/user_ban', 'method="post" class="panel_form"');
 	$status_item = array(

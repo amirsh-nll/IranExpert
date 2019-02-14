@@ -482,5 +482,58 @@ class admin extends CI_Controller
 			redirect(base_url() . 'panel/province/1/2');
 		}
 	}
+
+	public function new_slideshow()
+	{
+        $rules = array(
+			array(
+				'field'		=>	'title',
+				'label'		=>	'عنوان اسلاید',
+				'rules'		=>	'max_length[70]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/slideshow/1#content_view');
+		}
+		else
+		{
+			$config['upload_path']          = '../upload/';
+	        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+	        $config['max_size']             = 7500;
+	        $config['max_width']            = 950;
+	        $config['max_height']           = 450;
+			$this->load->library('upload', $config);
+
+	        if ( ! $this->upload->do_upload('userfile'))
+	        {
+	        	$error = array('error' => $this->upload->display_errors());
+				redirect(base_url() . 'panel/slideshow/1#content_view');
+	        }
+	        else
+	        {
+	        	$data 			= array('upload_data' => $this->upload->data());
+	        	$title			= $this->input->post('title', true);
+	        	$description 	= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+	        	$this->load->model('slideshow_model');
+	        	$slideshow = $this->slideshow_model->insert_slideshow($this->upload->data('file_name'), $title, $description);
+
+	        	if($slideshow==0)
+	        	{
+	        		redirect(base_url() . 'panel/slideshow/3#content_view');
+	        	}
+	        	else
+	        	{
+	        		redirect(base_url() . 'panel/slideshow/2#content_view');
+	        	}
+	        }
+		}
+	}
 }
 ?>

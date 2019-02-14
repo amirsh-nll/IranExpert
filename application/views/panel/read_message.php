@@ -34,7 +34,7 @@
 	</tr>
 	<tr>
 		<td>پیام</td>
-		<td><strong><?php echo $message_item['message']; ?></strong></td>
+		<td style="text-align:justify;"><strong><?php echo $message_item['message']; ?></strong></td>
 	</tr>
 </table>
 <p>&nbsp;</p>

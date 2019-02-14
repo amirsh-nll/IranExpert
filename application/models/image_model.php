@@ -26,6 +26,7 @@ class image_model extends CI_Model
 			$data = array
 			(
 				'file_name'		=>	'default.png',
+				'time'			=>	now(),
 				'description'	=>	 $description
 			);
 			$this->db->set($data);
@@ -39,6 +40,7 @@ class image_model extends CI_Model
 			(
 				'user_id'		=>	$user_id,
 				'file_name'		=>	'default.png',
+				'time'			=>	now(),
 				'description'	=>	''
 			);
 			$this->db->insert('image', $data);
@@ -51,6 +53,7 @@ class image_model extends CI_Model
 		$data = array
 		(
 			'file_name'		=>	$new_file_name,
+			'time'			=>	now(),
 			'description'	=>	$description
 		);
 		$this->db->set($data);
