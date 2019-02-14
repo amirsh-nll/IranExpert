@@ -75,7 +75,7 @@ class profile extends CI_Controller
 				array(
 					'field'		=>	'title',
 					'label'		=>	'موضوع پیام',
-					'rules'		=>	'required|min_length[3]|max_length[100]',
+					'rules'		=>	'min_length[3]|max_length[100]',
 					'errors'	=>	array(
 						'required'		=>	'فیلد %s معتبر نمی باشد.',
 						'min_length'	=>	'فیلد %s معتبر نمی باشد.',

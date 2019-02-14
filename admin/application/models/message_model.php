@@ -16,7 +16,7 @@ class message_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function insert_message($user_id, $title, $message, $description)
+	public function insert_message($user_id, $title, $message)
 	{
 		$data = array
 		(
@@ -28,7 +28,7 @@ class message_model extends CI_Model
 			'title'			=>	$title,
 			'email'			=>	'no-reply@localhost.com',
 			'message'		=>	$message,
-			'description'	=>	$description
+			'description'	=>	'Send By Admin'
 		);
 
 		$this->db->insert('message', $data);

@@ -70,8 +70,28 @@ class user_model extends CI_Model
 		}
 	}
 
-	public function read_user_list()
+	public function read_user($user_id)
 	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function read_user_list($page=1)
+	{
+		if($page!=1)
+		{
+			$page = $page * 10 - 9;
+		}
+		$this->db->limit(10, $page);
 		$result = $this->db->get('user');
 
 		if($result->num_rows()>0)
@@ -82,6 +102,82 @@ class user_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+
+	public function user_count()
+	{
+		$result = $this->db->get('user');
+		return $result->num_rows();
+	}
+
+	public function fetch_user_id_with_middle_name($middle_name)
+	{
+		$this->db->where('middle_name', $middle_name);
+		$result = $this->db->get('user', 1);
+
+		if($result->num_rows()!=1)
+		{
+			return 0;
+		}
+		else
+		{
+			foreach($result->result() as $row)
+			{
+				$id = $row->id;
+			}
+			return $id;
+		}
+	}
+
+	public function fetch_middle_name_with_user_id($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		if($result->num_rows()!=1)
+		{
+			return 0;
+		}
+		else
+		{
+			foreach($result->result() as $row)
+			{
+				$middle_name = $row->middle_name;
+			}
+			return $middle_name;
+		}
+	}
+
+	public function change_middle_name($user_id, $middle_name)
+	{
+		$data = array(
+			'middle_name'	=>	$middle_name
+		);
+		$this->db->set($data);
+		$this->db->where('id', $user_id);
+		$this->db->update('user');
+	}
+
+	public function suspend_user($user_id)
+	{
+		$data = array(
+			'status'		=>	0,
+			'description'	=>	'Suspend Reason : Admin is Suspend'
+		);
+		$this->db->set($data);
+		$this->db->where('id', $user_id);
+		$this->db->update('user');
+	}
+
+	public function unsuspend_user($user_id)
+	{
+		$data = array(
+			'status'		=>	1,
+			'description'	=>	''
+		);
+		$this->db->set($data);
+		$this->db->where('id', $user_id);
+		$this->db->update('user');
 	}
 
 	public function change_password($user_id, $old, $new)
