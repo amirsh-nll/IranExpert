@@ -780,6 +780,32 @@ class panel extends IREX_Controller
 		return $message_unread;
 	}
 
+	public function certificate($notice=0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/certificate');
+		}
+
+		$this->load->model('certificate_model');
+		$certificate = $this->certificate_model->certificate_status($user_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - رسمی کردن پروفایل',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'certificate_status'=>	$certificate
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/certificate', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function profile()
 	{
 		$user_id = $this->session->userdata('user_id');

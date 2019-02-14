@@ -261,6 +261,17 @@ class panel extends IREX_Controller
 			$address = $province . ' / ' . $city . " / " . $contact['address'];
 		}
 
+		$this->load->model('certificate_model');
+		$certificate = $this->certificate_model->certificate_status($user_id_for_read);
+		if($certificate!=0)
+		{
+			$certificate = 'رسمی، اعتبار تا تاریخ:' . $this->jdf->jdate(" j / F / Y " ,$certificate);
+		}
+		else
+		{
+			$certificate = 'غیر رسمی';
+		}
+
 		$data = array(
 			'title'				=>	'پنل مدیریت - نمایش اطلاعات کاربر',
 			'url'				=>	base_url(),
@@ -279,7 +290,8 @@ class panel extends IREX_Controller
 			'mobile'			=>	$mobile,
 			'phone'				=>	$phone,
 			'postal_code'		=>	$postal_code,
-			'address'			=>	$address
+			'address'			=>	$address,
+			'certificate'		=>	$certificate
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/user_information', $data);
@@ -887,6 +899,98 @@ class panel extends IREX_Controller
 
 			redirect(base_url() . 'panel/slideshow/5#slideshow_item');
 		}
+	}
+
+	public function certificate($page=1)
+	{
+		$page = xss_clean($page);
+		if(!is_numeric($page))
+		{
+			redirect(base_url() . 'panel/certificate/1');
+		}
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+		
+		$this->load->model('certificate_model');
+		$certificate = $this->certificate_model->read_certificate_list($page);
+		if($certificate==0 && $page != 1)
+		{
+			redirect(base_url() . 'panel/certificate/1');
+		}
+
+		$certificate_count  = $this->certificate_model->certificate_count();
+		$page 				= $certificate_count / 10;
+		if($page * 10 - 9 < $certificate_count)
+		{
+			$page+=1;
+		}
+
+		$i=0;
+		$certificates='';
+		$this->load->model('user_model');
+
+		foreach ($certificate as $my_certificate) {
+			$certificates[$i] = array(
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_certificate['user_id']),
+				'id'			=>	$my_certificate['id'],
+				'status'		=>	$my_certificate['status'],
+				'identity_1'	=>	$my_certificate['identity_1'],
+				'identity_2'	=>	$my_certificate['identity_2'],
+				'start_date'	=>	$my_certificate['start_date'],
+				'end_date'	=>	$my_certificate['end_date']
+			);
+			$i+=1;
+		}
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - مجوزهای رسمیت',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'page'				=>	$page,
+			'certificate'		=>	$certificates,
+			'page_count'		=>	$page
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/certificate', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function certificate_manage($middle_name='', $notice=0)
+	{
+		$middle_name = xss_clean($middle_name);
+		$notice = xss_clean($notice);
+		if(empty($middle_name))
+		{
+			redirect(base_url() . 'panel/certificate');
+		}
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('user_model');
+		$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
+		
+		$this->load->model('certificate_model');
+		$this->certificate_model->
+
+		$user_id_for_read = $this->user_model->fetch_user_id_with_middle_name($middle_name);
+		$user  = $this->user_model->read_user($user_id_for_read);
+		$this->session->set_userdata('user_for_edit', $user_id_for_read);
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - مدیریت مجوز رسمیت',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'middle_name'		=>	$middle_name,
+			'status_value'		=>	$status,
+			'notice'			=>	$notice
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/certificate_manage', $data);
+		$this->load->view('panel/footer', $data);
 	}
 
 	public function out()

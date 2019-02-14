@@ -28,7 +28,8 @@
 		?>
 	</div>
 	<div class="intero_section2">
-		<h1><?=$data['full_name']; ?> <p class="report_profile"><a title="گزارش تخلف" href="<?=$url; ?>report/<?=$data['middle_name']; ?>">[ <span>گزارش تخلف پروفایل</span><span class="fa fa-lg fa-bullhorn"></span> ]</a></p></h1>
+		<h1><?=$data['full_name']; ?> <?php if($data['certificate']==1){echo '<img src="' . $url . 'assets/image/certification.png" title="پروفایل رسمی" alt="پروفایل رسمی" width="25" />';} ?></h1>
+		<p class="report_profile"><a title="گزارش تخلف" href="<?=$url; ?>report/<?=$data['middle_name']; ?>">[ <span>گزارش تخلف پروفایل</span><span class="fa fa-lg fa-bullhorn"></span> ]</a></p>
 		<p>تاریخ تولد : <?=$this->jdf->tr_num($data['birthday']); ?></p>
 		<p>وضعیت تاهل : <?=$data['marriage']; ?></p>
 		<p>زمینه فعالیت : <?=$data['activity']; ?></p>

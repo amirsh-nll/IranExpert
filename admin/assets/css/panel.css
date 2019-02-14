@@ -180,7 +180,7 @@ a
 {
 	color:#1f3a93;
 }
-.retrive_data_table_edit, .retrive_data_table_read
+.retrive_data_table_edit, .retrive_data_table_read, .retrive_data_table_certificate
 {
 	color:#d35400;
 }
@@ -192,12 +192,12 @@ a
 {
 	color:#9a12b3;
 }
-.retrive_data_table_globe
+.retrive_data_table_globe, .retrive_data_table_upload
 {
 	color:#26a65b;
 }
 
-.retrive_data_table_eye, .retrive_data_table_edit, .retrive_data_table_ban, .retrive_data_table_comment, .retrive_data_table_globe
+.retrive_data_table_eye, .retrive_data_table_delete, .retrive_data_table_edit, .retrive_data_table_ban, .retrive_data_table_comment, .retrive_data_table_globe, .retrive_data_table_upload, .retrive_data_table_certificate
 {
 	margin:0px 3px;
 }

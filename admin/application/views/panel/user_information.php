@@ -61,6 +61,10 @@
 		<td><?=$type; ?></td>
 	</tr>
 	<tr>
+		<td>رسمیت پروفایل:</td>
+		<td><?=$certificate; ?></td>
+	</tr>
+	<tr>
 		<td style="border:none;"></td>
 		<td><a href="<?=$url; ?>panel/list_user" class="return_key" title="بازگشت">بازگشت</a></td>
 	</tr>

@@ -65,7 +65,7 @@
 			case 'read_message':{$active_menu_number = 14;}			break;
 			case 'setting':{$active_menu_number = 15;}				break;
 			case 'suspend_accont':{$active_menu_number = 15;}		break;
-			case 'read_message':{$active_menu_number = 9;}			break;
+			case 'certificate':{$active_menu_number = 16;}			break;
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
@@ -106,6 +106,7 @@
 						<li <?php if($active_menu_number==13){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/statistics" titile="آمار">آمار</a></li>
 						<li <?php if($active_menu_number==14){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
 						<li <?php if($active_menu_number==15){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
+						<li <?php if($active_menu_number==16){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" titile="رسمی کردن پروفایل">رسمی کردن پروفایل</a></li>
 						<li class="profile_menu"><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل" target="_blank">مشاهده پروفایل</a></li>
 						<li class="out_menu"><a href="<?=$url; ?>panel/out" titile="مشاهده پروفایل">خروج</a></li>
 					</ul>

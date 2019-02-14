@@ -61,6 +61,33 @@ class contact_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$this->db->update('contact');
 	}
+
+	public function check_fill($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('contact', 1);
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			$result = $result[0];
+			if(
+				empty($result['mobile_number'])	||
+				empty($result['phone_number']) 	||
+				empty($result['postal_code']) 	||
+				empty($result['province_id']) 	||
+				empty($result['city_name']) 	||
+				empty($result['address'])
+			)
+			{
+				return 0;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+	}
 }
 
 ?>

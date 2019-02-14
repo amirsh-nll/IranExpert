@@ -318,6 +318,14 @@ class profile extends CI_Controller
 		$this->load->model('social_model');
 		$social = $this->social_model->read_social($user_id);
 
+		/* User Profile SocialData */
+		$this->load->model('certificate_model');
+		$certificate = $this->certificate_model->certificate_status($user_id);
+		if($certificate!=0)
+		{
+			$certificate = 1;
+		}
+
 		/* Captcha For Send Message */
 		$captcha = array(
 	        'img_path'      => './captcha/',
@@ -365,6 +373,7 @@ class profile extends CI_Controller
 			'achievement'	=>	$achievement,
 			'favorite'		=>	$favorite,
 			'social'		=>	$social,
+			'certificate'	=>	$certificate,
 			'copyright'		=>	$copyright,
 			'captcha'		=>	$cap
 		);

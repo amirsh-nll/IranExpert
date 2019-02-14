@@ -1822,6 +1822,85 @@ class user extends IREX_Controller
 			}
 		}
 	}
+
+	public function certificate()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('person_model');
+        $person = $this->person_model->check_fill($user_id);
+        if($person!=1)
+        {
+        	redirect(base_url() . 'panel/certificate/3#content_view'); 
+        }
+        $this->load->model('contact_model');
+        $contact = $this->contact_model->check_fill($user_id);
+        if($contact!=1)
+        {
+        	redirect(base_url() . 'panel/certificate/4#content_view'); 
+        }
+
+		$config['upload_path']          = './upload/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $config['max_size']             = 7500;
+        $config['max_width']            = 2048;
+        $config['max_height']           = 2048;
+        $identity_1						= '';
+        $identity_2						= '';
+       	$this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('userfile1'))
+        {
+			redirect(base_url() . 'panel/certificate/1#content_view');
+        }
+        else
+        {
+        	$identity_1 = $this->upload->data('file_name');
+        }
+        if (!$this->upload->do_upload('userfile2'))
+        {
+			redirect(base_url() . 'panel/certificate/1#content_view');
+        }
+        else
+        {
+        	$identity_2 = $this->upload->data('file_name');
+        }
+
+
+        if(!empty($identity_1) && !empty($identity_2))
+        {
+        	$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+        	$this->load->model('certificate_model');
+        	$certificate = $this->certificate_model->new_certificate($user_id, $identity_1, $identity_2, now(), now()+31536000, $description);
+        	if($certificate==1)
+        	{
+        		redirect(base_url() . 'panel/certificate/2#content_view');
+        	}
+        	else
+        	{
+        		if(!empty($identity_1))
+	        	{
+	        		delete_files('./upload/' . $identity_1);
+	        	}
+	        	if(!empty($identity_2))
+	        	{
+	        		delete_files('./upload/' . $identity_2);
+	        	}
+	        	redirect(base_url() . 'panel/certificate/5#content_view');
+        	}
+        }
+        else
+        {
+        	if(!empty($identity_1))
+        	{
+        		delete_files('./upload/' . $identity_1);
+        	}
+        	if(!empty($identity_2))
+        	{
+        		delete_files('./upload/' . $identity_2);
+        	}
+        	redirect(base_url() . 'panel/certificate/1#content_view');
+        }
+	}
 }
 
 ?>

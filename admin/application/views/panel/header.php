@@ -55,8 +55,9 @@
 			case 'province':{$active_menu_number = 7;}				break;
 			case 'province_edit':{$active_menu_number = 7;}			break;
 			case 'slideshow':{$active_menu_number = 8;}				break;
-			case 'message':{$active_menu_number = 9;}				break;
-			case 'read_message':{$active_menu_number = 9;}			break;
+			case 'certificate':{$active_menu_number = 9;}			break;
+			case 'message':{$active_menu_number = 10;}				break;
+			case 'read_message':{$active_menu_number = 10;}			break;
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
@@ -90,7 +91,8 @@
 						<li <?php if($active_menu_number==6){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/activity" titile="زمینه های فعالیت">زمینه های فعالیت</a></li>
 						<li <?php if($active_menu_number==7){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/province" titile="استان ها">استان ها</a></li>
 						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/slideshow" titile="اسلاید شو">اسلاید شو</a></li>
-						<li <?php if($active_menu_number==9){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
+						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" titile="مجوزهای رسمیت">مجوزهای رسمیت</a></li>
+						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
 						<li class="system_menu"><a target="_blank" href="<?php echo $system_address; ?>" titile="مشاهده سامانه">مشاهده سامانه</a></li>
 						<li class="out_menu"><a href="<?=$url; ?>panel/out" titile="خروج">خروج</a></li>
 					</ul>

@@ -82,6 +82,35 @@ class person_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function check_fill($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('person', 1);
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			$result = $result[0];
+			if(
+				empty($result['first_name'])	||
+				empty($result['last_name']) 	||
+				empty($result['birthday']) 		||
+				empty($result['activity_id']) 	||
+				empty($result['gender']) 		||
+				empty($result['marriage']) 		||
+				empty($result['webpage_url'])	||
+				empty($result['about'])
+			)
+			{
+				return 0;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+	}
 }
 
 ?>
