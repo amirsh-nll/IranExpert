@@ -1321,6 +1321,365 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function report_view_profile()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('statistics_model');
+		$statistics = $this->statistics_model->read_all_user_statistics();
+		$chart = $this->chart->statistics_chart($statistics['today'], $statistics['yesterday'], $statistics['total']);
+
+		$this->load->model('user_model');
+		$today 		=$this->statistics_model->top_visit_today_statistics();
+		$yesterday 	=$this->statistics_model->top_visit_yesterday_statistics();
+		$total 		=$this->statistics_model->top_visit_total_statistics();
+
+		$i=0;
+		foreach ($today as $my_today) {
+			$today_data[$i]= array
+			(
+				'today'			=>	$my_today['today'],
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_today['user_id'])
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($yesterday as $my_yesterday) {
+			$yesterday_data[$i]= array
+			(
+				'yesterday'		=>	$my_yesterday['yesterday'],
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_yesterday['user_id'])
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($total as $my_total) {
+			$total_data[$i]= array
+			(
+				'total'			=>	$my_total['total'],
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_total['user_id'])
+			);
+			$i+=1;
+		}
+		
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل مدیریت - ریز گزارش بازدید سایت اصلی',
+			'chart'				=>	$chart,
+			'today_data'		=>	$today_data,
+			'yesterday_data'	=>	$yesterday_data,
+			'total_data'		=>	$total_data,
+			'message_unread'	=>	$message_unread,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_view_profile', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_user()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('statistics_model');
+		$statistics = $this->statistics_model->read_all_user_statistics();
+		$chart = $this->chart->statistics_chart($statistics['today'], $statistics['yesterday'], $statistics['total']);
+
+		$this->load->model('user_model');
+		$user_count = $this->user_model->user_count();
+		$user_active_count = $this->user_model->user_active_count();
+		$user_deactive_count = $this->user_model->user_deactive_count();
+		$chart = $this->chart->user_count_chart($user_deactive_count, $user_active_count, $user_count);
+
+		$deactive 	= $this->user_model->top_deactive_user();
+		$active 	= $this->user_model->top_active_user();
+
+		$i=0;
+		foreach ($deactive as $my_deactive) {
+			$deactive_data[$i]= array
+			(
+				'status'		=>	$my_deactive['status'],
+				'middle_name'	=>	$my_deactive['middle_name']
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($active as $my_active) {
+			$active_data[$i]= array
+			(
+				'status'		=>	$my_active['status'],
+				'middle_name'	=>	$my_active['middle_name']
+			);
+			$i+=1;
+		}
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل مدیریت - ریز گزارش کاربران',
+			'chart'				=>	$chart,
+			'deactive_data'		=>	$deactive_data,
+			'active_data'		=>	$active_data,
+			'message_unread'	=>	$message_unread,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_user', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_user_image()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('image_model');
+		$all_image = $this->image_model->image_count();
+		$all_default_image = $this->image_model->image_default_count();
+		$all_undefault_image = $this->image_model->image_undefault_count();
+		$chart = $this->chart->image_chart($all_image, $all_undefault_image, $all_default_image);
+
+		$user_default_image 	= $this->image_model->top_user_default_image();
+		$user_undefault_image 	= $this->image_model->top_user_undefault_image();
+
+		$this->load->model('user_model');
+
+		$i=0;
+		foreach ($user_default_image as $my_user_default_image) {
+			$user_default_image_data[$i]= array
+			(
+				'file_name'		=>	$my_user_default_image['file_name'],
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_user_default_image['user_id'])
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($user_undefault_image as $my_user_undefault_image) {
+			$user_undefault_image_data[$i]= array
+			(
+				'file_name'		=>	$my_user_undefault_image['file_name'],
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_user_undefault_image['user_id'])
+			);
+			$i+=1;
+		}
+
+		$data = array
+		(
+			'url'						=>	base_url(),
+			'title'						=>	'پنل مدیریت - ریز گزارش تصاویر پروفایل کاربران',
+			'chart'						=>	$chart,
+			'user_default_image_data'	=>	$user_default_image_data,
+			'user_undefault_image_data'	=>	$user_undefault_image_data,
+			'message_unread'			=>	$message_unread,
+			'reminder_count'			=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_user_image', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_user_login()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('login_model');
+		$login_today = $this->login_model->login_today();
+		$login_month = $this->login_model->login_month();
+		$login_year = $this->login_model->login_year();
+		$chart = $this->chart->login_chart($login_today, $login_month, $login_year);
+
+		$login_today_data 		= $this->login_model->login_today_data();
+		$login_yesterday_data 	= $this->login_model->login_yesterday_data();
+
+		$this->load->model('user_model');
+
+		$i=0;
+		foreach ($login_today_data as $my_login_today_data) {
+			$today_data[$i]= array
+			(
+				'time'			=>	$this->jdf->jdate("H:i:s" , $my_login_today_data['time']),
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_login_today_data['user_id'])
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($login_yesterday_data as $my_login_yesterday_data) {
+			$yesterday_data[$i]= array
+			(
+				'time'			=>	$this->jdf->jdate("H:i:s" , $my_login_yesterday_data['time']),
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_login_yesterday_data['user_id'])
+			);
+			$i+=1;
+		}
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل مدیریت - ریز گزارش ورود کاربران',
+			'chart'				=>	$chart,
+			'today_data'		=>	$today_data,
+			'yesterday_data'	=>	$yesterday_data,
+			'message_unread'	=>	$message_unread,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_user_login', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_user_register()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('user_model');
+		$register_today = $this->user_model->register_today();
+		$register_month = $this->user_model->register_month();
+		$register_year 	= $this->user_model->register_year();
+		$chart = $this->chart->register_chart($register_today, $register_month, $register_year);
+
+		$today_register_user 	= $this->user_model->today_register_user();
+		$month_register_user 	= $this->user_model->month_register_user();
+
+		$i=0;
+		foreach ($today_register_user as $my_today_register_user) {
+			$today_register_user_data[$i]= array
+			(
+				'middle_name'	=>	$my_today_register_user['middle_name']
+			);
+			$i+=1;
+		}
+
+		$i=0;
+		foreach ($month_register_user as $my_month_register_user) {
+			$month_register_user_data[$i]= array
+			(
+				'middle_name'	=>	$my_month_register_user['middle_name']
+			);
+			$i+=1;
+		}
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل مدیریت - ریز گزارش عضویت کاربران',
+			'chart'				=>	$chart,
+			'today_data'		=>	$today_register_user_data,
+			'month_data'		=>	$month_register_user_data,
+			'message_unread'	=>	$message_unread,
+			'reminder_count'	=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_user_register', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_user_birthday()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->library('chart');
+		$this->load->model('person_model');
+		$birthday_today		= $this->person_model->birthday_today();
+		$birthday_yesterday = $this->person_model->birthday_yesterday();
+		$birthday_month 	= $this->person_model->birthday_month();
+		$chart = $this->chart->birthday_chart($birthday_today, $birthday_yesterday, $birthday_month);
+
+		$user_birthday_today		= $this->person_model->user_birthday_today();
+		$user_birthday_yesterday	= $this->person_model->user_birthday_yesterday();
+		$user_birthday_month		= $this->person_model->user_birthday_month();
+
+		$this->load->model('user_model');
+
+		if($user_birthday_today===0)
+		{
+			$user_birthday_today_data=0;
+		}
+		else
+		{
+			$i=0;
+			foreach ($user_birthday_today as $my_user_birthday_today) {
+				$user_birthday_today_data[$i]= array
+				(
+					'birthday'	 =>	$my_user_birthday_today['birthday'],
+					'middle_name'=>	$this->user_model->fetch_middle_name_with_user_id($my_user_birthday_today['user_id'])
+				);
+				$i+=1;
+			}
+		}
+
+		if($user_birthday_yesterday===0)
+		{
+			$user_birthday_yesterday_data = 0;
+		}
+		else
+		{
+			$i=0;
+			foreach ($user_birthday_yesterday as $my_user_birthday_yesterday) {
+				$user_birthday_yesterday_data[$i]= array
+				(
+					'birthday'	 =>	$my_user_birthday_yesterday['birthday'],
+					'middle_name'=>	$this->user_model->fetch_middle_name_with_user_id($my_user_birthday_yesterday['user_id'])
+				);
+				$i+=1;
+			}
+		}
+
+		if($user_birthday_month===0)
+		{
+			$user_birthday_month_data = 0;
+		}
+		else
+		{
+			$i=0;
+			foreach ($user_birthday_month as $my_user_birthday_month) {
+				$user_birthday_month_data[$i]= array
+				(
+					'birthday'	 =>	$my_user_birthday_month['birthday'],
+					'middle_name'=>	$this->user_model->fetch_middle_name_with_user_id($my_user_birthday_month['user_id'])
+				);
+				$i+=1;
+			}
+		}
+
+		$data = array
+		(
+			'url'							=>	base_url(),
+			'title'							=>	'پنل مدیریت - ریز گزارش تولد کاربران',
+			'chart'							=>	$chart,
+			'user_birthday_today_data'		=>	$user_birthday_today_data,
+			'user_birthday_yesterday_data'	=>	$user_birthday_yesterday_data,
+			'user_birthday_month_data'		=>	$user_birthday_month_data,
+			'message_unread'				=>	$message_unread,
+			'reminder_count'				=>	$this->reminder_count()
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report_user_birthday', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function out()
 	{
 		$this->session->set_userdata('user_id');

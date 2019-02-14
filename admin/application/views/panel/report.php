@@ -27,7 +27,7 @@
 	}
 	if($chart_2!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش بازدید کل پروفایل ها:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش بازدید کل پروفایل ها:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_view_profile" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_2;
 		if($report_section==2)
 		{
@@ -40,7 +40,7 @@
 	}
 	if($chart_3!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش کاربران:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش کاربران:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_user" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_3;
 		if($report_section==3)
 		{
@@ -53,7 +53,7 @@
 	}
 	if($chart_4!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش تصاویر پروفایل کاربران:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش تصاویر پروفایل کاربران:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_user_image" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_4;
 		if($report_section==4)
 		{
@@ -66,7 +66,7 @@
 	}
 	if($chart_5!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش دفعات ورود به پنل توسط کاربران:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش دفعات ورود به پنل توسط کاربران:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_user_login" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_5;
 		if($report_section==5)
 		{
@@ -79,7 +79,7 @@
 	}
 	if($chart_6!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش عضویت کاربران:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش عضویت کاربران:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_user_register" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_6;
 		if($report_section==6)
 		{
@@ -92,7 +92,7 @@
 	}
 	if($chart_7!='')
 	{
-		echo '<p>&nbsp;</p><p><strong>گزارش تولد کاربران:</strong></p>';
+		echo '<p>&nbsp;</p><p><strong>گزارش تولد کاربران:</strong> (<a class="report_full_key" href="' . $url . 'panel/report_user_birthday" title="جزئیات بیشتر">جزئیات بیشتر</a>)</p>';
 		echo $chart_7;
 		if($report_section==7)
 		{

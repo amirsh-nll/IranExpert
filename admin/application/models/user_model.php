@@ -378,6 +378,70 @@ class user_model extends CI_Model
 			return $time;
 		}
 	}
+
+	public function top_deactive_user()
+	{
+		$this->db->where('status' ,0);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('user', 10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function top_active_user()
+	{
+		$this->db->where('status' ,1);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('user', 10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function today_register_user()
+	{
+		$this->db->where('time >' ,now()-86400);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('user', 10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function month_register_user()
+	{
+		$this->db->where('time >' ,now()-2592000);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('user', 10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

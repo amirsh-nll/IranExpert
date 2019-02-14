@@ -4,7 +4,7 @@
 	echo form_open($url . 'admin/search_user', 'method="post" class="search_user"');
 	$search_input = array(
 		'name'			=>	'search',
-		'placeholder'	=>	'جستجو کاربر',
+		'placeholder'	=>	'جستجو با نام کاربری',
 		'maxlength'		=>	'70',
 		'style'			=>	'width:100% !important;'
 	);

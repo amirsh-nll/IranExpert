@@ -165,5 +165,85 @@ class person_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function user_birthday_today()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_day = $this->jdf->tr_numes($this->jdf->jdate('j', now()));
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		$data='';
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month && $birthday[2] == $this_day)
+			{
+				$data[$i] = $my_result;
+				$i+=1;
+			}
+		}
+		if($i==0)
+		{
+			return 0;
+		}
+		else
+		{
+			return $data;
+		}
+	}
+
+	public function user_birthday_yesterday()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_day = $this->jdf->tr_numes($this->jdf->jdate('j', now()));
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		$data='';
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month && $birthday[2] == $this_day-1)
+			{
+				$data[$i] = $my_result;
+				$i+=1;
+			}
+		}
+		if($i==0)
+		{
+			return 0;
+		}
+		else
+		{
+			return $data;
+		}
+	}
+
+	public function user_birthday_month()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		$data='';
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month)
+			{
+				$data[$i] = $my_result;
+				$i+=1;
+			}
+		}
+		if($i==0)
+		{
+			return 0;
+		}
+		else
+		{
+			return $data;
+		}
+	}
 }
 ?>

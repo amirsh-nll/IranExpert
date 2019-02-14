@@ -119,6 +119,38 @@ class image_model extends CI_Model
 
 		return $result;
 	}
+
+	public function top_user_default_image()
+	{
+		$this->db->where('file_name', 'default.png');
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('image',10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function top_user_undefault_image()
+	{
+		$this->db->where('file_name<>', 'default.png');
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('image',10);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

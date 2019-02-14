@@ -94,6 +94,40 @@ class login_model extends CI_Model
 		}
 		return $i;
 	}
+
+	public function login_today_data()
+	{
+		$this->db->where('time >', now()-86400);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('login', 10);
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			return $result;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function login_yesterday_data()
+	{
+		$this->db->where('time >', now()-172800);
+		$this->db->order_by('id', 'DESC');
+		$result = $this->db->get('login', 10);
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			return $result;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

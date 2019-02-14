@@ -65,6 +65,12 @@
 			case 'search_user':{$active_menu_number = 3;}			break;
 			case 'list_image':{$active_menu_number = 4;}			break;
 			case 'report':{$active_menu_number = 5;}				break;
+			case 'report_view_profile':{$active_menu_number = 5;}	break;
+			case 'report_user':{$active_menu_number = 5;}			break;
+			case 'report_user_image':{$active_menu_number = 5;}		break;
+			case 'report_user_login':{$active_menu_number = 5;}		break;
+			case 'report_user_register':{$active_menu_number = 5;}	break;
+			case 'report_user_birthday':{$active_menu_number = 5;}	break;
 			case 'activity':{$active_menu_number = 6;}				break;	
 			case 'activity_edit':{$active_menu_number = 6;}			break;
 			case 'province':{$active_menu_number = 7;}				break;
