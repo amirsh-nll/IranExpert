@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_image Table.
+ * Name 		: Image Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_image Table.
  *
 */
 

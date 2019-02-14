@@ -3,212 +3,344 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/24
+ * Name : User Controller
+ * Date : 1395/08/13
  * Auther : A.shokri
- * Description : The Controller From Load Main Website Page.
+ * Description : The Controller From Handle User Panel Data.
  *
 */
 
-class User extends CI_Controller
+class user extends IREX_Controller
 {
-	public function register()
+	public function index()
+	{
+		redirect('panel/index');
+	}
+
+	public function edit_person()
 	{
 		$rules = array(
-				array(
-					'field'=>'email',
-					'label'=>'آدرس ایمیل',
-					'rules'=>'required|valid_email|is_unique[user.email]',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'valid_email'=>'فیلد %s معتبر نمی باشد.',
-						'is_unique'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'password',
-					'label'=>'رمز عبور',
-					'rules'=>'required|min_length[5]|max_length[40]',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'min_length'=>'فیلد %s معتبر نمی باشد.',
-						'max_length'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'repassword',
-					'label'=>'تکرار رمز عبور',
-					'rules'=>'required|matches[password]',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'matches'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'rules_check',
-					'label'=>'پذیرش قوانین',
-					'rules'=>'numeric',
-					'errors'=>array(
-						'numeric'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'captcha',
-					'label'=>'کد امنیتی',
-					'rules'=>'required',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-			);
+			array(
+				'field'		=>	'person_first_name',
+				'label'		=>	'نام',
+				'rules'		=>	'required|min_length[2]|max_length[50]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_last_name',
+				'label'		=>	'نام خانوادگی',
+				'rules'		=>	'required|min_length[2]|max_length[50]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_birth_day',
+				'label'		=>	'روز تولد',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_birth_month',
+				'label'		=>	'ماه تولد',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_birth_year',
+				'label'		=>	'سال تولد',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_gender',
+				'label'		=>	'جنسیت',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_marriage',
+				'label'		=>	'وضعیت تاهل',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'person_about',
+				'label'		=>	'درباره من',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
 
 		$this->form_validation->set_rules($rules);
 
-		$this->load->model('captcha_model');
-
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'web/register/1');
+			redirect(base_url() . 'panel/person/1');
 		}
 		else
 		{
-			$email = $this->input->post('email',true);
-			$password = $this->input->post('password',true);
-			$rules_check = $this->input->post('rules_check',true);
-			$code = $this->input->post('captcha',true);
+			$user_id 	= 	$this->session->userdata('user_id');
+			$first_name = 	$this->input->post('person_first_name', true);
+			$last_name 	= 	$this->input->post('person_last_name', true);
+			$birthday 	= 	$this->input->post('person_birth_year', true) . '/' . $this->input->post('person_birth_month', true) . '/' . $this->input->post('person_birth_day', true);
+			$gender 	= 	$this->input->post('person_gender', true);
+			$marriage 	= 	$this->input->post('person_marriage', true);
+			$about 		=	$this->input->post('person_about', true);
 
-			if($rules_check!=1)
+			$this->load->model('person_model');
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $gender, $marriage, $about);
+
+			redirect(base_url() . 'panel/person/2');
+		}
+	}
+
+	public function add_lesson()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'lesson_title',
+				'label'		=>	'عنوان دوره',
+				'rules'		=>	'required|min_length[3]|max_length[100]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_start_month',
+				'label'		=>	'ماه شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_start_year',
+				'label'		=>	'سال شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_end_month',
+				'label'		=>	'ماه پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_end_year',
+				'label'		=>	'سال پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_description',
+				'label'		=>	'توضیحات دوره',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/lesson/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$lesson_title 	= $this->input->post('lesson_title', true);
+			$start_date 	= $this->input->post('lesson_start_year', true) . '/' . $this->input->post('lesson_start_month', true);
+			$end_date 		= $this->input->post('lesson_end_year', true) . '/' . $this->input->post('lesson_end_month', true);
+			$description 	= $this->input->post('lesson_description', true);
+
+			$this->load->model('lesson_model');
+			$lesson = $this->lesson_model->insert_lesson($user_id, $lesson_title, $start_date, $end_date, $description);
+
+			if($lesson==1)
 			{
-				redirect(base_url() . 'web/register/3');
-			}
-
-			if($this->captcha_model->check($code))
-			{
-				$this->load->model('user_model');
-				$user_id = $this->user_model->new_user($email, $password);
-
-				$this->load->model('person_model');
-				$this->person_model->blank_person($user_id);
-				
-				$this->load->model('contacts_model');
-				$this->contacts_model->blank_contacts($user_id);
-
-				$this->load->model('state_model');
-				$this->state_model->blank_state($user_id);
-
-				redirect(base_url() . 'web/login/4');
-
+				redirect(base_url() . 'panel/lesson/2');
 			}
 			else
 			{
-				redirect(base_url() . 'web/register/2');
+				redirect(base_url() . 'panel/lesson/3');
 			}
 		}
 	}
 
-	public function login()
+	public function delete_lesson($id)
 	{
-		$rules = array(
-				array(
-					'field'=>'email',
-					'label'=>'آدرس ایمیل',
-					'rules'=>'required|valid_email',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'valid_email'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'password',
-					'label'=>'رمز عبور',
-					'rules'=>'required|min_length[5]|max_length[40]',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'min_lenth'=>'فیلد %s معتبر نمی باشد.',
-						'max_lenth'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'captcha',
-					'label'=>'کد امنیتی',
-					'rules'=>'required',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-			);
-
-		$this->form_validation->set_rules($rules);
-
-		$this->load->model('captcha_model');
-
-		if($this->form_validation->run()==false)
+		$id = xss_clean($id);
+		if(is_numeric($id))
 		{
-			redirect(base_url() . 'web/login/1');
-		}
-		else
-		{
-			$email = $this->input->post('email',true);
-			$password = $this->input->post('password',true);
-			$code = $this->input->post('captcha',true);
-
-			if($this->captcha_model->check($code))
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('lesson_model');
+			$lesson = $this->lesson_model->delete_lesson($id, $user_id);
+			echo $lesson;
+			if($lesson == 1)
 			{
-				$this->load->model('user_model');
-				$login = $this->user_model->check_user_for_login($email, $password);
-				if($login!=0)
-				{
-					$session = array(
-						'user_id'=>$login,
-						'login'=>true
-					);
-					$this->session->set_userdata($session);
-					redirect(base_url() . 'panel/index');
-				}
-				else
-				{
-					redirect(base_url() . 'web/login/1');
-				}
-
+				redirect(base_url() . 'panel/lesson/5');
 			}
 			else
 			{
-				redirect(base_url() . 'web/login/2');
+				redirect(base_url() . 'panel/lesson/4');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/lesson/4');
+		}
+	}
+
+	public function add_job()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'job_title',
+				'label'		=>	'عنوان شغل',
+				'rules'		=>	'required|min_length[3]|max_length[100]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_start_month',
+				'label'		=>	'ماه شرعو شغل',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_start_year',
+				'label'		=>	'سال شرعو شغل',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_end_month',
+				'label'		=>	'ماه پایان شغل',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_end_year',
+				'label'		=>	'سال پایان شغل',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_description',
+				'label'		=>	'توضیحات شغل',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/job/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$job_title 	= $this->input->post('job_title', true);
+			$start_date 	= $this->input->post('job_start_year', true) . '/' . $this->input->post('job_start_month', true);
+			$end_date 		= $this->input->post('job_end_year', true) . '/' . $this->input->post('job_end_month', true);
+			$description 	= $this->input->post('job_description', true);
+
+			$this->load->model('job_model');
+			$job = $this->job_model->insert_job($user_id, $job_title, $start_date, $end_date, $description);
+
+			if($job == 1)
+			{
+				redirect(base_url() . 'panel/job/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/job/3');
 			}
 		}
 	}
 
-	public function forget()
+	public function delete_job($id)
 	{
-		$rules = array(
-				array(
-					'field'=>'email',
-					'label'=>'آدرس ایمیل',
-					'rules'=>'required|valid_email',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.',
-						'valid_email'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-				array(
-					'field'=>'captcha',
-					'label'=>'کد امنیتی',
-					'rules'=>'required',
-					'errors'=>array(
-						'required'=>'فیلد %s معتبر نمی باشد.'
-						)
-					),
-			);
-
-		$this->form_validation->set_rules($rules);
-
-		if($this->form_validation->run()==false)
+		$id = xss_clean($id);
+		if(is_numeric($id))
 		{
-			redirect(base_url() . 'web/forget/1');
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('job_model');
+			$lesson = $this->job_model->delete_job($id, $user_id);
+			echo $lesson;
+			if($lesson == 1)
+			{
+				redirect(base_url() . 'panel/job/5');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/job/4');
+			}
 		}
 		else
 		{
-
+			redirect(base_url() . 'panel/job/4');
 		}
 	}
 }
+
+?>

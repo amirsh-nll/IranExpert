@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_state Table.
+ * Name 		: State Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_state Table.
  *
 */
 
@@ -20,7 +20,8 @@ class state_model extends CI_Model
 	{
 		$data = array
 		(
-			'user_id'=>$user_id
+			'user_id'		=>	$user_id,
+			'view_count'	=> 	0
 		);
 
 		$this->db->insert('state', $data);

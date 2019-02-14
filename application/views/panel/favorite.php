@@ -3,18 +3,18 @@
 	echo form_open('data/favorite','method="post" class="panel_form"');
 
 	$favorite_title_input = array(
-		'name'=>'favorite_title',
-		'place_holder'=>'عنوان شغل',
-		'maxlength'=>'100',
-		'required'=>'required'
+		'name'			=>	'favorite_title',
+		'place_holder'	=>	'عنوان شغل',
+		'maxlength'		=>	'100',
+		'required'		=>	'required'
 	);
 	$favorite_description = array(
-		'name'=>'favorite_description',
-		'maxlength'=>'255',
+		'name'			=>	'favorite_description',
+		'maxlength'		=>	'255',
 	);
 	$submit_input = array(
-		'name'=>'favorite_submit',
-		'value'=>'ثبت'
+		'name'			=>	'favorite_submit',
+		'value'			=>	'ثبت'
 	);
 ?>
 

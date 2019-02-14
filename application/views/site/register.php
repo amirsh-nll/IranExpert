@@ -3,36 +3,36 @@
 			<img src="<?=$url; ?>assets/image/logo.png" title="iranExpert Logo" alt="iranExpert Logo" />
 		</div>
 		<div class="box">
-			<?php echo form_open('user/register','method="post"'); ?>
+			<?php echo form_open('form/register','method="post"'); ?>
 				<div class="box_right">
 					<?php
 						$email_input = array(
-							'name'=>'email',
-							'placeholder'=>'ایمیل',
-							'required'=>'required'
+							'name'			=>	'email',
+							'placeholder'	=>	'ایمیل',
+							'required'		=>	'required'
 						);
 						$password_input = array(
-							'name'=>'password',
-							'placeholder'=>'رمز عبور',
-							'required'=>'required'
+							'name'			=>	'password',
+							'placeholder'	=>	'رمز عبور',
+							'required'		=>	'required'
 						);
 						$repassword_input = array(
-							'name'=>'repassword',
-							'placeholder'=>'تکرار رمز عبور',
-							'required'=>'required'
+							'name'			=>	'repassword',
+							'placeholder'	=>	'تکرار رمز عبور',
+							'required'		=>	'required'
 						);
 						$rules_check_input = array(
-							'name'=>'rules_check',
-							'value'=>'1'
+							'name'			=>	'rules_check',
+							'value'			=>	'1'
 						);
 						$captcha_input = array(
-							'name'=>'captcha',
-							'placeholder'=>'گد امنیتی',
-							'required'=>'required'
+							'name'			=>	'captcha',
+							'placeholder'	=>	'گد امنیتی',
+							'required'		=>	'required'
 						);
 						$submit_input = array(
-							'name'=>'submit',
-							'value'=>'ثبت نام'
+							'name'			=>	'submit',
+							'value'			=>	'ثبت نام'
 						);
 						echo form_input($email_input);
 						echo form_password($password_input);

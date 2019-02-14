@@ -1,12 +1,12 @@
 <h2>اطلاعات شغلی</h2>
 <?php
-	echo form_open('data/job','method="post" class="panel_form"');
+	echo form_open('user/add_job','method="post" class="panel_form"');
 
 	$job_title_input = array(
-		'name'=>'job_title',
-		'place_holder'=>'عنوان شغل',
-		'maxlength'=>'100',
-		'required'=>'required'
+		'name'			=>	'job_title',
+		'place_holder'	=>	'عنوان شغل',
+		'maxlength'		=>	'100',
+		'required'		=>	'required'
 	);
 	for($i=1;$i<=12;$i++)
 	{
@@ -25,12 +25,12 @@
 		$job_end_year_item[$i]=$i;
 	}
 	$job_description = array(
-		'name'=>'job_description',
-		'maxlength'=>'255',
+		'name'			=>	'job_description',
+		'maxlength'		=>	'255',
 	);
 	$submit_input = array(
-		'name'=>'job_submit',
-		'value'=>'ثبت'
+		'name'			=>	'job_submit',
+		'value'			=>	'ثبت'
 	);
 ?>
 
@@ -56,8 +56,77 @@
 		<td><?php echo form_submit($submit_input); ?></td>
 	</tr>
 </table>
+
+<?php
+	if($notice == 1)
+	{
+		echo '<p style="color:#f00;">اطلاعات وارد شده نامعتبر می باشند.</p>';
+	}
+	elseif ($notice == 2)
+	{
+		echo '<p style="color:#3acc17;">اطلاعات با موفقیت ذخیره شد.</p>';
+	}
+	elseif ($notice == 3)
+	{
+		echo '<p style="color:#f00;">شما نمی توانید در این بخش بیش از 5 رکورد داشته باشید.</p>';
+	}
+?>
+
 <p>&nbsp;</p>
 <p>لیست دوره های شغلی :</p>
+<?php
+	if($job_item!=0)
+	{
+		?>
+		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+			<tr>
+				<td>نام دوره</td>
+				<td>شروع دوره</td>
+				<td>پایان دوره</td>
+				<td>توضیحات</td>
+				<td></td>
+			</tr>
+			<?php foreach ($job_item as $my_job): ?>
+				<tr>
+					<td style="width:20%;"><?php echo $my_job['title']; ?></td>
+					<td style="width:10%; text-align:center;"><?php echo $my_job['start']; ?></td>
+					<td style="width:10%; text-align:center;"><?php echo $my_job['end']; ?></td>
+					<td style="width:60%;"><?php echo $my_job['description']; ?></td>
+					<td><a href="<?php echo base_url() . 'user/delete_job/' . $my_job['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+				</tr>
+			<?php endforeach;?>
+		</table>
+		<?php
+	}
+	else
+	{
+		?>
+		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+			<tr>
+				<td>نام دوره</td>
+				<td>شروع دوره</td>
+				<td>پایان دوره</td>
+				<td>توضیحات</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="5">شغلی برای نمایش موجود نیست.</td>
+			</tr>
+		</table>
+		<?php
+	}
+?>
+
+<?php
+	if($notice == 4)
+	{
+		echo '<p style="color:#f00;">حذف امکان پذیر نمی باشد.</p>';
+	}
+	elseif ($notice == 5)
+	{
+		echo '<p style="color:#3acc17;">رکورد مورد نظر با موفقیت حذف شد.</p>';
+	}
+?>
 
 <p>&nbsp;</p>
 <p>راهنمایی :</p>

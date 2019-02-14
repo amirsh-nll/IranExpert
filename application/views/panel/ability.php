@@ -3,18 +3,18 @@
 	echo form_open('data/ability','method="post" class="panel_form"');
 
 	$ability_title_input = array(
-		'name'=>'ability_title',
-		'place_holder'=>'عنوان شغل',
-		'maxlength'=>'100',
-		'required'=>'required'
+		'name'			=>	'ability_title',
+		'place_holder'	=>	'عنوان شغل',
+		'maxlength'		=>	'100',
+		'required'		=>	'required'
 	);
 	$ability_description = array(
-		'name'=>'ability_description',
-		'maxlength'=>'255',
+		'name'			=>	'ability_description',
+		'maxlength'		=>	'255',
 	);
 	$submit_input = array(
-		'name'=>'ability_submit',
-		'value'=>'ثبت'
+		'name'			=>	'ability_submit',
+		'value'			=>	'ثبت'
 	);
 ?>
 

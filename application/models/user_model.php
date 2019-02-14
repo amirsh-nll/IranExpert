@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_user Table.
+ * Name 		: User Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_user Table.
  *
 */
 
@@ -29,7 +29,7 @@ class user_model extends CI_Model
 		$this->db->insert('user', $data);
 
 		$this->db->where('email', $email);
-		$result = $this->db->get('user');
+		$result = $this->db->get('user', 1);
 
 		if($result->num_rows()>0)
 		{

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /*
  *
  * Name : Web Controller
- * Date : 2016/10/23
+ * Date : 1395/08/03
  * Auther : A.shokri
  * Description : The Controller From Load Main Website Page.
  *
@@ -15,8 +15,8 @@ class Web extends CI_Controller
 	public function index()
 	{
 		$data = array(
-			'url'=>base_url(),
-			'title'=>'پروفایل آنلاین ایرانیان'
+			'url'		=>	base_url(),
+			'title'		=>	'پروفایل آنلاین ایرانیان'
 			);
 		$this->load->view('site/header',$data);
 		$this->load->view('site/home',$data);
@@ -25,23 +25,24 @@ class Web extends CI_Controller
 
 	public function register($notice=0)
 	{
+		$notice = xss_clean($notice);
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
 	        'colors'        => array(
-	                'background' => array(255, 255, 255),
-                	'border' => array(255, 255, 255),
-                	'text' => array(0, 0, 0),
-                	'grid' => array(255, 40, 40)
+	                'background' 	=> array(255, 255, 255),
+                	'border' 		=> array(255, 255, 255),
+                	'text' 			=> array(0, 0, 0),
+                	'grid' 			=> array(255, 40, 40)
 	        )
 		);
 		$cap = create_captcha($captcha);
 		$data = array(
-			'title'=>'ثبت نام در',
-			'url'=>base_url(),
-			'captcha'=>$cap,
-			'notice'=>$notice
+			'title'		=>	'ثبت نام در',
+			'url'		=>	base_url(),
+			'captcha'	=>	$cap,
+			'notice'	=>	$notice
 			);
 		
 		$capcha_data = array(
@@ -58,6 +59,7 @@ class Web extends CI_Controller
 
 	public function login($notice=0)
 	{
+		$notice = xss_clean($notice);
 		$login = $this->session->userdata('login');
 		
 		if(!empty($login))
@@ -73,18 +75,18 @@ class Web extends CI_Controller
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
 	        'colors'        => array(
-	                'background' => array(255, 255, 255),
-                	'border' => array(255, 255, 255),
-                	'text' => array(0, 0, 0),
-                	'grid' => array(255, 40, 40)
+	                'background' 	=> array(255, 255, 255),
+                	'border' 		=> array(255, 255, 255),
+                	'text' 			=> array(0, 0, 0),
+                	'grid' 			=> array(255, 40, 40)
 	        )
 		);
 		$cap = create_captcha($captcha);
 		$data = array(
-			'title'=>'ورود به',
-			'url'=>base_url(),
-			'captcha'=>$cap,
-			'notice'=>$notice
+			'title'		=>	'ورود به',
+			'url'		=>	base_url(),
+			'captcha'	=>	$cap,
+			'notice'	=>	$notice
 			);
 
 		$capcha_data = array(
@@ -101,23 +103,24 @@ class Web extends CI_Controller
 
 	public function forget($notice=0)
 	{
+		$notice = xss_clean($notice);
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
 	        'word_length'   => 5,
 	        'colors'        => array(
-	                'background' => array(255, 255, 255),
-                	'border' => array(255, 255, 255),
-                	'text' => array(0, 0, 0),
-                	'grid' => array(255, 40, 40)
+	                'background' 	=> array(255, 255, 255),
+                	'border' 		=> array(255, 255, 255),
+                	'text' 			=> array(0, 0, 0),
+                	'grid' 			=> array(255, 40, 40)
 	        )
 		);
 		$cap = create_captcha($captcha);
 		$data = array(
-			'title'=>'فراموشی رمز عبور',
-			'url'=>base_url(),
-			'captcha'=>$cap,
-			'notice'=>$notice
+			'title'		=>	'فراموشی رمز عبور',
+			'url'		=>	base_url(),
+			'captcha'	=>	$cap,
+			'notice'	=>	$notice
 			);
 
 		$capcha_data = array(

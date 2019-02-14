@@ -156,6 +156,25 @@ a
 	width:50%;
 	float:left;
 }
+.retrive_data_table
+{
+	border:1px solid #000;
+}
+.retrive_data_table tr:nth-child(1)
+{
+	background:#000;
+	color:#fff;
+	text-align:center;
+}
+.retrive_data_table td
+{
+	border:1px solid #000;
+}
+.retrive_data_table a
+{
+	color:#f00;
+	font-size:12px;
+}
 .footer
 {
 	width:900px;

@@ -3,21 +3,21 @@
 	echo form_open('data/social','method="post" class="panel_form"');
 
 	$social_url_input = array(
-		'name'=>'social_url',
-		'placeholder'=>'آدرس http://test.com/user',
-		'maxlength'=>'255',
-		'required'=>'required'
+		'name'			=>	'social_url',
+		'placeholder'	=>	'آدرس http://test.com/user',
+		'maxlength'		=>	'255',
+		'required'		=>	'required'
 	);
 	$social_type_item = array(
-		'1'=>'فیس بوک',
-		'2'=>'لینکداین',
-		'3'=>'اینستاگرام',
-		'4'=>'توییتر',
-		'5'=>'گوگل پلاس'
+		'1'				=>	'فیس بوک',
+		'2'				=>	'لینکداین',
+		'3'				=>	'اینستاگرام',
+		'4'				=>	'توییتر',
+		'5'				=>	'گوگل پلاس'
 	);
 	$submit_input = array(
-		'name'=>'social_submit',
-		'value'=>'ثبت'
+		'name'			=>	'social_submit',
+		'value'			=>	'ثبت'
 	);
 ?>
 

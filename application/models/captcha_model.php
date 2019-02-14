@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_captcha Table.
+ * Name 		: Captcha Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_captcha Table.
  *
 */
 
@@ -28,10 +28,10 @@ class captcha_model extends CI_Model
 		$this->db->where('captcha_time < ', $expiration)
 		        ->delete('captcha');
 
-		$sql = 'SELECT COUNT(*) AS count FROM irex_captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?';
-		$binds = array($_POST['captcha'], $this->input->ip_address(), $expiration);
-		$query = $this->db->query($sql, $binds);
-		$row = $query->row();
+		$sql 	= 'SELECT COUNT(*) AS count FROM irex_captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?';
+		$binds 	= array($_POST['captcha'], $this->input->ip_address(), $expiration);
+		$query 	= $this->db->query($sql, $binds);
+		$row 	= $query->row();
 
 		return $row->count;
 	}

@@ -2,14 +2,14 @@
 
 /*
  *
- * Name 		: Favorite Model
+ * Name 		: Message Model
  * Date 		: 1395/08/09
  * Auther 		: A.shokri
- * Description 	: The Model From irex_favorite Table.
+ * Description 	: The Model From irex_messages Table.
  *
 */
 
-class favorite_model extends CI_Model
+class message_model extends CI_Model
 {
 	public function __construct()
 	{

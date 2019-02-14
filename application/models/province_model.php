@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_province Table.
+ * Name 		: Province Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_province Table.
  *
 */
 

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /*
  *
  * Name : Web Controller
- * Date : 2016/10/30
+ * Date : 1395/08/10
  * Auther : A.shokri
  * Description : The Controller From Load User Panel.
  *
@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class panel extends IREX_Controller
 {
-	public function index($page = 0)
+	public function index()
 	{
 		$this->home();
 	}
@@ -29,36 +29,71 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function person()
+	public function person($notice = 0)
 	{
+		$notice = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('person_model');
+		$person = $this->person_model->read_person($user_id);
+		$person = $person[0];
+		
+		$birthday = explode('/', $person['birthday']);
+		
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - اطلاعات فردی'
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - اطلاعات فردی',
+			'notice'			=>	$notice,
+			'first_name_value'	=>	$person['first_name'],
+			'last_name_value'	=>	$person['last_name'],
+			'birth_day_value'	=>	$birthday[2],
+			'birth_month_value'	=>	$birthday[1],
+			'birth_year_value'	=>	$birthday[0],
+			'gender_value'		=>	$person['gender'],
+			'marriage_value'	=>	$person['marriage'],
+			'about_value'		=>	$person['about']
 		);
+
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/person', $data);
 		$this->load->view('panel/footer', $data);
 	}
 	
-	public function lesson()
+	public function lesson($notice = 0)
 	{
+		$notice = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('lesson_model');
+		$lesson = $this->lesson_model->load_lesson($user_id);
+
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - اطلاعات تحصیلی'
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - اطلاعات تحصیلی',
+			'notice'			=>	$notice,
+			'lesson_item'		=>	$lesson
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/lesson', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function job()
+	public function job($notice = 0)
 	{
+		$notice = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('job_model');
+		$job = $this->job_model->load_job($user_id);
+
 		$data = array
 		(
 			'url'=>base_url(),
-			'title'=>'پنل کاربری - اطلاعات شغلی'
+			'title'=>'پنل کاربری - اطلاعات شغلی',
+			'notice'			=>	$notice,
+			'job_item'		=>	$job
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/job', $data);

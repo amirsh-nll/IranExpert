@@ -2,10 +2,10 @@
 
 /*
  *
- * Name : Web Controller
- * Date : 2016/10/30
- * Auther : A.shokri
- * Description : The Model From irex_contacts Table.
+ * Name 		: Contacts Model
+ * Date 		: 1395/08/09
+ * Auther 		: A.shokri
+ * Description 	: The Model From irex_contacts Table.
  *
 */
 
@@ -20,8 +20,14 @@ class contacts_model extends CI_Model
 	{
 		$data = array
 		(
-			'user_id'=>$user_id,
-			'province_id'=>0
+			'user_id'			=>	$user_id,
+			'mobile_number'		=>	'',
+			'mobile_number_code'=>	'',
+			'phone_number'		=>	'',
+			'phone_number_code' =>	'',
+			'postal_code'		=>	'',
+			'province_id'		=>	0,
+			'address'			=>	''
 		);
 
 		$this->db->insert('contacts', $data);
