@@ -699,27 +699,75 @@ class admin extends CI_Controller
 						$user = $this->user_model->read_all_user();
 						if($user!==0)
 						{
+							$count=0;
 							foreach ($user as $my_user) {
 								$message = $this->message_model->insert_message($my_user['id'], $title, $message, 'BroadCast Message By Admin');
+								$count+=1;
 							}
+							$this->load->model('broadcast_model');
+								$this->broadcast_model->insert_broadcast($count, $type . '/0', $title, $message);
+
 							redirect(base_url() . 'panel/broadcast_message/2');
 						}
 						else
 						{
-							redirect(base_url() . 'panel/broadcast_message/1');
+							redirect(base_url() . 'panel/broadcast_message/3');
 						}
 					}
 					break;
 				case 2:
 					{
+						if($activity_id!=0)
+						{
+							$this->load->model('person_model');
+							$person = $this->person_model->person_special_activity($activity_id);
+							if($person!==0)
+							{
+								$count=0;
+								foreach ($person as $my_person) {
+									$message = $this->message_model->insert_message($my_person['user_id'], $title, $message, 'BroadCast Message By Admin');
+									$count+=1;
+								}
+								$this->load->model('broadcast_model');
+								$this->broadcast_model->insert_broadcast($count, $type . '/' . $activity_id, $title, $message);
+
+								redirect(base_url() . 'panel/broadcast_message/2');
+							}
+							else
+							{
+								redirect(base_url() . 'panel/broadcast_message/3');
+							}
+						}
 					}
 					break;
 				case 3:
 					{
+						if($province_id!=0)
+						{
+							$this->load->model('contact_model');
+							$contact = $this->contact_model->contact_special_province($province_id);
+							if($contact!==0)
+							{
+								$count=0;
+								foreach ($contact as $my_contact) {
+									$message = $this->message_model->insert_message($my_contact['user_id'], $title, $message, 'BroadCast Message By Admin');
+									$count+=1;
+								}
+								$this->load->model('broadcast_model');
+								$this->broadcast_model->insert_broadcast($count, $type . '/' . $province_id, $title, $message);
+
+								redirect(base_url() . 'panel/broadcast_message/2');
+							}
+							else
+							{
+								redirect(base_url() . 'panel/broadcast_message/3');
+							}
+						}
 					}
 					break;
 				
 				default:
+					die(0);
 					redirect(base_url() . 'panel/broadcast_message/1');
 					break;
 			}

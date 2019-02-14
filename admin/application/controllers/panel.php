@@ -1102,16 +1102,79 @@ class panel extends IREX_Controller
 		$this->load->model('activity_model');
 		$activity = $this->activity_model->read_all_activity();
 
+		$this->load->model('broadcast_model');
+		$broadcast_item = $this->broadcast_model->read_broadcast();
+
 		$data = array(
 			'title'				=>	'پنل مدیریت - ارسال پیام گروهی',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'notice'			=>	$notice,
 			'province'			=>	$province,
-			'activity'			=>	$activity
+			'activity'			=>	$activity,
+			'broadcast_item'	=>	$broadcast_item
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/broadcast_message', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function read_broadcast_message($broadcast_id=0, $notice=0)
+	{
+		$notice 		= xss_clean($notice);
+		$broadcast_id 	= xss_clean($broadcast_id);
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		if(!is_numeric($broadcast_id) || $broadcast_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/broadcast_message');
+		}
+
+		$this->load->model('broadcast_model');
+		$broadcast = $this->broadcast_model->read_single_broadcast($broadcast_id);
+
+		if($broadcast==0)
+		{
+			redirect(base_url() . 'panel/broadcast_message');
+		}
+
+		$broadcast_type = explode('/', $broadcast[0]['type']);
+		switch ($broadcast_type[0]) {
+			case '1':
+				$type='تمام کاربران';
+				break;
+			case '2':
+				$type='بر اساس زمینه فعالیت';
+				$this->load->model('activity_model');
+				$activity = $this->activity_model->read_once_activity($broadcast_type[1]);
+				$type = $type . '، ' . $activity['name'];
+				break;
+			case '3':
+				$type='بر اساس استان محل سکونت';
+				$this->load->model('province_model');
+				$province = $this->province_model->read_once_province($broadcast_type[1]);
+				$type = $type . '، ' . $province['name'];
+				break;
+			
+			default:
+				$type=0;
+				break;
+		}
+		$broadcast[0]['type'] = $type;
+
+		$data = array
+		(
+			'title'				=>	'پنل مدیریت - مشاهده پیام گروهی',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'broadcast_item'	=>	$broadcast
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/read_broadcast', $data);
 		$this->load->view('panel/footer', $data);
 	}
 

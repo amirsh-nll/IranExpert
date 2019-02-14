@@ -73,7 +73,8 @@
 			case 'certificate':{$active_menu_number = 9;}			break;
 			case 'certificate_manage':{$active_menu_number = 9;}	break;
 			case 'violation_accont':{$active_menu_number = 10;}		break;
-			case 'broadcast_message':{$active_menu_number = 11;}				break;
+			case 'broadcast_message':{$active_menu_number = 11;}	break;
+			case 'read_broadcast_message':{$active_menu_number=11;}	break;
 			case 'message':{$active_menu_number = 12;}				break;
 			case 'read_message':{$active_menu_number = 12;}			break;
 			default:{$active_menu_number = 1;}						break;

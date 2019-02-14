@@ -79,7 +79,58 @@
 	{
 		echo '<p style="color:#3acc17;">پیام گروهی با موفقیت برای کاربران ارسال گردید.</p>';
 	}
+	elseif ($notice == 3)
+	{
+		echo '<p style="color:#f00;">در این دسته مخاطبی برای دریافت پیام گروهی موجود نیست.</p>';
+	}
 ?>
+
+<p>&nbsp;</p>
+<div id="table_view">&nbsp;</div>
+<p><strong>لیست پیام های گروهی:</strong></p>
+<?php
+	if($broadcast_item!=0)
+	{
+		?>
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
+			<tr>
+				<td>عنوان پیام</td>
+				<td>تعداد گیرندگان</td>
+				<td>تاریخ</td>
+				<td></td>
+			</tr>
+			<?php foreach ($broadcast_item as $my_broadcast_item): ?>
+				<tr>
+					<td style="width:45%; padding-right:5px;"><?php echo $my_broadcast_item['title']; ?></td>
+					<td style="width:20%; text-align:center;"><?php echo $this->jdf->tr_num($my_broadcast_item['user_send_count']); ?> کاربر</td>
+					<td style="width:20%; text-align:center;"><?php echo $this->jdf->jdate("j F Y", $my_broadcast_item['time']); ?></td>
+					<td style="text-align:center;">
+						<a class="retrive_data_table_read" href="<?php echo base_url() . 'panel/read_broadcast_message/' . $my_broadcast_item['id'] . '#content_view'; ?>" title="مشاهده پیام"><span class="fa fa-lg fa-eye"></span></a>
+					</td>
+				</tr>
+			<?php endforeach;?>
+		</table>
+		<?php
+	}
+	else
+	{
+		?>
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
+			<tr>
+				<td style="width:18%;">نام دوره</td>
+				<td style="width:15%;">شروع دوره</td>
+				<td style="width:15%;">پایان دوره</td>
+				<td style="width:45%;">توضیحات</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="5">دوره ای برای نمایش موجود نیست.</td>
+			</tr>
+		</table>
+		<?php
+	}
+?>
+
 <p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
 <p>در این بخش می توانید به کاربران خود پیام دهید و آنها از صندوق پیام های خود پیام شما را بخوانند.</p>

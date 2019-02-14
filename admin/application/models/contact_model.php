@@ -91,6 +91,21 @@ class contact_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function contact_special_province($province_id)
+	{
+		$this->db->where('province_id', $province_id);
+		$result = $this->db->get('contact');
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

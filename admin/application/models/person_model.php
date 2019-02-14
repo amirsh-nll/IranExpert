@@ -150,5 +150,20 @@ class person_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function person_special_activity($activity_id)
+	{
+		$this->db->where('activity_id', $activity_id);
+		$result = $this->db->get('person');
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 ?>
