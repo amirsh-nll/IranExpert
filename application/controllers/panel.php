@@ -19,10 +19,21 @@ class panel extends IREX_Controller
 
 	public function home()
 	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('person_model');
+		$person = $this->person_model->fetch_full_name($user_id);
+		
+		if($person==0)
+		{
+			$person = "کاربر";
+		}
+
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - پیشخوان',
+			'url'		=>base_url(),
+			'title'		=>'پنل کاربری - پیشخوان',
+			'full_name'	=>	$person
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/home', $data);
@@ -33,6 +44,11 @@ class panel extends IREX_Controller
 	{
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/image');
+		}
 
 		$this->load->model('image_model');
 		$image = $this->image_model->read_image($user_id);
@@ -55,6 +71,11 @@ class panel extends IREX_Controller
 	{
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/person');
+		}
 
 		$this->load->model('person_model');
 		$person = $this->person_model->read_person($user_id);
@@ -82,13 +103,32 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function contact()
+	public function contact($notice = 0)
 	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/contact');
+		}
+
+		$this->load->model('contact_model');
+		$contact = $this->contact_model->read_contact($user_id);
+		$contact = $contact[0];
+		
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - اطلاعات تماس'
+			'url'					=>	base_url(),
+			'title'					=>	'پنل کاربری - اطلاعات تماس',
+			'notice'				=>	$notice,
+			'mobile_number_value'	=>	$contact['mobile_number'],
+			'phone_number_value'	=>	$contact['phone_number'],
+			'postal_code_value'		=>	$contact['postal_code'],
+			'province_value'		=>	$contact['province'],
+			'address_value'			=>	$contact['address'],
 		);
+
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/contact', $data);
 		$this->load->view('panel/footer', $data);
@@ -99,8 +139,18 @@ class panel extends IREX_Controller
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/lesson');
+		}
+
+		if($this->session->has_userdata('lesson_id_for_update'))
+		{
+			$this->session->unset_userdata('lesson_id_for_update');
+		}
+
 		$this->load->model('lesson_model');
-		$lesson = $this->lesson_model->load_lesson($user_id);
+		$lesson = $this->lesson_model->read_lesson($user_id);
 
 		$data = array
 		(
@@ -114,13 +164,51 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function update_lesson($lesson_id = 0, $notice = 0)
+	{
+		$lesson_id 	= xss_clean($lesson_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($lesson_id) || $lesson_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/lesson');
+		}
+
+		$this->load->model('lesson_model');
+		$lesson = $this->lesson_model->fetch_record_with_id($user_id, $lesson_id);
+
+		if($lesson==0)
+		{
+			redirect(base_url() . 'panel/lesson');
+		}
+
+		$this->session->set_userdata('lesson_id_for_update', $lesson_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش اطلاعات تحصیلی',
+			'notice'			=>	$notice,
+			'lesson_item'		=>	$lesson
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_lesson', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function job($notice = 0)
 	{
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/job');
+		}
+
 		$this->load->model('job_model');
-		$job = $this->job_model->load_job($user_id);
+		$job = $this->job_model->read_job($user_id);
 
 		$data = array
 		(
@@ -134,33 +222,18 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function favorite($notice = 0)
-	{
-		$notice  = xss_clean($notice);
-		$user_id = $this->session->userdata('user_id');
-
-		$this->load->model('favorite_model');
-		$favorite = $this->favorite_model->load_favorite($user_id);
-
-		$data = array
-		(
-			'url'			=>	base_url(),
-			'title'			=>	'پنل کاربری - علاقه مندی',
-			'notice'		=>	$notice,
-			'favorite_item'	=>	$favorite
-		);
-		$this->load->view('panel/header', $data);
-		$this->load->view('panel/favorite', $data);
-		$this->load->view('panel/footer', $data);
-	}
-
 	public function ability($notice = 0)
 	{
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/ability');
+		}
+
 		$this->load->model('ability_model');
-		$ability = $this->ability_model->load_ability($user_id);
+		$ability = $this->ability_model->read_ability($user_id);
 
 		$data = array
 		(
@@ -174,13 +247,118 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function project($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/project');
+		}
+
+		$this->load->model('project_model');
+		$project = $this->project_model->read_project($user_id);
+
+		$data = array
+		(
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - پروژه ها',
+			'notice'		=>	$notice,
+			'project_item'	=>	$project
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/project', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function article($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/article');
+		}
+
+		$this->load->model('article_model');
+		$article = $this->article_model->read_article($user_id);
+
+		$data = array
+		(
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - مقالات',
+			'notice'		=>	$notice,
+			'article_item'	=>	$article
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/article', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function achievement($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/achievement');
+		}
+
+		$this->load->model('achievement_model');
+		$achievement = $this->achievement_model->read_achievement($user_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - افتخارات',
+			'notice'			=>	$notice,
+			'achievement_item'	=>	$achievement
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/achievement', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function favorite($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/favorite');
+		}
+
+		$this->load->model('favorite_model');
+		$favorite = $this->favorite_model->read_favorite($user_id);
+
+		$data = array
+		(
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - علاقه مندی',
+			'notice'		=>	$notice,
+			'favorite_item'	=>	$favorite
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/favorite', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function social($notice = 0)
 	{
 		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/social');
+		}
+
 		$this->load->model('social_model');
-		$social = $this->social_model->load_social($user_id);
+		$social = $this->social_model->read_social($user_id);
 
 		$data = array
 		(
@@ -234,7 +412,7 @@ class panel extends IREX_Controller
 	{
 		$user_id = $this->session->userdata('user_id');
 		$this->load->model('user_model');
-		$user = $this->user_model->user_middle_name($user_id);
+		$user = $this->user_model->fetch_middle_name($user_id);
 
 		redirect(base_url() . 'profile/' . $user);
 	}

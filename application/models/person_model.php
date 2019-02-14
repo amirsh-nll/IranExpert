@@ -61,6 +61,23 @@ class person_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$this->db->update('person');
 	}
+
+	public function fetch_full_name($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('person', 1);
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			$result = $result[0]['first_name'] . " " . $result[0]['last_name'];
+			return $result;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

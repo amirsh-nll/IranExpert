@@ -1,11 +1,11 @@
-<h2>اطلاعات شغلی</h2>
+<h2>پنل کاربری -) اطلاعات شغلی</h2>
 <?php
-	echo form_open('user/add_job','method="post" class="panel_form"');
+	echo form_open('user/add_job', 'method="post" class="panel_form"');
 
 	$job_title_input = array(
 		'name'			=>	'job_title',
 		'place_holder'	=>	'عنوان شغل',
-		'maxlength'		=>	'100',
+		'maxlength'		=>	'70',
 		'required'		=>	'required'
 	);
 	for($i=1;$i<=12;$i++)
@@ -80,7 +80,7 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td>نام دوره</td>
+				<td>عنوان شغلی</td>
 				<td>شروع دوره</td>
 				<td>پایان دوره</td>
 				<td>توضیحات</td>
@@ -103,7 +103,7 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">نام دوره</td>
+				<td style="width:20%;">عنوان شغل</td>
 				<td style="width:10%;">شروع دوره</td>
 				<td style="width:10%;">پایان دوره</td>
 				<td style="width:60%;">توضیحات</td>

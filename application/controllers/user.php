@@ -22,7 +22,7 @@ class user extends IREX_Controller
 		$user_id 						= $this->session->userdata('user_id');
 		$config['upload_path']          = './upload/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png';
-        $config['max_size']             = 5500;
+        $config['max_size']             = 7500;
         $config['max_width']            = 1024;
         $config['max_height']           = 768;
 
@@ -31,20 +31,37 @@ class user extends IREX_Controller
         if ( ! $this->upload->do_upload('userfile'))
         {
         	$error = array('error' => $this->upload->display_errors());
-			redirect(base_url() . 'panel/image/1');
+			redirect(base_url() . 'panel/image/1#content_view');
         }
         else
         {
         	$data = array('upload_data' => $this->upload->data());
 
         	$this->load->model('image_model');
-        	$image = $this->image_model->insert_image($user_id, $this->upload->data('file_name'));
+        	$image = $this->image_model->update_image($user_id, $this->upload->data('file_name'));
 
-			redirect(base_url() . 'panel/image/2');
+			redirect(base_url() . 'panel/image/2#content_view');
         }
 	}
 
-	public function edit_person()
+	public function delete_image()
+	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('image_model');
+        $image = $this->image_model->delete_image($user_id);
+
+        if($image==1)
+        {
+        	redirect(base_url() . 'panel/image/4#content_view');
+        }
+        else
+        {
+			redirect(base_url() . 'panel/image/3#content_view');
+		}
+	}
+
+	public function update_person()
 	{
 		$rules = array(
 			array(
@@ -115,7 +132,7 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'person_about',
 				'label'		=>	'درباره من',
-				'rules'		=>	'max_length[255]',
+				'rules'		=>	'max_length[1000]',
 				'errors'	=>	array(
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
@@ -126,7 +143,7 @@ class user extends IREX_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'panel/person/1');
+			redirect(base_url() . 'panel/person/1#content_view');
 		}
 		else
 		{
@@ -141,7 +158,84 @@ class user extends IREX_Controller
 			$this->load->model('person_model');
 			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $gender, $marriage, $about);
 
-			redirect(base_url() . 'panel/person/2');
+			redirect(base_url() . 'panel/person/2#content_view');
+		}
+	}
+
+	public function update_contact()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'contact_mobile_number',
+				'label'		=>	'همراه',
+				'rules'		=>	'required|numeric|min_length[10]|max_length[20]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'contact_phone_number',
+				'label'		=>	'تلفن تماس',
+				'rules'		=>	'required|numeric|min_length[6]|max_length[20]',
+					'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'contact_postal_code',
+				'label'		=>	'کد پستی',
+				'rules'		=>	'required|numeric|min_length[9]|max_length[20]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'contact_province',
+				'label'		=>	'استان',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'contact_address',
+				'label'		=>	'آدرس',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/contact/1#content_view');
+		}
+		else
+		{
+			$user_id 			= 	$this->session->userdata('user_id');
+			$mobile_number 		= 	$this->input->post('contact_mobile_number', true);
+			$phone_number 		= 	$this->input->post('contact_phone_number', true);
+			$postal_code 		= 	$this->input->post('contact_postal_code', true);
+			$province 			= 	$this->input->post('contact_province', true);
+			$address 			= 	$this->input->post('contact_address', true);
+
+			$this->load->model('contact_model');
+			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province, $address);
+
+			redirect(base_url() . 'panel/contact/2#content_view');
 		}
 	}
 
@@ -197,7 +291,7 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'lesson_description',
 				'label'		=>	'توضیحات دوره',
-				'rules'		=>	'max_length[255]',
+				'rules'		=>	'max_length[500]',
 				'errors'	=>	array(
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
@@ -208,7 +302,7 @@ class user extends IREX_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'panel/lesson/1');
+			redirect(base_url() . 'panel/lesson/1#content_view');
 		}
 		else
 		{
@@ -224,12 +318,102 @@ class user extends IREX_Controller
 
 			if($lesson==1)
 			{
-				redirect(base_url() . 'panel/lesson/2');
+				redirect(base_url() . 'panel/lesson/2#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/lesson/3');
+				redirect(base_url() . 'panel/lesson/3#content_view');
 			}
+		}
+	}
+
+	public function update_lesson()
+	{
+		$lesson_id = $this->session->userdata('lesson_id_for_update');
+		
+		if(empty($lesson_id))
+		{
+			redirect(base_url() . 'panel/lesson#content_view');
+		}
+
+		$rules = array(
+			array(
+				'field'		=>	'lesson_title',
+				'label'		=>	'عنوان دوره',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_start_month',
+				'label'		=>	'ماه شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_start_year',
+				'label'		=>	'سال شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_end_month',
+				'label'		=>	'ماه پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_end_year',
+				'label'		=>	'سال پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'lesson_description',
+				'label'		=>	'توضیحات دوره',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			$lesson_id 	= $this->session->userdata('lesson_id_for_update');
+			redirect(base_url() . 'panel/update_lesson/' . $lesson_id . '/1#content_view');
+		}
+		else
+		{
+			$user_id 		= $this->session->userdata('user_id');
+			$lesson_id 		= $this->session->userdata('lesson_id_for_update');
+
+			$lesson_title 	= $this->input->post('lesson_title', true);
+			$start_date 	= $this->input->post('lesson_start_year', true) . '/' . $this->input->post('lesson_start_month', true);
+			$end_date 		= $this->input->post('lesson_end_year', true) . '/' . $this->input->post('lesson_end_month', true);
+			$description 	= $this->input->post('lesson_description', true);
+
+			$this->load->model('lesson_model');
+			$lesson = $this->lesson_model->update_lesson($user_id, $lesson_id, $lesson_title, $start_date, $end_date, $description);
+
+			redirect(base_url() . 'panel/update_lesson/' . $lesson_id . '/2#content_view');
 		}
 	}
 
@@ -243,11 +427,11 @@ class user extends IREX_Controller
 			$lesson = $this->lesson_model->delete_lesson($id, $user_id);
 			if($lesson == 1)
 			{
-				redirect(base_url() . 'panel/lesson/5');
+				redirect(base_url() . 'panel/lesson/5#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/lesson/4');
+				redirect(base_url() . 'panel/lesson/4#table_view');
 			}
 		}
 		else
@@ -367,79 +551,6 @@ class user extends IREX_Controller
 		}
 	}
 
-	public function add_favorite()
-	{
-		$rules = array(
-			array(
-				'field'		=>	'favorite_title',
-				'label'		=>	'عنوان علاقه مندی',
-				'rules'		=>	'required|min_length[3]|max_length[70]',
-				'errors'	=>array(
-					'required'		=>	'فیلد %s معتبر نمی باشد.',
-					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
-					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
-				)
-			),
-			array(
-				'field'		=>	'favorite_description',
-				'label'		=>	'توضیحات علاقه مندی',
-				'rules'		=>	'max_length[255]',
-				'errors'	=>	array(
-					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
-				)
-			),
-		);
-
-		$this->form_validation->set_rules($rules);
-
-		if($this->form_validation->run()==false)
-		{
-			redirect(base_url() . 'panel/favorite/1');
-		}
-		else
-		{
-			$user_id = $this->session->userdata('user_id');
-
-			$favorite_title = $this->input->post('favorite_title', true);
-			$description 	= $this->input->post('favorite_description', true);
-
-			$this->load->model('favorite_model');
-			$favorite = $this->favorite_model->insert_favorite($user_id, $favorite_title, $description);
-
-			if($favorite == 1)
-			{
-				redirect(base_url() . 'panel/favorite/2');
-			}
-			else
-			{
-				redirect(base_url() . 'panel/favorite/3');
-			}
-		}
-	}
-
-	public function delete_favorite($id)
-	{
-		$id = xss_clean($id);
-		if(is_numeric($id))
-		{
-			$user_id = $this->session->userdata('user_id');
-			$this->load->model('favorite_model');
-			$favorite = $this->favorite_model->delete_favorite($id, $user_id);
-			if($favorite == 1)
-			{
-				redirect(base_url() . 'panel/favorite/5');
-			}
-			else
-			{
-				redirect(base_url() . 'panel/favorite/4');
-			}
-		}
-		else
-		{
-			redirect(base_url() . 'panel/favorite/4');
-		}
-	}
-
 	public function add_ability()
 	{
 		$rules = array(
@@ -510,6 +621,374 @@ class user extends IREX_Controller
 		else
 		{
 			redirect(base_url() . 'panel/ability/4');
+		}
+	}
+
+	public function add_project()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'project_title',
+				'label'		=>	'عنوان پروژه',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'project_start_month',
+				'label'		=>	'ماه شرعو پروژه',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'project_start_year',
+				'label'		=>	'سال شرعو پروژه',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'project_end_month',
+				'label'		=>	'ماه پایان پروژه',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'project_end_year',
+				'label'		=>	'سال پایان پروژه',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_description',
+				'label'		=>	'توضیحات پروژه',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/project/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$project_title 	= $this->input->post('project_title', true);
+			$start_date 	= $this->input->post('project_start_year', true) . '/' . $this->input->post('project_start_month', true);
+			$end_date 		= $this->input->post('project_end_year', true) . '/' . $this->input->post('project_end_month', true);
+			$description 	= $this->input->post('project_description', true);
+
+			$this->load->model('project_model');
+			$project = $this->project_model->insert_project($user_id, $project_title, $start_date, $end_date, $description);
+
+			if($project == 1)
+			{
+				redirect(base_url() . 'panel/project/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/project/3');
+			}
+		}
+	}
+
+	public function delete_project($id)
+	{
+		$id = xss_clean($id);
+		if(is_numeric($id))
+		{
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('project_model');
+			$project = $this->project_model->delete_project($id, $user_id);
+			if($project == 1)
+			{
+				redirect(base_url() . 'panel/project/5');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/project/4');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/project/4');
+		}
+	}
+
+	public function add_article()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'article_title',
+				'label'		=>	'عنوان مقاله',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'article_start_month',
+				'label'		=>	'ماه شرعو مقاله',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'article_start_year',
+				'label'		=>	'سال شرعو مقاله',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'article_end_month',
+				'label'		=>	'ماه پایان مقاله',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'article_end_year',
+				'label'		=>	'سال پایان مقاله',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'article_description',
+				'label'		=>	'توضیحات مقاله',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/article/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$article_title 	= $this->input->post('article_title', true);
+			$start_date 	= $this->input->post('article_start_year', true) . '/' . $this->input->post('article_start_month', true);
+			$end_date 		= $this->input->post('article_end_year', true) . '/' . $this->input->post('article_end_month', true);
+			$description 	= $this->input->post('article_description', true);
+
+			$this->load->model('article_model');
+			$article = $this->article_model->insert_article($user_id, $article_title, $start_date, $end_date, $description);
+
+			if($article == 1)
+			{
+				redirect(base_url() . 'panel/article/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/article/3');
+			}
+		}
+	}
+
+	public function delete_article($id)
+	{
+		$id = xss_clean($id);
+		if(is_numeric($id))
+		{
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('article_model');
+			$article = $this->article_model->delete_article($id, $user_id);
+			if($article == 1)
+			{
+				redirect(base_url() . 'panel/article/5');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/article/4');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/article/4');
+		}
+	}
+
+	public function add_achievement()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'achievement_title',
+				'label'		=>	'عنوان افتخار',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'achievement_description',
+				'label'		=>	'توضیحات افتخار',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/achievement/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$achievement_title = $this->input->post('achievement_title', true);
+			$description 	= $this->input->post('achievement_description', true);
+
+			$this->load->model('achievement_model');
+			$achievement = $this->achievement_model->insert_achievement($user_id, $achievement_title, $description);
+
+			if($achievement == 1)
+			{
+				redirect(base_url() . 'panel/achievement/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/achievement/3');
+			}
+		}
+	}
+
+	public function delete_achievement($id)
+	{
+		$id = xss_clean($id);
+		if(is_numeric($id))
+		{
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('achievement_model');
+			$achievement = $this->achievement_model->delete_achievement($id, $user_id);
+			if($achievement == 1)
+			{
+				redirect(base_url() . 'panel/achievement/5');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/achievement/4');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/achievement/4');
+		}
+	}
+
+	public function add_favorite()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'favorite_title',
+				'label'		=>	'عنوان علاقه مندی',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'favorite_description',
+				'label'		=>	'توضیحات علاقه مندی',
+				'rules'		=>	'max_length[255]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/favorite/1');
+		}
+		else
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$favorite_title = $this->input->post('favorite_title', true);
+			$description 	= $this->input->post('favorite_description', true);
+
+			$this->load->model('favorite_model');
+			$favorite = $this->favorite_model->insert_favorite($user_id, $favorite_title, $description);
+
+			if($favorite == 1)
+			{
+				redirect(base_url() . 'panel/favorite/2');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/favorite/3');
+			}
+		}
+	}
+
+	public function delete_favorite($id)
+	{
+		$id = xss_clean($id);
+		if(is_numeric($id))
+		{
+			$user_id = $this->session->userdata('user_id');
+			$this->load->model('favorite_model');
+			$favorite = $this->favorite_model->delete_favorite($id, $user_id);
+			if($favorite == 1)
+			{
+				redirect(base_url() . 'panel/favorite/5');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/favorite/4');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/favorite/4');
 		}
 	}
 

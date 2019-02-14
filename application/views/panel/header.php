@@ -31,6 +31,7 @@
 			</div>
 		</div>
 		<div class="content">
+		<div id="content_view">&nbsp;</div>
 			<div class="right_content">
 				<div class="menu">
 					<ul>
@@ -40,12 +41,16 @@
 						<li><a href="<?=$url; ?>panel/contact" titile="اطلاعات تماس">اطلاعات تماس</a></li>
 						<li><a href="<?=$url; ?>panel/lesson" titile="اطلاعات تحصیلی">اطلاعات تحصیلی</a></li>
 						<li><a href="<?=$url; ?>panel/job" titile="اطلاعات شغلی">اطلاعات شغلی</a></li>
-						<li><a href="<?=$url; ?>panel/favorite" titile="علاقه مندی ها">علاقه مندی ها</a></li>
 						<li><a href="<?=$url; ?>panel/ability" titile="توانایی ها">توانایی ها</a></li>
+						<li><a href="<?=$url; ?>panel/project" titile="پروژه ها">پروژه ها</a></li>
+						<li><a href="<?=$url; ?>panel/article" titile="مقالات">مقالات</a></li>
+						<li><a href="<?=$url; ?>panel/achievement" titile="افتخارات">افتخارات</a></li>
+						<li><a href="<?=$url; ?>panel/favorite" titile="علاقه مندی ها">علاقه مندی ها</a></li>
 						<li><a href="<?=$url; ?>panel/social" titile="شبکه های اجتماعی">شبکه های اجتماعی</a></li>
 						<li><a href="<?=$url; ?>panel/state" titile="آمار">آمار</a></li>
 						<li><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
 						<li><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل" target="_blank">مشاهده پروفایل</a></li>
+						<li><a href="<?=$url; ?>panel/support" titile="ارتباط با ما">ارتباط با ما</a></li>
 						<li><a href="<?=$url; ?>panel/out" titile="مشاهده پروفایل">خروج</a></li>
 					</ul>
 				</div>

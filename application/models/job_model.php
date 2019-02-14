@@ -41,7 +41,7 @@ class job_model extends CI_Model
 		}
 	}
 
-	public function load_job($user_id)
+	public function read_job($user_id)
 	{
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('job', 5);

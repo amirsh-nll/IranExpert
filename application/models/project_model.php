@@ -2,35 +2,37 @@
 
 /*
  *
- * Name 		: Favorite Model
- * Date 		: 1395/08/09
+ * Name 		: Project Model
+ * Date 		: 1395/08/17
  * Auther 		: A.shokri
- * Description 	: The Model From irex_favorite Table.
+ * Description 	: The Model From irex_job Table.
  *
 */
 
-class favorite_model extends CI_Model
+class project_model extends CI_Model
 {
 	public function __construct()
 	{
 		parent::__construct();
 	}
 	
-	public function insert_favorite($user_id, $favorite_title, $description)
+	public function insert_project($user_id, $project_title, $start_date, $end_date, $description)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('favorite');
+		$result = $this->db->get('project');
 
 		if($result->num_rows()<5)
 		{
 			$data = array
 			(
 				'user_id'		=>	$user_id,
-				'title'			=>	$favorite_title,
+				'title'			=>	$project_title,
+				'start'			=>	$start_date,
+				'end'			=>	$end_date,
 				'description'	=>	$description
 			);
 
-			$this->db->insert('favorite', $data);
+			$this->db->insert('project', $data);
 			return 1;
 		}
 		else
@@ -39,10 +41,10 @@ class favorite_model extends CI_Model
 		}
 	}
 
-	public function read_favorite($user_id)
+	public function read_project($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('favorite', 5);
+		$result = $this->db->get('project', 5);
 
 		if($result->num_rows()>0)
 		{
@@ -54,11 +56,11 @@ class favorite_model extends CI_Model
 		}
 	}
 
-	public function delete_favorite($id, $user_id)
+	public function delete_project($id, $user_id)
 	{
 		$this->db->where('id', $id);
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->delete('favorite');
+		$result = $this->db->delete('project');
 
 		return $result;
 	}

@@ -1,6 +1,6 @@
-<h2>اطلاعات فردی</h2>
+<h2>پنل کاربری -) اطلاعات فردی</h2>
 <?php
-	echo form_open('user/edit_person','method="post" class="panel_form"');
+	echo form_open('user/update_person', 'method="post" class="panel_form"');
 
 	$first_name_input = array(
 		'name'			=>	'person_first_name',
@@ -30,8 +30,8 @@
 	}
 	$gender_item = array(
 		'0'				=>	'نامشخص',
-		'1'				=>	'مرد',
-		'2'				=>	'زن'
+		'1'				=>	'آقا',
+		'2'				=>	'خانم'
 	);
 	$marriage_item = array(
 		'0'				=>	'نامشخص',
@@ -40,38 +40,38 @@
 	);
 	$about_input = array(
 		'name'			=>	'person_about',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'1000',
 		'value'			=>	$about_value
 	);
 	$submit_input = array(
 		'name'			=>	'person_submit',
-		'value'			=>	'ثبت'
+		'value'			=>	'بروز رسانی'
 	);
 ?>
 
 <table>
 	<tr>
-		<td>نام</td>
+		<td><strong>نام</strong></td>
 		<td><?php echo form_input($first_name_input); ?></td>
 	</tr>
 	<tr>
-		<td>نام خانوادگی</td>
+		<td><strong>نام خانوادگی</strong></td>
 		<td><?php echo form_input($last_name_input); ?></td>
 	</tr>
 	<tr>
-		<td>تاریخ تولد</td>
+		<td><strong>تاریخ تولد</strong></td>
 		<td><?php echo form_dropdown('person_birth_day', $birth_day_item,$birth_day_value,'class="birth_item"'); echo form_dropdown('person_birth_month', $birth_month_item,$birth_month_value,'class="birth_item"'); echo form_dropdown('person_birth_year', $birth_year_item,$birth_year_value,'class="birth_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>جنسیت</td>
+		<td><strong>جنسیت</strong></td>
 		<td><?php echo form_dropdown('person_gender', $gender_item, $gender_value); ?></td>
 	</tr>
 	<tr>
-		<td>وضعیت تاهل</td>
+		<td><strong>وضعیت تاهل</strong></td>
 		<td><?php echo form_dropdown('person_marriage', $marriage_item, $marriage_value); ?></td>
 	</tr>
 	<tr>
-		<td>درباره من</td>
+		<td><strong>درباره من</strong></td>
 		<td><?php echo form_textarea($about_input); ?></td>
 	</tr>
 	<tr>
@@ -92,10 +92,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی : </p>
+<p><strong>راهنمایی:</strong></p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این صفحه شما میتوانید اطلاعات فردی خود را وارد کنید که این اطلاعات در شناسایی افراد حقیقی نقش موثری دارند.</p>
-<p>از توزیع اطلاعات شخصی و محرمانه شخصی سایر افراد و یا استفاده از حساب شخص دیگری یا باز کردن حساب به نام فرد دیگر خودداری فرمایید.</p>
+<p>از توزیع اطلاعات شخصی و محرمانه سایر افراد و یا استفاده از حساب شخص دیگری یا باز کردن حساب به نام فرد دیگر خودداری فرمایید.</p>
 
 <?php
 	echo form_close();

@@ -1,11 +1,11 @@
-<h2>علاقه مندی ها</h2>
+<h2>پنل کاربری -) علاقه مندی ها</h2>
 <?php
-	echo form_open('user/add_favorite','method="post" class="panel_form"');
+	echo form_open('user/add_favorite', 'method="post" class="panel_form"');
 
 	$favorite_title_input = array(
 		'name'			=>	'favorite_title',
-		'place_holder'	=>	'عنوان شغل',
-		'maxlength'		=>	'100',
+		'place_holder'	=>	'عنوان علاقه مندی',
+		'maxlength'		=>	'70',
 		'required'		=>	'required'
 	);
 	$favorite_description = array(

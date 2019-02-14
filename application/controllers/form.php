@@ -92,7 +92,7 @@ class form extends CI_Controller
 				$this->person_model->blank_person($user_id);
 				
 				$this->load->model('contact_model');
-				$this->contact_model->blank_contacts($user_id);
+				$this->contact_model->blank_contact($user_id);
 
 				$this->load->model('state_model');
 				$this->state_model->blank_state($user_id);

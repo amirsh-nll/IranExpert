@@ -12,7 +12,7 @@ body
 	direction:rtl;
 	margin:0;
 	padding:0;
-	background:url('../image/panel.jpg') top repeat-x #fff;
+	background:url('../image/header_panel.jpg') top repeat-x #fff;
 	font-family:'irex', tahoma;
 }
 a
@@ -75,15 +75,16 @@ a
 .right_content a
 {
 	color:#fff;
-	font-size:25px;
+	font-size:23px;
 }
 .left_content
 {
 	float:left;
-	background:#eee;
-	width:700px;
-	padding:10px;
-	font-size:20px;
+	background:url('../image/left_panel.png') left bottom no-repeat #f1f1f1;
+	width:690px;
+	padding:15px;
+	font-size:21px;
+	min-height:1050px;
 }
 .left_content h2
 {
@@ -92,6 +93,8 @@ a
 	border-bottom:1px solid #000;
 	font-weight:normal;
 	font-style:normal;
+	padding-bottom:10px !important;
+	margin-bottom:10px !important;
 }
 .left_content p
 {
@@ -136,7 +139,7 @@ a
 {
 	width:32.3% !important;
 }
-.lesson_item, .job_item
+.lesson_item, .job_item, .project_item, .article_item
 {
 	width:48.9% !important;
 }
@@ -156,6 +159,19 @@ a
 	width:50%;
 	float:left;
 }
+.return_key
+{
+	cursor:pointer;
+	width:30%;
+	float:left;
+	font-size:20px;
+	border:1px solid #555;
+	padding:4px;
+	margin-left:10px;
+	color:#000;
+	background:#ddd;
+	text-align:center;
+}
 .retrive_data_table
 {
 	border:1px solid #000;
@@ -172,11 +188,15 @@ a
 }
 .retrive_data_table a
 {
-	color:#f00;
 	font-size:12px;
 }
-.image_upload_table
+.retrive_data_table_delete
 {
+	color:#f00;
+}
+.retrive_data_table_edit
+{
+	color:#00f;
 }
 .image_upload_table input[type="file"]
 {
@@ -186,6 +206,22 @@ a
 	border:none !important;
 	outline:none;
 	padding:0px !important;
+}
+.active_image
+{
+	border:1px solid #000;
+	padding:5px;
+	float:right;
+}
+.active_image p
+{
+	border:1px solid #000;
+	text-align:center;
+}
+.active_image a
+{
+	color:#f00;
+	font-size:20px;
 }
 .footer
 {

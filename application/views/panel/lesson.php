@@ -1,6 +1,6 @@
-<h2>اطلاعات تحصیلی</h2>
+<h2>پنل کاربری -) اطلاعات تحصیلی</h2>
 <?php
-	echo form_open('user/add_lesson','method="post" class="panel_form"');
+	echo form_open('user/add_lesson', 'method="post" class="panel_form"');
 
 	$lesson_title_input = array(
 		'name'			=>	'lesson_title',
@@ -26,7 +26,7 @@
 	}
 	$lesson_description = array(
 		'name'			=>	'lesson_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 	);
 	$submit_input = array(
 		'name'			=>	'lesson_submit',
@@ -36,19 +36,19 @@
 
 <table>
 	<tr>
-		<td>عنوان دوره</td>
+		<td><strong>عنوان دوره</strong></td>
 		<td><?php echo form_input($lesson_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>شروع دوره</td>
+		<td><strong>شروع دوره</strong></td>
 		<td><?php echo form_dropdown('lesson_start_month', $lesson_start_month_item, '', 'class="lesson_item"'); echo form_dropdown('lesson_start_year', $lesson_start_year_item, '', 'class="lesson_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>پایان دوره</td>
+		<td><strong>پایان دوره</strong></td>
 		<td><?php echo form_dropdown('lesson_end_month', $lesson_end_month_item, '', 'class="lesson_item"'); echo form_dropdown('lesson_end_year', $lesson_end_year_item, '', 'class="lesson_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($lesson_description); ?></td>
 	</tr>
 	<tr>
@@ -73,7 +73,8 @@
 ?>
 
 <p>&nbsp;</p>
-<p>لیست دوره های تحصیلی :</p>
+<div id="table_view">&nbsp;</div>
+<p><strong>لیست دوره های تحصیلی:</strong></p>
 <?php
 	if($lesson_item!=0)
 	{
@@ -88,11 +89,14 @@
 			</tr>
 			<?php foreach ($lesson_item as $my_lesson): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_lesson['title']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_lesson['start']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_lesson['end']; ?></td>
-					<td style="width:60%;"><?php echo $my_lesson['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_lesson/' . $my_lesson['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:18%;"><?php echo $my_lesson['title']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_lesson['start']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_lesson['end']; ?></td>
+					<td style="width:45%; text-align:justify;"><?php echo $my_lesson['description']; ?></td>
+					<td style="width:7%;">
+						<a class="retrive_data_table_edit" href="<?php echo base_url() . 'panel/update_lesson/' . $my_lesson['id'] . '#content_view'; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_lesson/' . $my_lesson['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -103,10 +107,10 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">نام دوره</td>
-				<td style="width:10%;">شروع دوره</td>
-				<td style="width:10%;">پایان دوره</td>
-				<td style="width:60%;">توضیحات</td>
+				<td style="width:18%;">نام دوره</td>
+				<td style="width:15%;">شروع دوره</td>
+				<td style="width:15%;">پایان دوره</td>
+				<td style="width:45%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -130,9 +134,9 @@
 
 <p>&nbsp;</p>
 <p>راهنمایی :</p>
+<p>در حال حاظر شما اجازه ثبت 20 دوره ی تحصیلی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن دوره های تحصیلی دانشگاهی و آکادمیک های مراکز فنی و ... می توانید قدرت علمی خود را نمایان کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 دوره ی تحصیلی را دارید و با این محدودیت شما می توانید دوره ها و مدارک پر اهمیت تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

@@ -74,7 +74,7 @@ class user_model extends CI_Model
 		}
 	}
 
-	public function user_middle_name($user_id)
+	public function fetch_middle_name($user_id)
 	{
 		$this->db->where('id', $user_id);
 		$result = $this->db->get('user');
@@ -84,6 +84,37 @@ class user_model extends CI_Model
 			$middle_name = $row->middle_name;
 		}
 		return $middle_name;
+	}
+
+	public function fetch_user_id_with_middle_name($middle_name)
+	{
+		$this->db->where('middle_name', $middle_name);
+		$result = $this->db->get('user');
+
+		if($result->num_rows()!=1)
+		{
+			return 0;
+		}
+		else
+		{
+			foreach($result->result() as $row)
+			{
+				$id = $row->id;
+			}
+			return $id;
+		}
+	}
+
+	public function fetch_email($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user');
+
+		foreach($result->result() as $row)
+		{
+			$email = $row->email;
+		}
+		return $email;
 	}
 }
 

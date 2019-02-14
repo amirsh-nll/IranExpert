@@ -39,7 +39,7 @@ class ability_model extends CI_Model
 		}
 	}
 
-	public function load_ability($user_id)
+	public function read_ability($user_id)
 	{
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('ability', 5);

@@ -16,7 +16,7 @@ class social_model extends CI_Model
 		parent::__construct();
 	}
 	
-	public function load_social($user_id)
+	public function read_social($user_id)
 	{
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('social', 5);
