@@ -16,14 +16,15 @@ class user_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function new_user($email, $password)
+	public function new_user($email, $password, $middle_name)
 	{
 		$data = array
 		(
-			'email'=>$email,
-			'password'=>do_hash($password, 'md5'),
-			'status'=>1,
-			'time'=>now()
+			'email'			=>	$email,
+			'password'		=>	do_hash($password, 'md5'),
+			'middle_name'	=>	$middle_name,
+			'status'		=>	1,
+			'time'			=>	now()
 		);
 
 		$this->db->insert('user', $data);
@@ -55,8 +56,8 @@ class user_model extends CI_Model
 		{
 			foreach($result->result() as $row)
 			{
-				$user_id = $row->id;
-				$user_status = $row->status;
+				$user_id 		= $row->id;
+				$user_status 	= $row->status;
 			}
 			if($user_status==1)
 			{
@@ -71,6 +72,18 @@ class user_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+
+	public function user_middle_name($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user');
+
+		foreach($result->result() as $row)
+		{
+			$middle_name = $row->middle_name;
+		}
+		return $middle_name;
 	}
 }
 

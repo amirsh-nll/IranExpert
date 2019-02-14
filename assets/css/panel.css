@@ -175,6 +175,18 @@ a
 	color:#f00;
 	font-size:12px;
 }
+.image_upload_table
+{
+}
+.image_upload_table input[type="file"]
+{
+	font-size:15px !important;
+	font-family:'irex', tahoma;
+	width:100% !important;
+	border:none !important;
+	outline:none;
+	padding:0px !important;
+}
 .footer
 {
 	width:900px;

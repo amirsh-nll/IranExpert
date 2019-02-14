@@ -84,17 +84,21 @@ class form extends CI_Controller
 
 			if($this->captcha_model->check($code))
 			{
+				$middle_name = explode('@', $email);
 				$this->load->model('user_model');
-				$user_id = $this->user_model->new_user($email, $password);
+				$user_id = $this->user_model->new_user($email, $password, $middle_name[0]);
 
 				$this->load->model('person_model');
 				$this->person_model->blank_person($user_id);
 				
-				$this->load->model('contacts_model');
-				$this->contacts_model->blank_contacts($user_id);
+				$this->load->model('contact_model');
+				$this->contact_model->blank_contacts($user_id);
 
 				$this->load->model('state_model');
 				$this->state_model->blank_state($user_id);
+
+				$this->load->model('image_model');
+				$this->image_model->default_image($user_id);
 
 				redirect(base_url() . 'web/login/4');
 

@@ -34,8 +34,8 @@
 				<h3>گزارش تخلف رزومه ها</h3>
 			</div>
 			<div class="item">
-				<span class="fa fa-5x fa-qrcode"></span>
-				<h3>تعریف کد اختصاصی رزومه</h3>
+				<span class="fa fa-5x fa-link"></span>
+				<h3>آدرس اختصاصی برای هر کاربر</h3>
 			</div>
 			<div class="clear"></div>
 			<div class="shortcut">

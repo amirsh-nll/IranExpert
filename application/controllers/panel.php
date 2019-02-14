@@ -22,16 +22,38 @@ class panel extends IREX_Controller
 		$data = array
 		(
 			'url'=>base_url(),
-			'title'=>'پنل کاربری - پیشخوان'
+			'title'=>'پنل کاربری - پیشخوان',
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/home', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function image($notice = 0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('image_model');
+		$image = $this->image_model->read_image($user_id);
+		$image = $image[0];
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - تصویر کاربری',
+			'notice'			=>	$notice,
+			'active_image'		=>	$image['file_name']
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/image', $data);
+		$this->load->view('panel/footer', $data);
+
+	}
+
 	public function person($notice = 0)
 	{
-		$notice = xss_clean($notice);
+		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
 		$this->load->model('person_model');
@@ -59,10 +81,22 @@ class panel extends IREX_Controller
 		$this->load->view('panel/person', $data);
 		$this->load->view('panel/footer', $data);
 	}
+
+	public function contact()
+	{
+		$data = array
+		(
+			'url'=>base_url(),
+			'title'=>'پنل کاربری - اطلاعات تماس'
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/contact', $data);
+		$this->load->view('panel/footer', $data);
+	}
 	
 	public function lesson($notice = 0)
 	{
-		$notice = xss_clean($notice);
+		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
 		$this->load->model('lesson_model');
@@ -82,7 +116,7 @@ class panel extends IREX_Controller
 
 	public function job($notice = 0)
 	{
-		$notice = xss_clean($notice);
+		$notice  = xss_clean($notice);
 		$user_id = $this->session->userdata('user_id');
 
 		$this->load->model('job_model');
@@ -90,9 +124,9 @@ class panel extends IREX_Controller
 
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - اطلاعات شغلی',
-			'notice'			=>	$notice,
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - اطلاعات شغلی',
+			'notice'		=>	$notice,
 			'job_item'		=>	$job
 		);
 		$this->load->view('panel/header', $data);
@@ -100,36 +134,60 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function favorite()
+	public function favorite($notice = 0)
 	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('favorite_model');
+		$favorite = $this->favorite_model->load_favorite($user_id);
+
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - علاقه مندی ها'
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - علاقه مندی',
+			'notice'		=>	$notice,
+			'favorite_item'	=>	$favorite
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/favorite', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function ability()
+	public function ability($notice = 0)
 	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('ability_model');
+		$ability = $this->ability_model->load_ability($user_id);
+
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - توانایی ها'
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - علاقه مندی',
+			'notice'		=>	$notice,
+			'ability_item'	=>	$ability
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/ability', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function social()
+	public function social($notice = 0)
 	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('social_model');
+		$social = $this->social_model->load_social($user_id);
+
 		$data = array
 		(
-			'url'=>base_url(),
-			'title'=>'پنل کاربری - شبکه های اجتماعی'
+			'url'			=>	base_url(),
+			'title'			=>	'پنل کاربری - شبکه های اجتماعی',
+			'notice'		=>	$notice,
+			'social_item'	=>	$social
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/social', $data);
@@ -174,7 +232,11 @@ class panel extends IREX_Controller
 
 	public function profile()
 	{
-		
+		$user_id = $this->session->userdata('user_id');
+		$this->load->model('user_model');
+		$user = $this->user_model->user_middle_name($user_id);
+
+		redirect(base_url() . 'profile/' . $user);
 	}
 
 	public function out()

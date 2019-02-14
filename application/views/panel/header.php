@@ -35,7 +35,9 @@
 				<div class="menu">
 					<ul>
 						<li><a href="<?=$url; ?>panel/home" titile="پیشخوان">پیشخوان</a></li>
+						<li><a href="<?=$url; ?>panel/image" titile="تصویر کاربری">تصویر کاربری</a></li>
 						<li><a href="<?=$url; ?>panel/person" titile="اطلاعات فردی">اطلاعات فردی</a></li>
+						<li><a href="<?=$url; ?>panel/contact" titile="اطلاعات تماس">اطلاعات تماس</a></li>
 						<li><a href="<?=$url; ?>panel/lesson" titile="اطلاعات تحصیلی">اطلاعات تحصیلی</a></li>
 						<li><a href="<?=$url; ?>panel/job" titile="اطلاعات شغلی">اطلاعات شغلی</a></li>
 						<li><a href="<?=$url; ?>panel/favorite" titile="علاقه مندی ها">علاقه مندی ها</a></li>
@@ -43,7 +45,7 @@
 						<li><a href="<?=$url; ?>panel/social" titile="شبکه های اجتماعی">شبکه های اجتماعی</a></li>
 						<li><a href="<?=$url; ?>panel/state" titile="آمار">آمار</a></li>
 						<li><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
-						<li><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل">مشاهده پروفایل</a></li>
+						<li><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل" target="_blank">مشاهده پروفایل</a></li>
 						<li><a href="<?=$url; ?>panel/out" titile="مشاهده پروفایل">خروج</a></li>
 					</ul>
 				</div>

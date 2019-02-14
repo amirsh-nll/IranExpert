@@ -103,10 +103,10 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td>نام دوره</td>
-				<td>شروع دوره</td>
-				<td>پایان دوره</td>
-				<td>توضیحات</td>
+				<td style="width:20%;">نام دوره</td>
+				<td style="width:10%;">شروع دوره</td>
+				<td style="width:10%;">پایان دوره</td>
+				<td style="width:60%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
