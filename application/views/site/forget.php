@@ -39,6 +39,18 @@
 						echo form_submit($submit_input);
 					?>
 				</div>
+				<div class="box_right">
+					<?php
+						if($notice==1)
+						{
+							echo '<p style="color:#f77;">اطلاعات وارد شده معتبر نمی باشند.</p>';
+						}
+						elseif($notice==2)
+						{
+							echo '<p style="color:#f77;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
+						}
+					?>
+				</div>
 				<div class="clear"></div>
 			<?php echo form_close(); ?>
 		</div>

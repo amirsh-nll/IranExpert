@@ -22,7 +22,7 @@ class Web extends CI_Controller
 		$this->load->view('site/footer',$data);
 	}
 
-	public function register()
+	public function register($notice=0)
 	{
 		$captcha = array(
 	        'img_path'      => './captcha/',
@@ -39,7 +39,8 @@ class Web extends CI_Controller
 		$data = array(
 			'title'=>'ثبت نام',
 			'url'=>base_url(),
-			'captcha'=>$cap
+			'captcha'=>$cap,
+			'notice'=>$notice
 			);
 		
 		$capcha_data = array(
@@ -54,7 +55,7 @@ class Web extends CI_Controller
 		$this->load->view('site/register',$data);
 	}
 
-	public function login()
+	public function login($notice=0)
 	{
 		$captcha = array(
 	        'img_path'      => './captcha/',
@@ -71,7 +72,8 @@ class Web extends CI_Controller
 		$data = array(
 			'title'=>'ورود',
 			'url'=>base_url(),
-			'captcha'=>$cap
+			'captcha'=>$cap,
+			'notice'=>$notice
 			);
 
 		$capcha_data = array(
@@ -86,7 +88,7 @@ class Web extends CI_Controller
 		$this->load->view('site/login',$data);
 	}
 
-	public function forget()
+	public function forget($notice=0)
 	{
 		$captcha = array(
 	        'img_path'      => './captcha/',
@@ -103,7 +105,8 @@ class Web extends CI_Controller
 		$data = array(
 			'title'=>'فراموشی رمز عبور',
 			'url'=>base_url(),
-			'captcha'=>$cap
+			'captcha'=>$cap,
+			'notice'=>$notice
 			);
 
 		$capcha_data = array(

@@ -29,12 +29,6 @@
 						echo form_password($password_input);
 						echo $captcha['image'];
 						echo form_input($captcha_input);
-
-						if(!empty(validation_errors()))
-						{
-							echo '<p style="color:#f55;">اطلاعات وارد شده معتبر نمی باشند.</p>';
-						}
-						
 					?>
 					<p><a href="<?=$url; ?>web/forget" title="Forget Password">رمز عبور خود را فراموش کرده اید؟</a></p>
 					<p><a href="<?=$url; ?>web/index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
@@ -43,6 +37,22 @@
 				<div class="box_left">
 					<?php
 						echo form_submit($submit_input);
+					?>
+				</div>
+				<div class="box_right">
+					<?php
+						if($notice==1)
+						{
+							echo '<p style="color:#f77;">اطلاعات وارد شده معتبر نمی باشند.</p>';
+						}
+						elseif($notice==2)
+						{
+							echo '<p style="color:#f77;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
+						}
+						elseif($notice==3)
+						{
+							echo '<p style="color:#0f0;">ثبت نام شما با موفقیت انجام شد برای ورود به پنل کاربری خود از فرم بالا اقدام کنید.</p>';
+						}
 					?>
 				</div>
 				<div class="clear"></div>

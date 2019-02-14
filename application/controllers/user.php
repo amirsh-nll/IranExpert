@@ -60,33 +60,7 @@ class User extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			$captcha = array(
-		        'img_path'      => './captcha/',
-		        'img_url'       => 'http://localhost/captcha/',
-		        'word_length'   => 5,
-		        'colors'        => array(
-		                'background' => array(255, 255, 255),
-	                	'border' => array(255, 255, 255),
-	                	'text' => array(0, 0, 0),
-	                	'grid' => array(255, 40, 40)
-		        )
-			);
-			$cap = create_captcha($captcha);
-			$data = array(
-				'title'=>'ثبت نام',
-				'url'=>base_url(),
-				'captcha'=>$cap
-				);
-
-			$capcha_data = array(
-		        'captcha_time'  => $cap['time'],
-		        'ip_address'    => $this->input->ip_address(),
-		        'word'          => $cap['word']
-			);
-			$this->captcha_model->insert($capcha_data);
-
-			$this->load->view('site/form_header',$data);
-			$this->load->view('site/register',$data);
+			redirect('web/register/1');
 		}
 		else
 		{
@@ -99,14 +73,21 @@ class User extends CI_Controller
 				$this->load->model('user_model');
 				$user_id = $this->user_model->new_user($email, $password);
 
+				$this->load->model('person_model');
+				$this->person_model->blank_person($user_id);
+				
 				$this->load->model('contacts_model');
-				$this->contacts_model->new_contacts($user_id);
+				$this->contacts_model->blank_contacts($user_id);
 
 				$this->load->model('state_model');
-				$this->state_model->new_state($user_id);
+				$this->state_model->blank_state($user_id);
 
-				$this->load->model('person_model');
-				$this->person_model->new_person($user_id);
+				redirect('web/login/3');
+
+			}
+			else
+			{
+				redirect('web/register/2');
 			}
 		}
 	}
@@ -147,34 +128,7 @@ class User extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			$captcha = array(
-		        'img_path'      => './captcha/',
-		        'img_url'       => 'http://localhost/captcha/',
-		        'word_length'   => 5,
-		        'colors'        => array(
-		                'background' => array(255, 255, 255),
-	                	'border' => array(255, 255, 255),
-	                	'text' => array(0, 0, 0),
-	                	'grid' => array(255, 40, 40)
-		        )
-			);
-			$cap = create_captcha($captcha);
-			$data = array(
-				'title'=>'ورود',
-				'url'=>base_url(),
-				'captcha'=>$cap
-				);
-
-			$capcha_data = array(
-		        'captcha_time'  => $cap['time'],
-		        'ip_address'    => $this->input->ip_address(),
-		        'word'          => $cap['word']
-			);
-			$this->load->model('captcha_model');
-			$this->captcha_model->insert($capcha_data);
-
-			$this->load->view('site/form_header',$data);
-			$this->load->view('site/login',$data);
+			redirect('web/login/1');
 		}
 		else
 		{
@@ -208,34 +162,7 @@ class User extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			$captcha = array(
-		        'img_path'      => './captcha/',
-		        'img_url'       => 'http://localhost/captcha/',
-		        'word_length'   => 5,
-		        'colors'        => array(
-		                'background' => array(255, 255, 255),
-	                	'border' => array(255, 255, 255),
-	                	'text' => array(0, 0, 0),
-	                	'grid' => array(255, 40, 40)
-		        )
-			);
-			$cap = create_captcha($captcha);
-			$data = array(
-				'title'=>'فراموشی رمز عبور',
-				'url'=>base_url(),
-				'captcha'=>$cap
-				);
-
-			$capcha_data = array(
-		        'captcha_time'  => $cap['time'],
-		        'ip_address'    => $this->input->ip_address(),
-		        'word'          => $cap['word']
-			);
-			$this->load->model('captcha_model');
-			$this->captcha_model->insert($capcha_data);
-
-			$this->load->view('site/form_header',$data);
-			$this->load->view('site/forget',$data);
+			redirect('web/forget/1');
 		}
 		else
 		{
