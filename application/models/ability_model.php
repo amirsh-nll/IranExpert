@@ -21,7 +21,7 @@ class ability_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$result = $this->db->get('ability');
 
-		if($result->num_rows()<5)
+		if($result->num_rows()<20)
 		{
 			$data = array
 			(
@@ -42,7 +42,7 @@ class ability_model extends CI_Model
 	public function read_ability($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('ability', 5);
+		$result = $this->db->get('ability', 20);
 
 		if($result->num_rows()>0)
 		{
@@ -54,6 +54,18 @@ class ability_model extends CI_Model
 		}
 	}
 
+	public function update_ability($user_id, $ability_id, $ability_title, $description)
+	{
+		$data = array(
+			'title'			=>	$ability_title,
+			'description'	=>	$description
+		);
+		$this->db->set($data);
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $ability_id);
+		$this->db->update('ability');
+	}
+
 	public function delete_ability($id, $user_id)
 	{
 		$this->db->where('id', $id);
@@ -61,6 +73,22 @@ class ability_model extends CI_Model
 		$result = $this->db->delete('ability');
 
 		return $result;
+	}
+
+	public function fetch_record_with_id($user_id, $ability_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $ability_id);
+		$result = $this->db->get('ability', 1);
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
 	}
 	
 }

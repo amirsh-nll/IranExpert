@@ -26,7 +26,7 @@
 	}
 	$job_description = array(
 		'name'			=>	'job_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 	);
 	$submit_input = array(
 		'name'			=>	'job_submit',
@@ -36,19 +36,19 @@
 
 <table>
 	<tr>
-		<td>عنوان شغل</td>
+		<td><strong>عنوان شغل</strong></td>
 		<td><?php echo form_input($job_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>شروع دوره شغلی</td>
+		<td><strong>شروع دوره شغلی</strong></td>
 		<td><?php echo form_dropdown('job_start_month', $job_start_month_item, '', 'class="job_item"'); echo form_dropdown('job_start_year', $job_start_year_item, '', 'class="job_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>پایان دوره شغلی</td>
+		<td><strong>پایان دوره شغلی</strong></td>
 		<td><?php echo form_dropdown('job_end_month', $job_end_month_item, '', 'class="job_item"'); echo form_dropdown('job_end_year', $job_end_year_item, '', 'class="job_item"'); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($job_description); ?></td>
 	</tr>
 	<tr>
@@ -72,8 +72,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست دوره های شغلی :</p>
+<p><strong>لیست دوره های شغلی:</strong></p>
 <?php
 	if($job_item!=0)
 	{
@@ -88,11 +89,15 @@
 			</tr>
 			<?php foreach ($job_item as $my_job): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_job['title']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_job['start']; ?></td>
-					<td style="width:10%; text-align:center;"><?php echo $my_job['end']; ?></td>
-					<td style="width:60%;"><?php echo $my_job['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_job/' . $my_job['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:18%;"><?php echo $my_job['title']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_job['start']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $my_job['end']; ?></td>
+					<td style="width:45%;"><?php echo $my_job['description']; ?></td>
+
+					<td style="width:7%;">
+						<a class="retrive_data_table_edit" href="<?php echo base_url() . 'panel/update_job/' . $my_job['id'] . '#content_view'; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_job/' . $my_job['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -103,10 +108,10 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">عنوان شغل</td>
-				<td style="width:10%;">شروع دوره</td>
-				<td style="width:10%;">پایان دوره</td>
-				<td style="width:60%;">توضیحات</td>
+				<td style="width:18%;">عنوان شغل</td>
+				<td style="width:15%;">شروع دوره</td>
+				<td style="width:15%;">پایان دوره</td>
+				<td style="width:45%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -129,10 +134,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 دوره ی شغلی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن سوابق شغلی خود در شرکت ها، تیم ها و ... می توانید یک روزمه ی شغلی غنی برای خود ایجاد کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 دوره ی شغلی را دارید و با این محدودیت شما می توانید پست های شغلی برجسته تر خود را به ثبت برسانید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>

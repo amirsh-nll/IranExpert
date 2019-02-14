@@ -503,7 +503,7 @@ class user extends IREX_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'panel/job/1');
+			redirect(base_url() . 'panel/job/1#content_view');
 		}
 		else
 		{
@@ -519,12 +519,102 @@ class user extends IREX_Controller
 
 			if($job == 1)
 			{
-				redirect(base_url() . 'panel/job/2');
+				redirect(base_url() . 'panel/job/2#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/job/3');
+				redirect(base_url() . 'panel/job/3#content_view');
 			}
+		}
+	}
+
+	public function update_job()
+	{
+		$job_id = $this->session->userdata('job_id_for_update');
+		
+		if(empty($job_id))
+		{
+			redirect(base_url() . 'panel/job#content_view');
+		}
+
+		$rules = array(
+			array(
+				'field'		=>	'job_title',
+				'label'		=>	'عنوان شغل',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_start_month',
+				'label'		=>	'ماه شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_start_year',
+				'label'		=>	'سال شرعو دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_end_month',
+				'label'		=>	'ماه پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_end_year',
+				'label'		=>	'سال پایان دوره',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'job_description',
+				'label'		=>	'توضیحات دوره',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			$job_id 	= $this->session->userdata('job_id_for_update');
+			redirect(base_url() . 'panel/update_job/' . $job_id . '/1#content_view');
+		}
+		else
+		{
+			$user_id 		= $this->session->userdata('user_id');
+			$job_id 		= $this->session->userdata('job_id_for_update');
+
+			$job_title 	= $this->input->post('job_title', true);
+			$start_date 	= $this->input->post('job_start_year', true) . '/' . $this->input->post('job_start_month', true);
+			$end_date 		= $this->input->post('job_end_year', true) . '/' . $this->input->post('job_end_month', true);
+			$description 	= $this->input->post('job_description', true);
+
+			$this->load->model('job_model');
+			$job = $this->job_model->update_job($user_id, $job_id, $job_title, $start_date, $end_date, $description);
+
+			redirect(base_url() . 'panel/update_job/' . $job_id . '/2#content_view');
 		}
 	}
 
@@ -538,11 +628,11 @@ class user extends IREX_Controller
 			$lesson = $this->job_model->delete_job($id, $user_id);
 			if($lesson == 1)
 			{
-				redirect(base_url() . 'panel/job/5');
+				redirect(base_url() . 'panel/job/5#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/job/4');
+				redirect(base_url() . 'panel/job/4#table_view');
 			}
 		}
 		else
@@ -578,7 +668,7 @@ class user extends IREX_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'panel/ability/1');
+			redirect(base_url() . 'panel/ability/1#content_view');
 		}
 		else
 		{
@@ -592,12 +682,63 @@ class user extends IREX_Controller
 
 			if($ability == 1)
 			{
-				redirect(base_url() . 'panel/ability/2');
+				redirect(base_url() . 'panel/ability/2#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/ability/3');
+				redirect(base_url() . 'panel/ability/3#content_view');
 			}
+		}
+	}
+
+	public function update_ability()
+	{
+		$ability_id = $this->session->userdata('ability_id_for_update');
+		
+		if(empty($ability_id))
+		{
+			redirect(base_url() . 'panel/ability#content_view');
+		}
+
+		$rules = array(
+			array(
+				'field'		=>	'ability_title',
+				'label'		=>	'عنوان توانایی',
+				'rules'		=>	'required|min_length[3]|max_length[70]',
+				'errors'	=>array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'ability_description',
+				'label'		=>	'توضیحات',
+				'rules'		=>	'max_length[500]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			$ability_id 	= $this->session->userdata('ability_id_for_update');
+			redirect(base_url() . 'panel/update_ability/' . $ability_id . '/1#content_view');
+		}
+		else
+		{
+			$user_id 		= $this->session->userdata('user_id');
+			$ability_id 	= $this->session->userdata('ability_id_for_update');
+			$ability_title 	= $this->input->post('ability_title', true);
+			$description 	= $this->input->post('ability_description', true);
+
+			$this->load->model('ability_model');
+			$ability = $this->ability_model->update_ability($user_id, $ability_id, $ability_title, $description);
+
+			redirect(base_url() . 'panel/update_ability/' . $ability_id . '/2#content_view');
 		}
 	}
 
@@ -611,11 +752,11 @@ class user extends IREX_Controller
 			$ability = $this->ability_model->delete_ability($id, $user_id);
 			if($ability == 1)
 			{
-				redirect(base_url() . 'panel/ability/5');
+				redirect(base_url() . 'panel/ability/5#table_view');
 			}
 			else
 			{
-				redirect(base_url() . 'panel/ability/4');
+				redirect(base_url() . 'panel/ability/4#table_view');
 			}
 		}
 		else

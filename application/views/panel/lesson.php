@@ -5,7 +5,7 @@
 	$lesson_title_input = array(
 		'name'			=>	'lesson_title',
 		'place_holder'	=>	'عنوان دوره',
-		'maxlength'		=>	'100',
+		'maxlength'		=>	'70',
 		'required'		=>	'required'
 	);
 	for($i=1;$i<=12;$i++)

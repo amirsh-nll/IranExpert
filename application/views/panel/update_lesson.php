@@ -1,6 +1,6 @@
 <h2>پنل کاربری -) اطلاعات تحصیلی -) ویرایش اطلاعات تحصیلی</h2>
 <?php
-	echo form_open('user/update_lesson','method="post" class="panel_form"');
+	echo form_open('user/update_lesson', 'method="post" class="panel_form"');
 
 	$lesson_item 	= $lesson_item[0];
 	$start 			= explode('/', $lesson_item['start']);
@@ -9,7 +9,7 @@
 	$lesson_title_input = array(
 		'name'			=>	'lesson_title',
 		'place_holder'	=>	'عنوان دوره',
-		'maxlength'		=>	'100',
+		'maxlength'		=>	'70',
 		'required'		=>	'required',
 		'value'			=>	$lesson_item['title']
 	);

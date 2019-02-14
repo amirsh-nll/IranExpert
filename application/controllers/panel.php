@@ -222,6 +222,39 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function update_job($job_id = 0, $notice = 0)
+	{
+		$job_id 	= xss_clean($job_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($job_id) || $job_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/job');
+		}
+
+		$this->load->model('job_model');
+		$job = $this->job_model->fetch_record_with_id($user_id, $job_id);
+
+		if($job==0)
+		{
+			redirect(base_url() . 'panel/job');
+		}
+
+		$this->session->set_userdata('job_id_for_update', $job_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش اطلاعات شغلی',
+			'notice'			=>	$notice,
+			'job_item'			=>	$job
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_job', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function ability($notice = 0)
 	{
 		$notice  = xss_clean($notice);
@@ -244,6 +277,39 @@ class panel extends IREX_Controller
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/ability', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function update_ability($ability_id = 0, $notice = 0)
+	{
+		$ability_id = xss_clean($ability_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($ability_id) || $ability_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/ability');
+		}
+
+		$this->load->model('ability_model');
+		$ability = $this->ability_model->fetch_record_with_id($user_id, $ability_id);
+
+		if($ability==0)
+		{
+			redirect(base_url() . 'panel/ability');
+		}
+
+		$this->session->set_userdata('ability_id_for_update', $ability_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - ویرایش توانایی ها',
+			'notice'			=>	$notice,
+			'ability_item'		=>	$ability
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/update_ability', $data);
 		$this->load->view('panel/footer', $data);
 	}
 

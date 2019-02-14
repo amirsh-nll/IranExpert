@@ -1,16 +1,16 @@
-<h2>توانایی ها</h2>
+<h2>پنل کاربری -) توانایی ها</h2>
 <?php
 	echo form_open('user/add_ability', 'method="post" class="panel_form"');
 
 	$ability_title_input = array(
 		'name'			=>	'ability_title',
-		'place_holder'	=>	'عنوان شغل',
-		'maxlength'		=>	'100',
+		'place_holder'	=>	'عنوان توانایی',
+		'maxlength'		=>	'70',
 		'required'		=>	'required'
 	);
 	$ability_description = array(
 		'name'			=>	'ability_description',
-		'maxlength'		=>	'255',
+		'maxlength'		=>	'500',
 	);
 	$submit_input = array(
 		'name'			=>	'ability_submit',
@@ -20,11 +20,11 @@
 
 <table>
 	<tr>
-		<td>عنوان توانایی</td>
+		<td><strong>عنوان توانایی</strong></td>
 		<td><?php echo form_input($ability_title_input); ?></td>
 	</tr>
 	<tr>
-		<td>توضیحات</td>
+		<td><strong>توضیحات</strong></td>
 		<td><?php echo form_textarea($ability_description); ?></td>
 	</tr>
 	<tr>
@@ -48,8 +48,9 @@
 	}
 ?>
 
+<div id="table_view">&nbsp;</div>
 <p>&nbsp;</p>
-<p>لیست توانایی ها :</p>
+<p><strong>لیست توانایی ها:</strong></p>
 
 <?php
 	if($ability_item!=0)
@@ -63,9 +64,12 @@
 			</tr>
 			<?php foreach ($ability_item as $my_ability): ?>
 				<tr>
-					<td style="width:20%;"><?php echo $my_ability['title']; ?></td>
-					<td style="width:80%;"><?php echo $my_ability['description']; ?></td>
-					<td><a href="<?php echo base_url() . 'user/delete_ability/' . $my_ability['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a></td>
+					<td style="width:28%;"><?php echo $my_ability['title']; ?></td>
+					<td style="width:65%;"><?php echo $my_ability['description']; ?></td>
+					<td style="width:7%;">
+					<a class="retrive_data_table_edit" href="<?php echo base_url() . 'panel/update_ability/' . $my_ability['id'] . '#content_view'; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
+						<a class="retrive_data_table_delete" href="<?php echo base_url() . 'user/delete_ability/' . $my_ability['id']; ?>" title="حذف"><span class="fa fa-lg fa-close"></span></a>
+					</td>
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -76,8 +80,8 @@
 		?>
 		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
-				<td style="width:20%;">نام توانایی</td>
-				<td style="width:80%;">توضیحات</td>
+				<td style="width:28%;">نام توانایی</td>
+				<td style="width:65%;">توضیحات</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -100,10 +104,10 @@
 ?>
 
 <p>&nbsp;</p>
-<p>راهنمایی :</p>
+<p><strong>راهنمایی:</strong></p>
+<p>در حال حاظر شما اجازه ثبت 20 تونایی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن توانایی ها خود کارفرمایان و بازدیدکنندگان را برای انتخاب خود ترغیب می کنید.</p>
-<p>در حال حاظر شما اجازه ثبت 5 تونایی را دارید پس با ثبت توانایی های برجسته ی خود معتبر شوید و از موارد جزئی چشم پوشی کنید.</p>
 <?php
 	echo form_close();
 ?>
