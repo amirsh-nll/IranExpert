@@ -21,6 +21,10 @@
 							'placeholder'=>'تکرار رمز عبور',
 							'required'=>'required'
 						);
+						$rules_check_input = array(
+							'name'=>'rules_check',
+							'value'=>'1'
+						);
 						$captcha_input = array(
 							'name'=>'captcha',
 							'placeholder'=>'گد امنیتی',
@@ -33,6 +37,8 @@
 						echo form_input($email_input);
 						echo form_password($password_input);
 						echo form_password($repassword_input);
+						echo '<p class="accept_rules">' . form_checkbox($rules_check_input);
+						echo '<a href="' . $url . 'rules" title="صفحه قونین">قوانین</a> سامانه را می پذیرم.</p>';
 						echo $captcha['image'];
 						echo form_input($captcha_input);
 						
@@ -59,6 +65,10 @@
 						elseif($notice==2)
 						{
 							echo '<p style="color:#f77;">لطفا کد امنیتی را صحیح وارد کنید.</p>';
+						}
+						elseif($notice==3)
+						{
+							echo '<p style="color:#f77;">در صورت عدم تایید قوانین شما اجازه ثبت نام ندارید.</p>';
 						}
 					?>
 				</div>

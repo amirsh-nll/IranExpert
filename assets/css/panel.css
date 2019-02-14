@@ -13,7 +13,7 @@ body
 	margin:0;
 	padding:0;
 	background:url('../image/panel.jpg') top repeat-x #fff;
-	font-family:'irex';
+	font-family:'irex', tahoma;
 }
 a
 {
@@ -48,17 +48,19 @@ a
 .content
 {
 	width:900px;
-	margin:20px auto;
+	margin:40px auto;
 }
 .right_content
 {
 	float:right;
+	width:150px;
 }
 .right_content ul
 {
 	list-style:none;
 	margin:0;
 	padding:0;
+	width:100%;
 }
 .right_content li
 {
@@ -66,12 +68,98 @@ a
 	margin-bottom:10px;
 	padding:5px;
 }
+.right_content li
+{
+	background:#3e56a6;
+}
 .right_content a
 {
-	color:#000;
+	color:#fff;
 	font-size:25px;
 }
 .left_content
 {
 	float:left;
+	background:#eee;
+	width:700px;
+	padding:10px;
+	font-size:20px;
+}
+.left_content h2
+{
+	padding:0;
+	margin:0;
+	border-bottom:1px solid #000;
+	font-weight:normal;
+	font-style:normal;
+}
+.left_content p
+{
+	line-height:40px;
+	text-align:justify;
+	margin:0px;
+}
+.panel_form
+{
+	margin:20px 0px;
+}
+.panel_form td:nth-child(odd)
+{
+	width:100px;
+}
+.panel_form td:nth-child(even)
+{
+	width:300px;
+}
+.panel_form td
+{
+	padding:5px;
+}
+.panel_form input
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:96%;
+	outline:none;
+	border:1px solid #555;
+	padding:4px;
+}
+.panel_form select
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:100%;
+	outline:none;
+	border:1px solid #555;
+}
+.birth_item
+{
+	width:32.3% !important;
+}
+.lesson_item, .job_item
+{
+	width:48.9% !important;
+}
+.panel_form textarea
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:98%;
+	outline:none;
+	border:1px solid #555;
+	height:200px;
+	resize:none;
+}
+.panel_form input[type="submit"]
+{
+	cursor:pointer;
+	width:50%;
+	float:left;
+}
+.footer
+{
+	width:900px;
+	border-top:1px solid #000;
+	font-size:20px;
+	margin:0 auto;
 }

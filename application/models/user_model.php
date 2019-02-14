@@ -31,12 +31,46 @@ class user_model extends CI_Model
 		$this->db->where('email', $email);
 		$result = $this->db->get('user');
 
-		foreach($result->result() as $row)
+		if($result->num_rows()>0)
 		{
-			$user_id = $row->id;
+			foreach($result->result() as $row)
+			{
+				$user_id = $row->id;
+			}
+			return $user_id;
 		}
-		
-		return $user_id;
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function check_user_for_login($email, $password)
+	{
+		$this->db->where('email', $email);
+		$this->db->where('password', do_hash($password, 'md5'));
+		$result = $this->db->get('user');
+
+		if($result->num_rows()>0)
+		{
+			foreach($result->result() as $row)
+			{
+				$user_id = $row->id;
+				$user_status = $row->status;
+			}
+			if($user_status==1)
+			{
+				return $user_id;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }
 

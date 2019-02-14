@@ -45,6 +45,14 @@ class User extends CI_Controller
 						)
 					),
 				array(
+					'field'=>'rules_check',
+					'label'=>'پذیرش قوانین',
+					'rules'=>'numeric',
+					'errors'=>array(
+						'numeric'=>'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
 					'field'=>'captcha',
 					'label'=>'کد امنیتی',
 					'rules'=>'required',
@@ -60,13 +68,19 @@ class User extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect('web/register/1');
+			redirect(base_url() . 'web/register/1');
 		}
 		else
 		{
-			$email = xss_clean($_POST['email']);
-			$password = xss_clean($_POST['password']);
-			$code = xss_clean($_POST['captcha']);
+			$email = $this->input->post('email',true);
+			$password = $this->input->post('password',true);
+			$rules_check = $this->input->post('rules_check',true);
+			$code = $this->input->post('captcha',true);
+
+			if($rules_check!=1)
+			{
+				redirect(base_url() . 'web/register/3');
+			}
 
 			if($this->captcha_model->check($code))
 			{
@@ -82,12 +96,12 @@ class User extends CI_Controller
 				$this->load->model('state_model');
 				$this->state_model->blank_state($user_id);
 
-				redirect('web/login/3');
+				redirect(base_url() . 'web/login/4');
 
 			}
 			else
 			{
-				redirect('web/register/2');
+				redirect(base_url() . 'web/register/2');
 			}
 		}
 	}
@@ -107,7 +121,7 @@ class User extends CI_Controller
 				array(
 					'field'=>'password',
 					'label'=>'رمز عبور',
-					'rules'=>'required|min_length[5]|max_lenth[40]',
+					'rules'=>'required|min_length[5]|max_length[40]',
 					'errors'=>array(
 						'required'=>'فیلد %s معتبر نمی باشد.',
 						'min_lenth'=>'فیلد %s معتبر نمی باشد.',
@@ -126,13 +140,41 @@ class User extends CI_Controller
 
 		$this->form_validation->set_rules($rules);
 
+		$this->load->model('captcha_model');
+
 		if($this->form_validation->run()==false)
 		{
-			redirect('web/login/1');
+			redirect(base_url() . 'web/login/1');
 		}
 		else
 		{
+			$email = $this->input->post('email',true);
+			$password = $this->input->post('password',true);
+			$code = $this->input->post('captcha',true);
 
+			if($this->captcha_model->check($code))
+			{
+				$this->load->model('user_model');
+				$login = $this->user_model->check_user_for_login($email, $password);
+				if($login!=0)
+				{
+					$session = array(
+						'user_id'=>$login,
+						'login'=>true
+					);
+					$this->session->set_userdata($session);
+					redirect(base_url() . 'panel/index');
+				}
+				else
+				{
+					redirect(base_url() . 'web/login/1');
+				}
+
+			}
+			else
+			{
+				redirect(base_url() . 'web/login/2');
+			}
 		}
 	}
 
@@ -162,7 +204,7 @@ class User extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect('web/forget/1');
+			redirect(base_url() . 'web/forget/1');
 		}
 		else
 		{

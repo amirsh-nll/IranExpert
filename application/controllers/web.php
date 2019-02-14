@@ -15,7 +15,8 @@ class Web extends CI_Controller
 	public function index()
 	{
 		$data = array(
-			'url'=>base_url()
+			'url'=>base_url(),
+			'title'=>'پروفایل آنلاین ایرانیان'
 			);
 		$this->load->view('site/header',$data);
 		$this->load->view('site/home',$data);
@@ -37,7 +38,7 @@ class Web extends CI_Controller
 		);
 		$cap = create_captcha($captcha);
 		$data = array(
-			'title'=>'ثبت نام',
+			'title'=>'ثبت نام در',
 			'url'=>base_url(),
 			'captcha'=>$cap,
 			'notice'=>$notice
@@ -57,6 +58,16 @@ class Web extends CI_Controller
 
 	public function login($notice=0)
 	{
+		$login = $this->session->userdata('login');
+		
+		if(!empty($login))
+		{
+			if($login==true)
+			{
+				redirect(base_url() . 'panel/index');
+			}
+		}
+
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
@@ -70,7 +81,7 @@ class Web extends CI_Controller
 		);
 		$cap = create_captcha($captcha);
 		$data = array(
-			'title'=>'ورود',
+			'title'=>'ورود به',
 			'url'=>base_url(),
 			'captcha'=>$cap,
 			'notice'=>$notice
@@ -124,7 +135,8 @@ class Web extends CI_Controller
 	public function rules()
 	{
 		$data = array(
-			'url'=>base_url()
+			'url'=>base_url(),
+			'title'=>'پروفایل آنلاین ایرانیان - قوانین'
 			);
 		$this->load->view('site/header',$data);
 		$this->load->view('site/rules',$data);
@@ -134,7 +146,8 @@ class Web extends CI_Controller
 	public function about()
 	{
 		$data = array(
-			'url'=>base_url()
+			'url'=>base_url(),
+			'title'=>'پروفایل آنلاین ایرانیان - درباره ما'
 			);
 		$this->load->view('site/header',$data);
 		$this->load->view('site/about',$data);

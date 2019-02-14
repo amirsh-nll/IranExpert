@@ -20,7 +20,9 @@ class person_model extends CI_Model
 	{
 		$data = array
 		(
-			'user_id'=>$user_id
+			'user_id'=>$user_id,
+			'gender'=>0,
+			'marriage'=>0
 		);
 
 		$this->db->insert('person', $data);

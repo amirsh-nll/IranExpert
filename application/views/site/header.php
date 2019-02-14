@@ -3,7 +3,7 @@
 	<head>
 		<!--Meta-->
 		<meta charset="utf-8">
-		<title>پروفایل آنلاین ایرانیان</title>
+		<title><?=$title; ?></title>
 		<!--Meta-->
 		<!--Assets-->
 		<link rel="stylesheet" href="<?=$url; ?>assets/css/web.css" />
