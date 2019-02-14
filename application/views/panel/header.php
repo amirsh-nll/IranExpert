@@ -38,7 +38,7 @@
 		<script>
 		   $(document).ready(function(){
 		 
-		        $.ajaxSetup({cache:false});
+		        $this.ajaxSetup({cache:false});
 		        $(".refresh_key").click(function(){
 		            var refresh_key = $(this).attr("href");
 		 
