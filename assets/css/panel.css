@@ -1,0 +1,77 @@
+
+@font-face {
+	font-family: 'irex';
+	src: url('../font/sade.eot');
+	src: local('☺'), url('../font/sade.woff') format('woff'), url('../font/sade.ttf') format('truetype'), url('../font/sade.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body
+{
+	direction:rtl;
+	margin:0;
+	padding:0;
+	background:url('../image/panel.jpg') top repeat-x #fff;
+	font-family:'irex';
+}
+a
+{
+	text-decoration:none;
+}
+.clear
+{
+	clear:both;
+}
+.header
+{
+}
+.header_content
+{
+	width:900px;
+	margin:10px auto;
+}
+.logo
+{
+	float:right;
+}
+.navbar
+{
+	float:left;
+	padding-top:47px;
+}
+.navbar a
+{
+	text-align:center;
+	margin-right:10px;
+}
+.content
+{
+	width:900px;
+	margin:20px auto;
+}
+.right_content
+{
+	float:right;
+}
+.right_content ul
+{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.right_content li
+{
+	background:#fff;
+	margin-bottom:10px;
+	padding:5px;
+}
+.right_content a
+{
+	color:#000;
+	font-size:25px;
+}
+.left_content
+{
+	float:left;
+}

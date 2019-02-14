@@ -38,6 +38,8 @@
 			<div class="clear"></div>
 		</div>
 
+		<div class="center_line">&nbsp;</div>
+
 		<div class="slideshow">
 			<ul>
 				<li><img src="<?=$url; ?>assets/image/slide1.png" title="iranExpert Slide 1" alt="iranExpert"></li>
