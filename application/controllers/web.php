@@ -306,20 +306,16 @@ class web extends CI_Controller
 				array(
 					'field'		=>	'name',
 					'label'		=>	'نام شما',
-					'rules'		=>	'required|min_length[3]|max_length[100]',
+					'rules'		=>	'max_length[100]',
 					'errors'	=>	array(
-						'required'		=>	'فیلد %s معتبر نمی باشد.',
-						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)
 					),
 				array(
 					'field'		=>	'title',
 					'label'		=>	'موضوع پیام',
-					'rules'		=>	'min_length[3]|max_length[100]',
+					'rules'		=>	'max_length[100]',
 					'errors'	=>	array(
-						'required'		=>	'فیلد %s معتبر نمی باشد.',
-						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)
 					),
@@ -337,8 +333,9 @@ class web extends CI_Controller
 				array(
 					'field'		=>	'message',
 					'label'		=>	'پیام شما',
-					'rules'		=>	'min_length[5]|max_length[500]',
+					'rules'		=>	'required|min_length[5]|max_length[2000]',
 					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
 						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 						)

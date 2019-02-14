@@ -61,7 +61,8 @@ class panel extends IREX_Controller
 			'title'				=>	'پنل کاربری - تصویر کاربری',
 			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
-			'active_image'		=>	$image['file_name']
+			'active_image'		=>	$image['file_name'],
+			'key'				=>	do_hash($user_id, 'md5')
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/image', $data);

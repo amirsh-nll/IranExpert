@@ -163,7 +163,7 @@ class form extends CI_Controller
 			{
 				$this->load->model('user_model');
 				$login = $this->user_model->check_user_for_login($email, $password);
-				if($login!=0)
+				if($login!=0 && $login!=-1)
 				{
 					$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
 					$this->load->model('login_model');
@@ -173,7 +173,24 @@ class form extends CI_Controller
 						'login'		=>	true
 					);
 					$this->session->set_userdata($session);
+
+					$this->load->model('person_model');
+					$person = $this->person_model->check_say_birthday($login);
+					if($person==1)
+					{
+						$this->load->model('message_model');
+						$message = $this->message_model->check_birthday_message($login);
+						if($message==1)
+						{
+							$this->message_model->insert_message($login, 'مدیر', 'زادروزتان مبارک.', 'no-reply@localhost.com', 'زادروزتان مبارک. از صمیم قلب برایتان شادی، سلامتی و سربلندی را آزرو داریم. مایه خوشبختی و سعادت ماست که میزبان شما در این سامانه هستیم؛ ارادتمند: مدیریت سامانه', 'Send By System For BirthDay');
+						}
+					}
+
 					redirect(base_url() . 'panel/index');
+				}
+				elseif($login==-1)
+				{
+					redirect(base_url() . 'login/7');
 				}
 				else
 				{

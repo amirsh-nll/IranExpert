@@ -111,6 +111,33 @@ class person_model extends CI_Model
 			}
 		}
 	}
+
+	public function check_say_birthday($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('person',1);
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			$this_day = $this->jdf->tr_numes($this->jdf->jdate('j', now()));
+			$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+			$result = $result[0];
+			$birthday = explode('/', $result['birthday']);
+			if($birthday[1] == $this_month && $birthday[2] == $this_day)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

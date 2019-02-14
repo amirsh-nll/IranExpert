@@ -45,20 +45,28 @@ class user extends IREX_Controller
         }
 	}
 
-	public function delete_image()
+	public function delete_image($key)
 	{
+		$key = xss_clean(ltrim(rtrim($key)));
 		$user_id = $this->session->userdata('user_id');
-		$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
-		$this->load->model('image_model');
-        $image = $this->image_model->delete_image($user_id, $description);
+		if($key!==do_hash($user_id, 'md5'))
+		{
+			redirect(base_url() . 'panel/image');
+		}
+		else
+		{
+			$description = $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+			$this->load->model('image_model');
+	        $image = $this->image_model->delete_image($user_id, $description);
 
-        if($image==1)
-        {
-        	redirect(base_url() . 'panel/image/4#content_view');
-        }
-        else
-        {
-			redirect(base_url() . 'panel/image/3#content_view');
+	        if($image==1)
+	        {
+	        	redirect(base_url() . 'panel/image/4#content_view');
+	        }
+	        else
+	        {
+				redirect(base_url() . 'panel/image/3#content_view');
+			}
 		}
 	}
 

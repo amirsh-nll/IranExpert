@@ -16,19 +16,18 @@ class message_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function insert_message($user_id, $title, $message)
+	public function insert_message($user_id, $title, $message, $description='Send By Admin')
 	{
 		$data = array
 		(
 			'user_id'		=>	$user_id,
 			'time'			=>	now(),
 			'status'		=>	1,
-			'report'		=>	0,
 			'full_name'		=>	'مدیر',
 			'title'			=>	$title,
 			'email'			=>	'no-reply@localhost.com',
 			'message'		=>	$message,
-			'description'	=>	'Send By Admin'
+			'description'	=>	$description
 		);
 
 		$this->db->insert('message', $data);
@@ -38,6 +37,7 @@ class message_model extends CI_Model
 	public function read_admin_message($user_id)
 	{
 		$this->db->where('user_id', $user_id);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('message');
 
 		if($result->num_rows()>0)
@@ -100,17 +100,6 @@ class message_model extends CI_Model
 		{
 			return 0;
 		}
-	}
-
-	public function report_message($user_id, $message_id)
-	{
-		$data = array(
-			'report'	=>	1
-		);
-		$this->db->set($data);
-		$this->db->where('user_id', $user_id);
-		$this->db->where('id', $message_id);
-		$this->db->update('message');
 	}
 }
 ?>

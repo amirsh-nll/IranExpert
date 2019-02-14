@@ -32,7 +32,7 @@
 	
 	$address_input = array(
 		'name'			=>	'contact_address',
-		'maxlength'		=>	'500',
+		'maxlength'		=>	'2000',
 		'value'			=>	$address_value
 	);
 	$submit_input = array(

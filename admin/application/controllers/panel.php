@@ -493,31 +493,6 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function report_message($message_id)
-	{
-		$message_id = xss_clean($message_id);
-		if(is_numeric($message_id))
-		{
-			$user_id = $this->session->userdata('user_id');
-
-			$this->load->model('message_model');
-			$message = $this->message_model->ownership_message($user_id, $message_id);
-			if($message==0)
-			{
-				redirect(base_url() . 'panel/message');
-			}
-			else
-			{
-				$this->message_model->report_message($user_id, $message_id);
-				redirect(base_url() . 'panel/read_message/' . $message_id . '/1' . '#content_view');
-			}
-		}
-		else
-		{
-			redirect(base_url() . 'panel/message');
-		}
-	}
-
 	public function list_image($page=1, $notice=0)
 	{
 		$page = xss_clean($page);
@@ -1110,6 +1085,33 @@ class panel extends IREX_Controller
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/violation_accont', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function broadcast_message($notice=0)
+	{
+		$notice = xss_clean($notice);
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('province_model');
+		$province = $this->province_model->read_all_province();
+
+		$this->load->model('activity_model');
+		$activity = $this->activity_model->read_all_activity();
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - ارسال پیام گروهی',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'province'			=>	$province,
+			'activity'			=>	$activity
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/broadcast_message', $data);
 		$this->load->view('panel/footer', $data);
 	}
 

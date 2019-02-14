@@ -13,8 +13,6 @@
 	}
 ?>
 
-<p class="report_message"><a title="گزارش تخلف" href="<?php echo $url . 'panel/report_message/' . $message_item['id']; ?>"><span>گزارش تخلف این پیام</span><span class="fa fa-lg fa-bullhorn"></span></a></p>
-
 <table class="retrive_once_message">
 	<tr>
 		<td>نام فرستنده</td>

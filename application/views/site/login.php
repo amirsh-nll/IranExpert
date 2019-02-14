@@ -64,6 +64,10 @@
 						{
 							echo '<p style="color:#0f0;">حساب کاربری شما با موفقیت غیرفعال شد، میزبانی شما افتخار ما بود.</p>';
 						}
+						elseif($notice==7)
+						{
+							echo '<p style="color:#f77;">حساب کاربری شما مسدود/غیرفعال شده است. در صورت بروز سوال به صفحه <a style="color:#f77; border-bottom:1px solid #f77;" href="' . $url . 'contact" title="تماس با ما">تماس با ما</a> بروید.</p>';
+						}
 					?>
 				</div>
 				<div class="clear"></div>

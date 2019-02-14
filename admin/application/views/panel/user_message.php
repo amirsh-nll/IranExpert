@@ -8,7 +8,7 @@
 	);
 	$message_input = array(
 		'name'			=>	'message',
-		'maxlength'		=> 	500
+		'maxlength'		=> 	2000
 	);
 	$submit_input = array(
 		'name'			=>	'submit',

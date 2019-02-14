@@ -318,7 +318,7 @@ class admin extends CI_Controller
 			array(
 				'field'		=>	'message',
 				'label'		=>	'پیام شما',
-				'rules'		=>	'required|min_length[5]|max_length[500]',
+				'rules'		=>	'required|min_length[5]|max_length[2000]',
 				'errors'	=>	array(
 					'required'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
@@ -577,7 +577,7 @@ class admin extends CI_Controller
 		$rules = array(
 			array(
 				'field'		=>	'search',
-				'label'		=>	'وضعیت',
+				'label'		=>	'جستجو کاربر',
 				'rules'		=>	'max_length[70]',
 				'errors'	=>	array(
 					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
@@ -624,6 +624,107 @@ class admin extends CI_Controller
 			$this->load->view('panel/header', $data);
 			$this->load->view('panel/search_user', $data);
 			$this->load->view('panel/footer', $data);
+		}
+	}
+
+	public function broadcast_message()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'type',
+				'label'		=>	'گروه دریافت کننده',
+				'rules'		=>	'required|numeric',
+				'errors'	=>	array(
+					'required'	=>	'فیلد %s معتبر نمی باشد.',
+					'numeric'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+				),
+			array(
+				'field'		=>	'province_id',
+				'label'		=>	'استان',
+				'rules'		=>	'numeric',
+				'errors'	=>	array(
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'activity_id',
+				'label'		=>	'زمینه فعالیت',
+				'rules'		=>	'numeric',
+				'errors'	=>	array(
+					'numeric'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'title',
+				'label'		=>	'موضوع پیام',
+				'rules'		=>	'required|min_length[3]|max_length[100]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+				),
+			array(
+				'field'		=>	'message',
+				'label'		=>	'پیام شما',
+				'rules'		=>	'required|min_length[5]|max_length[2000]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+				)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/broadcast_message/1');
+		}
+		else
+		{
+			$type 		= $this->input->post('type',true);
+			$activity_id= $this->input->post('activity_id',true);
+			$province_id= $this->input->post('province_id',true);
+			$title 		= $this->input->post('title',true);
+			$message 	= $this->input->post('message',true);
+			$this->load->model('message_model');
+
+			switch ($type) {
+				case 1:
+					{
+						$this->load->model('user_model');
+						$user = $this->user_model->read_all_user();
+						if($user!==0)
+						{
+							foreach ($user as $my_user) {
+								$message = $this->message_model->insert_message($my_user['id'], $title, $message, 'BroadCast Message By Admin');
+							}
+							redirect(base_url() . 'panel/broadcast_message/2');
+						}
+						else
+						{
+							redirect(base_url() . 'panel/broadcast_message/1');
+						}
+					}
+					break;
+				case 2:
+					{
+					}
+					break;
+				case 3:
+					{
+					}
+					break;
+				
+				default:
+					redirect(base_url() . 'panel/broadcast_message/1');
+					break;
+			}
+
+			redirect(base_url() . 'panel/broadcast_message/1');
 		}
 	}
 }

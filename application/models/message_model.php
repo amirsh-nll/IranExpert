@@ -37,6 +37,7 @@ class message_model extends CI_Model
 	public function read_message($user_id)
 	{
 		$this->db->where('user_id', $user_id);
+		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get('message', 20);
 
 		if($result->num_rows()>0)
@@ -98,6 +99,31 @@ class message_model extends CI_Model
 		else
 		{
 			return 0;
+		}
+	}
+
+	public function check_birthday_message($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('message');
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			foreach ($result as $my_result) {
+				if($my_result['description']==="Send By System For BirthDay" && $my_result['time']>now()-86400)
+				{
+					return 0;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+		}
+		else
+		{
+			return 1;
 		}
 	}
 }

@@ -16,36 +16,92 @@
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش بازدید سایت اصلی:</strong></p>';
 		echo $chart_1;
+		if($report_section==1)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/1">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_2!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش بازدید کل پروفایل ها:</strong></p>';
 		echo $chart_2;
+		if($report_section==2)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/2">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_3!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش کاربران:</strong></p>';
 		echo $chart_3;
+		if($report_section==3)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/3">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_4!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش تصاویر پروفایل کاربران:</strong></p>';
 		echo $chart_4;
+		if($report_section==4)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/4">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_5!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش دفعات ورود به پنل توسط کاربران:</strong></p>';
 		echo $chart_5;
+		if($report_section==5)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/5">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_6!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش عضویت کاربران:</strong></p>';
 		echo $chart_6;
+		if($report_section==6)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/6">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 	if($chart_7!='')
 	{
 		echo '<p>&nbsp;</p><p><strong>گزارش تولد کاربران:</strong></p>';
 		echo $chart_7;
+		if($report_section==7)
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report/7">بروز رسانی</a><div class="clear"></div>';
+		}
+		else
+		{
+			echo '<a class="refresh_key" id="refresh_key" title="بروزرسانی" rel="report" href="http://localhost/admin/panel/report">بروز رسانی</a><div class="clear"></div>';
+		}
 	}
 ?>
 <p>&nbsp;</p>

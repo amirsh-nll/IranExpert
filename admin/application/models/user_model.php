@@ -277,6 +277,20 @@ class user_model extends CI_Model
 			return 0;
 		}
 	}
+
+	public function read_all_user()
+	{
+		$result = $this->db->get('user');
+
+		if($result->num_rows()>0)
+		{
+			return $result->result_array();
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 ?>

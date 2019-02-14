@@ -91,7 +91,7 @@ class user_model extends CI_Model
 			}
 			else
 			{
-				return 0;
+				return -1;
 			}
 		}
 		else

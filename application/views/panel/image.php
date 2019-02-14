@@ -44,7 +44,7 @@
 		<img style="max-width:300px;" src="<?php echo $url . "upload/" . $active_image; ?>" title="تصویر فعلی شما" alt="تصویر فعلی شما" />
 	</p>
 	<p>
-		<a class="delete_active_image" href="<?php echo base_url() . "user/delete_image"; ?>" title="حذف">
+		<a class="delete_active_image" href="<?php echo base_url() . "user/delete_image/" . $key; ?>" title="حذف">
 			<span class="fa fa-lg fa-close"></span>
 			<span style="font-size:20px;">حذف تصویر</span>
 		</a>

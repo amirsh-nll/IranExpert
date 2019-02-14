@@ -416,6 +416,19 @@ border-top:1px solid #000;
 	color:#000;
 	font-size:25px;
 }
+.refresh_key
+{
+	cursor:pointer;
+	width:30%;
+	font-size:20px;
+	border:1px solid #555;
+	padding:4px;
+	color:#000;
+	background:#ddd;
+	text-align:center;
+	float:left;
+	margin-top:20px;
+}
 .footer
 {
 	border-top:1px solid #000;

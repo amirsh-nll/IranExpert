@@ -278,7 +278,7 @@
 				);
 				$message_input = array(
 					'name'			=>	'message',
-					'maxlength'		=> 	500
+					'maxlength'		=> 	2000
 				);
 				$captcha_input = array(
 					'name'			=>	'captcha',
