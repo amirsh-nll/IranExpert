@@ -59,7 +59,7 @@ class form extends CI_Controller
 					'errors'	=>	array(
 						'required'		=>	'فیلد %s معتبر نمی باشد.'
 						)
-					),
+					)
 			);
 
 		$this->form_validation->set_rules($rules);
@@ -72,10 +72,10 @@ class form extends CI_Controller
 		}
 		else
 		{
-			$email 			= $this->input->post('email',true);
-			$password 		= $this->input->post('password',true);
-			$rules_check 	= $this->input->post('rules_check',true);
-			$code 			= $this->input->post('captcha',true);
+			$email 			= $this->input->post('email', true);
+			$password 		= $this->input->post('password', true);
+			$rules_check 	= $this->input->post('rules_check', true);
+			$code 			= $this->input->post('captcha', true);
 
 			if($rules_check!=1)
 			{
@@ -94,8 +94,8 @@ class form extends CI_Controller
 				$this->load->model('contact_model');
 				$this->contact_model->blank_contact($user_id);
 
-				$this->load->model('state_model');
-				$this->state_model->blank_state($user_id);
+				$this->load->model('statistics_model');
+				$this->statistics_model->blank_statistics($user_id);
 
 				$this->load->model('image_model');
 				$this->image_model->default_image($user_id);
@@ -162,6 +162,8 @@ class form extends CI_Controller
 				$login = $this->user_model->check_user_for_login($email, $password);
 				if($login!=0)
 				{
+					$this->load->model('login_model');
+					$this->login_model->login($login, $this->agent->agent_string());
 					$session = array(
 						'user_id'	=>	$login,
 						'login'		=>	true

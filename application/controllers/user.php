@@ -1542,6 +1542,158 @@ class user extends IREX_Controller
 			redirect(base_url() . 'panel/social/4');
 		}
 	}
+
+	public function report_message($message_id)
+	{
+		$message_id = xss_clean($message_id);
+		if(is_numeric($message_id))
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$this->load->model('message_model');
+			$message = $this->message_model->ownership_message($user_id, $message_id);
+			if($message==0)
+			{
+				redirect(base_url() . 'panel/message');
+			}
+			else
+			{
+				$this->message_model->report_message($user_id, $message_id);
+				redirect(base_url() . 'panel/read_message/' . $message_id . '/1' . '#content_view');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/message');
+		}
+	}
+
+	public function change_password()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'old_password',
+				'label'		=>	'رمز عبور فعلی',
+				'rules'		=>	'required|min_length[5]|max_length[40]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'new_password',
+				'label'		=>	'رمز عبور جدید',
+				'rules'		=>	'required|min_length[5]|max_length[40]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'new_repassword',
+				'label'		=>	'تکرار رمز عبور',
+				'rules'		=>	'required|matches[new_password]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'matches'		=>	'فیلد %s معتبر نمی باشد.'
+				)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+		
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/setting/3#table_view');
+		}
+		else
+		{
+			$user_id 		= $this->session->userdata('user_id');
+			$old_password 	= $this->input->post('old_password', true);
+			$new_password 	= $this->input->post('new_password', true);
+			$new_repassword = $this->input->post('new_repassword', true);
+
+			$this->load->model('user_model');
+			$setting = $this->user_model->change_password($user_id, $old_password, $new_password, $new_repassword);
+
+			if($setting!=1)
+			{
+				redirect(base_url() . 'panel/setting/1#table_view');
+			}
+			else
+			{
+				redirect(base_url() . 'panel/setting/2#table_view');
+			}
+		}
+	}
+
+	public function suspend_accont()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'password',
+				'label'		=>	'رمز عبور فعلی',
+				'rules'		=>	'required|min_length[5]|max_length[40]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'reason',
+				'label'		=>	'دلیل شما',
+				'rules'		=>	'max_length[1000]',
+				'errors'	=>	array(
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
+				'field'		=>	'captcha',
+				'label'		=>	'کد امنیتی',
+				'rules'		=>	'required',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+		$this->load->model('captcha_model');
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/suspend_accont/2#suspend_view');
+		}
+		else
+		{
+			$user_id 	= $this->session->userdata('user_id');
+			$password 	= $this->input->post('password', true);
+			$reason 	= $this->input->post('reason', true);
+			$code 		= $this->input->post('captcha', true);
+
+			if($this->captcha_model->check($code))
+			{
+				$this->load->model('user_model');
+				$user = $this->user_model->suspend_accont($user_id, $password, $reason);
+
+				if($user!=0)
+				{
+					redirect(base_url() . 'login/6');
+				}
+				else
+				{
+					redirect(base_url() . 'panel/suspend_accont/1#suspend_view');
+				}
+			}
+			else
+			{
+				redirect(base_url() . 'panel/suspend_accont/3#suspend_view');
+			}
+		}
+	}
 }
 
 ?>

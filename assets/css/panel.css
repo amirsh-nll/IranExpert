@@ -198,6 +198,10 @@ a
 {
 	color:#00f;
 }
+.retrive_data_table_read
+{
+	color:#e50;
+}
 .image_upload_table input[type="file"]
 {
 	font-size:15px !important;
@@ -223,10 +227,87 @@ a
 	color:#f00;
 	font-size:20px;
 }
+.retrive_once_message td:nth-child(1)
+{
+	background:#000;
+	width:20%;
+	color:#fff;
+	text-align:center;
+}
+.retrive_once_message td:nth-child(2)
+{
+	padding-right:20px;
+}
+.report_message
+{
+	float:left;
+	font-size:15px;
+}
+.report_message a
+{
+	color:#f00;
+}
+.report_message span
+{
+	margin-left:10px;
+}
+.suspend_accont
+{
+	cursor:pointer;
+	font-size:22px;
+	padding:10px 0px;
+	color:#fff;
+	background:#c00;
+	float:left;
+	width:50%;
+	text-align:center;
+}
+.chart
+{
+	border:1px solid #000;
+	padding:20px;
+	background:#fff;
+}
+.chart tr:nth-child(7), .chart td:nth-child(4)
+{
+	text-align:center;
+}
+.chart tr:nth-child(7) td
+{
+border-top:1px solid #000;
+}
+.chart td:nth-child(4)
+{
+	border-right:1px solid #000;
+}
+.chart .bar1
+{
+	color:#fff;
+	margin:0 auto;
+	text-align:center;
+	width:30px;
+	background:#0c0;
+}
+.chart .bar2
+{
+	color:#fff;
+	margin:0 auto;
+	text-align:center;
+	width:30px;
+	background:#f06;
+}
+.chart .bar3
+{
+	color:#fff;
+	margin:0 auto;
+	text-align:center;
+	width:30px;
+	background:#fc0;
+}
 .footer
 {
 	width:900px;
 	border-top:1px solid #000;
-	font-size:20px;
+	font-size:30px;
 	margin:0 auto;
 }

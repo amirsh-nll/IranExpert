@@ -10,19 +10,19 @@
 	);
 	for($i=1;$i<=12;$i++)
 	{
-		$lesson_start_month_item[$i]=$i;
+		$lesson_start_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$lesson_start_year_item[$i]=$i;
+		$lesson_start_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$lesson_end_month_item[$i]=$i;
+		$lesson_end_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$lesson_end_year_item[$i]=$i;
+		$lesson_end_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$lesson_description = array(
 		'name'			=>	'lesson_description',
@@ -68,7 +68,7 @@
 	}
 	elseif ($notice == 3)
 	{
-		echo '<p style="color:#f00;">شما نمی توانید در این بخش بیش از 5 رکورد داشته باشید.</p>';
+		echo '<p style="color:#f00;">شما نمی توانید در این بخش بیش از' . $this->jdf->tr_num(20) . 'رکورد داشته باشید.</p>';
 	}
 ?>
 
@@ -90,8 +90,8 @@
 			<?php foreach ($lesson_item as $my_lesson): ?>
 				<tr>
 					<td style="width:18%;"><?php echo $my_lesson['title']; ?></td>
-					<td style="width:15%; text-align:center;"><?php echo $my_lesson['start']; ?></td>
-					<td style="width:15%; text-align:center;"><?php echo $my_lesson['end']; ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $this->jdf->tr_num($my_lesson['start']); ?></td>
+					<td style="width:15%; text-align:center;"><?php echo $this->jdf->tr_num($my_lesson['end']); ?></td>
 					<td style="width:45%; text-align:justify;"><?php echo $my_lesson['description']; ?></td>
 					<td style="width:7%;">
 						<a class="retrive_data_table_edit" href="<?php echo base_url() . 'panel/update_lesson/' . $my_lesson['id'] . '#content_view'; ?>" title="ویرایش"><span class="fa fa-lg fa-edit"></span></a>
@@ -134,7 +134,7 @@
 
 <p>&nbsp;</p>
 <p>راهنمایی :</p>
-<p>در حال حاظر شما اجازه ثبت 20 دوره ی تحصیلی را دارید.</p>
+<p>در حال حاظر شما اجازه ثبت <?php echo $this->jdf->tr_num(20); ?> دوره ی تحصیلی را دارید.</p>
 <p>برای کمک به مبارزه و جلوگیری از هرزنامه از اطلاعات حقیقی خود استفاده نمایید.</p>
 <p>در این بخش با وارد کردن دوره های تحصیلی دانشگاهی و آکادمیک های مراکز فنی و ... می توانید قدرت علمی خود را نمایان کنید.</p>
 <?php

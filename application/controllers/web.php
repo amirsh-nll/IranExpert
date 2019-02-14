@@ -26,6 +26,17 @@ class Web extends CI_Controller
 	public function register($notice=0)
 	{
 		$notice = xss_clean($notice);
+		$login = $this->session->userdata('login');
+		
+		if(!empty($login))
+		{
+			if($login==true)
+			{
+				$this->session->set_userdata('user_id');
+				$this->session->set_userdata('login');
+			}
+		}
+
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',
@@ -67,7 +78,9 @@ class Web extends CI_Controller
 		{
 			if($login==true)
 			{
-				redirect(base_url() . 'panel/index');
+				$this->session->set_userdata('user_id');
+				$this->session->set_userdata('login');
+				redirect(base_url() . 'login/5');
 			}
 		}
 
@@ -106,6 +119,17 @@ class Web extends CI_Controller
 	public function forget($notice=0)
 	{
 		$notice = xss_clean($notice);
+		$login = $this->session->userdata('login');
+		
+		if(!empty($login))
+		{
+			if($login==true)
+			{
+				$this->session->set_userdata('user_id');
+				$this->session->set_userdata('login');
+			}
+		}
+		
 		$captcha = array(
 	        'img_path'      => './captcha/',
 	        'img_url'       => 'http://localhost/captcha/',

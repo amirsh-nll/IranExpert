@@ -9,18 +9,20 @@
 						$email_input = array(
 							'name'			=>	'email',
 							'placeholder'	=>	'ایمیل',
+							'maxlength'		=>	'70',
 							'required'		=>	'required'
 						);
 						$password_input = array(
 							'name'			=>	'password',
 							'placeholder'	=>	'رمز عبور',
+							'maxlength'		=>	'40',
 							'required'		=>	'required'
 						);
 						$captcha_input = array(
 							'name'			=>	'captcha',
 							'placeholder'	=>	'گد امنیتی',
 							'required'		=>	'required',
-							'maxlength'		=> 	5
+							'maxlength'		=> 	'5'
 						);
 						$submit_input = array(
 							'name'			=>	'submit',
@@ -57,6 +59,14 @@
 						elseif($notice==4)
 						{
 							echo '<p style="color:#0f0;">ثبت نام شما با موفقیت انجام شد برای ورود به پنل کاربری خود از فرم بالا اقدام کنید.</p>';
+						}
+						elseif($notice==5)
+						{
+							echo '<p style="color:#f77;">برای ادامه لطفا دوباره وارد شوید.</p>';
+						}
+						elseif($notice==6)
+						{
+							echo '<p style="color:#0f0;">حساب کاربری شما با موفقیت غیرفعال شد، میزبانی شما افتخار ما بود.</p>';
 						}
 					?>
 				</div>

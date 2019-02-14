@@ -15,19 +15,19 @@
 	);
 	for($i=1;$i<=12;$i++)
 	{
-		$project_start_month_item[$i]=$i;
+		$project_start_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$project_start_year_item[$i]=$i;
+		$project_start_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$project_end_month_item[$i]=$i;
+		$project_end_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$project_end_year_item[$i]=$i;
+		$project_end_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$project_description = array(
 		'name'			=>	'project_description',

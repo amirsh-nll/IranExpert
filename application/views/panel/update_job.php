@@ -15,19 +15,19 @@
 	);
 	for($i=1;$i<=12;$i++)
 	{
-		$job_start_month_item[$i]=$i;
+		$job_start_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$job_start_year_item[$i]=$i;
+		$job_start_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$job_end_month_item[$i]=$i;
+		$job_end_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$job_end_year_item[$i]=$i;
+		$job_end_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$job_description = array(
 		'name'			=>	'job_description',

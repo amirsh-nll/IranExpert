@@ -27,7 +27,7 @@
 			</div>
 			<div class="item">
 				<span class="fa fa-5x fa-desktop"></span>
-				<h3>تغییر نمای گرافیکی رزومه</h3>
+				<h3>قالب ولید شده و واکنش گرا</h3>
 			</div>
 			<div class="item">
 				<span class="fa fa-5x fa-bug"></span>

@@ -623,42 +623,140 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function state()
+	public function statistics()
 	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('statistics_model');
+		$statistics = $this->statistics_model->read_statistics($user_id);
+
+		$this->load->library('chart');
+		$chart = $this->chart->statistics_chart($statistics['today'], $statistics['yesterday'], $statistics['total']);
+
 		$data = array
 		(
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - آمار',
-			'message_unread'	=>	$this->message_unread_count(),
+			'chart'				=>	$chart,
+			'message_unread'	=>	$this->message_unread_count()
 		);
 		$this->load->view('panel/header', $data);
-		$this->load->view('panel/state', $data);
+		$this->load->view('panel/statistics', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function setting()
+	public function setting($notice=0)
 	{
+		$notice = xss_clean($notice);
+
 		$data = array
 		(
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - تنظیمات',
-			'message_unread'	=>	$this->message_unread_count(),
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count()
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/setting', $data);
 		$this->load->view('panel/footer', $data);
 	}
 
-	public function message()
+	public function suspend_accont($notice=0)
 	{
+		$notice = xss_clean($notice);
+		$captcha = array(
+	        'img_path'      => './captcha/',
+	        'img_url'       => 'http://localhost/captcha/',
+	        'word_length'   => 5,
+	        'font_path'		=> './assets/font/stencilstd.otf',
+	        'colors'        => array(
+	                'background' 	=> array(255, 255, 255),
+                	'border' 		=> array(255, 255, 255),
+                	'text' 			=> array(0, 0, 0),
+                	'grid' 			=> array(255, 40, 40)
+	        )
+		);
+		$cap = create_captcha($captcha);
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - انسداد حساب کاربری',
+			'notice'			=>	$notice,
+			'captcha'			=>	$cap,
+			'message_unread'	=>	$this->message_unread_count()
+		);
+
+		$capcha_data = array(
+		        'captcha_time'  => $cap['time'],
+		        'ip_address'    => $this->input->ip_address(),
+		        'word'          => $cap['word']
+		);
+		$this->load->model('captcha_model');
+		$this->captcha_model->insert($capcha_data);
+
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/suspend_accont', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function message($notice=0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->load->model('message_model');
+		$message = $this->message_model->read_message($user_id);
+
 		$data = array
 		(
 			'url'				=>	base_url(),
 			'title'				=>	'پنل کاربری - پیام ها',
+			'notice'			=>	$notice,
 			'message_unread'	=>	$this->message_unread_count(),
+			'message_item'		=>	$message
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/message', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function read_message($message_id=0, $notice=0)
+	{
+
+		$message_id = xss_clean($message_id);
+		$notice 	= xss_clean($notice);
+		$user_id 	= $this->session->userdata('user_id');
+
+		if(!is_numeric($message_id) || $message_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->load->model('message_model');
+		$message = $this->message_model->fetch_record_with_id($user_id, $message_id);
+
+		if($message==0)
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->message_model->mark_read($user_id, $message_id);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل کاربری - مشاهده پیام',
+			'notice'			=>	$notice,
+			'message_unread'	=>	$this->message_unread_count(),
+			'message_item'		=>	$message
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/read_message', $data);
 		$this->load->view('panel/footer', $data);
 	}
 

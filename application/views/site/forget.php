@@ -9,13 +9,14 @@
 						$email_input = array(
 							'name'			=>'email',
 							'placeholder'	=>'ایمیل',
+							'maxlength'		=>	'70',
 							'required'		=>'required'
 						);
 						$captcha_input = array(
 							'name'			=>'captcha',
 							'placeholder'	=>'گد امنیتی',
 							'required'		=>'required',
-							'maxlength'		=> 	5
+							'maxlength'		=> 	'5'
 						);
 						$submit_input = array(
 							'name'			=>'submit',

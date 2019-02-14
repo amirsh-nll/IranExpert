@@ -21,12 +21,12 @@
 		</div>
 	</div>
 	<div class="intero_section2">
-		<h1><?=$data['full_name']; ?></h1>
-		<p>تاریخ تولد : <?=$data['birthday']; ?></p>
+		<h1><?=$data['full_name']; ?> <p class="report_profile"><a title="گزارش تخلف" href="">[ <span>گزارش تخلف پروفایل</span><span class="fa fa-lg fa-bullhorn"></span> ]</a></p></h1>
+		<p>تاریخ تولد : <?=$this->jdf->tr_num($data['birthday']); ?></p>
 		<p>وضعیت تاهل : <?=$data['marriage']; ?></p>
 		<p>جنسیت : <?=$data['gender']; ?></p>
-		<p>شماره همراه : <span dir="ltr"><?=$data['mobile']; ?></span></p>
-		<p>شماره تماس : <span dir="ltr"><?=$data['phone']; ?></span></p>
+		<p>شماره همراه : <span dir="ltr"><?=$this->jdf->tr_num($data['mobile']); ?></span></p>
+		<p>شماره تماس : <span dir="ltr"><?=$this->jdf->tr_num($data['phone']); ?></span></p>
 		<p>آدرس ایمیل : <span dir="ltr"><?=$data['email']; ?></span></p>
 		<p style="line-height:25px; !important">آدرس محل سکونت : <?=$data['address']; ?></p>
 	</div>
@@ -55,7 +55,7 @@
 							$lesson['description'] = "یکی از پست های شغی بنده " . $lesson['title'] . " است.";
 						}
 
-						echo "<p> شروع: " . $lesson['start'] . " پایان: " . $lesson['end'] . " توضیحات: " . $lesson['description'] . "</p>";
+						echo "<p> شروع: " . $this->jdf->tr_num($lesson['start']) . " پایان: " . $this->jdf->tr_num($lesson['end']) . " توضیحات: " . $lesson['description'] . "</p>";
 					}
 				}
 			?>
@@ -83,7 +83,7 @@
 							$job['description'] = "یکی از پست های شغی بنده " . $job['title'] . " است.";
 						}
 
-						echo "<p> شروع: " . $job['start'] . " پایان: " . $job['end'] . " توضیحات: " . $job['description'] . "</p>";
+						echo "<p> شروع: " . $this->jdf->tr_num($job['start']) . " پایان: " . $this->jdf->tr_num($job['end']) . " توضیحات: " . $job['description'] . "</p>";
 					}
 				}
 			?>
@@ -139,7 +139,7 @@
 							$project['description'] = "یکی از توانایی های بنده " . $project['title'] . " است.";
 						}
 
-						echo "<p>توضیحات: " . $project['description'] . "</p>";
+						echo "<p> شروع: " . $this->jdf->tr_num($project['start']) . " پایان: " . $this->jdf->tr_num($project['end']) . " توضیحات: " . $project['description'] . "</p>";
 					}
 				}
 			?>
@@ -167,7 +167,7 @@
 							$article['description'] = "یکی از توانایی های بنده " . $article['title'] . " است.";
 						}
 
-						echo "<p>توضیحات: " . $article['description'] . "</p>";
+						echo "<p> شروع: " . $this->jdf->tr_num($article['start']) . " پایان: " . $this->jdf->tr_num($article['end']) . " توضیحات: " . $article['description'] . "</p>";
 					}
 				}
 			?>

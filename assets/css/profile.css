@@ -134,6 +134,19 @@ a
 	width:20%;
 	margin-left:40px;
 }
+.report_profile
+{
+	display:inline;
+	font-size:15px;
+}
+.report_profile a
+{
+	color:#f00;
+}
+.report_profile span
+{
+	margin-left:10px;
+}
 .footer
 {
 	margin:50px auto 0px auto;

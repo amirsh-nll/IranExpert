@@ -15,19 +15,19 @@
 	);
 	for($i=1;$i<=12;$i++)
 	{
-		$lesson_start_month_item[$i]=$i;
+		$lesson_start_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$lesson_start_year_item[$i]=$i;
+		$lesson_start_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$lesson_end_month_item[$i]=$i;
+		$lesson_end_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$lesson_end_year_item[$i]=$i;
+		$lesson_end_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$lesson_description = array(
 		'name'			=>	'lesson_description',

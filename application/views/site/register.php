@@ -9,16 +9,19 @@
 						$email_input = array(
 							'name'			=>	'email',
 							'placeholder'	=>	'ایمیل',
+							'maxlength'		=>	'70',
 							'required'		=>	'required'
 						);
 						$password_input = array(
 							'name'			=>	'password',
 							'placeholder'	=>	'رمز عبور',
+							'maxlength'		=>	'40',
 							'required'		=>	'required'
 						);
 						$repassword_input = array(
 							'name'			=>	'repassword',
 							'placeholder'	=>	'تکرار رمز عبور',
+							'maxlength'		=>	'40',
 							'required'		=>	'required'
 						);
 						$rules_check_input = array(
@@ -29,7 +32,7 @@
 							'name'			=>	'captcha',
 							'placeholder'	=>	'گد امنیتی',
 							'required'		=>	'required',
-							'maxlength'		=> 	5
+							'maxlength'		=> 	'5'
 						);
 						$submit_input = array(
 							'name'			=>	'submit',

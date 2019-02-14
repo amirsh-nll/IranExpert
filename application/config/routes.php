@@ -53,8 +53,19 @@ $route['default_controller'] = 'web';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['(:any)'] 			= 'web/$1';
-$route['profile/(:any)'] 	= 'profile/index/$1';
-$route['profile/(:any)/1'] 	= 'profile/index/$1/1';
-$route['profile/(:any)/2'] 	= 'profile/index/$1/2';
-$route['profile/(:any)/3'] 	= 'profile/index/$1/3';
+/* Start User Route */
+$route['index'] 					= 'web/index';
+$route['register'] 					= 'web/register';
+$route['register/(:num)'] 			= 'web/register/$1';
+$route['login'] 					= 'web/login';
+$route['login/(:num)'] 				= 'web/login/$1';
+$route['forget'] 					= 'web/forget';
+$route['forget/(:num)'] 			= 'web/forget/$1';
+$route['rules'] 					= 'web/rules';
+$route['about'] 					= 'web/about';
+
+$route['panel'] 					= 'panel/index';
+
+$route['profile/(:any)'] 			= 'profile/index/$1';
+$route['profile/(:any)/(:num)'] 	= 'profile/index/$1/$2';
+/* End User Route */

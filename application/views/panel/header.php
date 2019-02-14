@@ -21,7 +21,7 @@
 				</div>
 				<div class="navbar">
 					<a style="color:#49b73c;" href="<?=$url; ?>panel/message" title="<?=$message_unread; ?> پیام ها خوانده نشده">
-						<span style="margin-left:5px;"><?=$message_unread; ?></span><span class="fa fa-lg fa-envelope"></span>
+						<span style="margin-left:5px;"><?php echo $this->jdf->tr_num($message_unread); ?></span><span class="fa fa-lg fa-envelope"></span>
 					</a>
 					<a  style="color:#ff4c00;" href="<?=$url; ?>panel/out" title="خروج">
 						<span class="fa fa-lg fa-plug"></span>
@@ -47,7 +47,7 @@
 						<li><a href="<?=$url; ?>panel/achievement" titile="افتخارات">افتخارات</a></li>
 						<li><a href="<?=$url; ?>panel/favorite" titile="علاقه مندی ها">علاقه مندی ها</a></li>
 						<li><a href="<?=$url; ?>panel/social" titile="شبکه های اجتماعی">شبکه های اجتماعی</a></li>
-						<li><a href="<?=$url; ?>panel/state" titile="آمار">آمار</a></li>
+						<li><a href="<?=$url; ?>panel/statistics" titile="آمار">آمار</a></li>
 						<li><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
 						<li><a href="<?=$url; ?>panel/setting" titile="تنظیمات">تنظیمات</a></li>
 						<li><a href="<?=$url; ?>panel/profile" titile="مشاهده پروفایل" target="_blank">مشاهده پروفایل</a></li>

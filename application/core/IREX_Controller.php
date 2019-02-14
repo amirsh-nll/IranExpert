@@ -15,18 +15,28 @@ class IREX_Controller extends CI_Controller
 	{
 		parent::__construct();
 
-		$login = $this->session->userdata('login');
+		$login 		= $this->session->userdata('login');
+		$user_id 	= $this->session->userdata('user_id');
 		
 		if(!empty($login))
 		{
 			if($login!=true)
 			{
-				redirect(base_url() . 'web/login/3');
+				redirect(base_url() . 'login/3');
+			}
+			else
+			{
+				$this->load->model('user_model');
+				$user = $this->user_model->check_suspend($user_id);
+				if($user!=1)
+				{
+					redirect(base_url() . 'login/1');
+				}
 			}
 		}
 		else
 		{
-			redirect(base_url() . 'web/login/3');
+			redirect(base_url() . 'login/3');
 		}
 	}
 }

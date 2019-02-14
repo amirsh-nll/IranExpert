@@ -38,7 +38,7 @@
 		<td></td>
 		<td>
 			<?php echo form_submit($submit_input); ?>
-			<a class="return_key" href="<?=$url . 'panel/social#table_view'; ?>" title="بازگشت">بازگشت</a>		
+			<a class="return_key" href="<?=$url . 'panel/social#table_view'; ?>" title="بازگشت">بازگشت</a>	
 		</td>
 	</tr>
 </table>

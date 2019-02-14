@@ -27,15 +27,29 @@ class profile extends CI_Controller
 			{
 				redirect(base_url() . 'index');
 			}
-			$data = array(
-				'url'		=>	base_url(),
-				'notice'	=>	$notice,
-				'data'		=>	$this->load_data($user_id)
-			);
+			else
+			{
+				$user = $this->user_model->check_suspend($user_id);
+				if($user!=1)
+				{
+					redirect(base_url() . 'index');
+				}
+				else
+				{
+					$data = array(
+						'url'		=>	base_url(),
+						'notice'	=>	$notice,
+						'data'		=>	$this->load_data($user_id)
+					);
 
-			$this->load->view('profile/header', $data);
-			$this->load->view('profile/main', $data);
-			$this->load->view('profile/footer', $data);
+					$this->load->model('statistics_model');
+					$this->statistics_model->statistics_calculator($user_id);
+
+					$this->load->view('profile/header', $data);
+					$this->load->view('profile/main', $data);
+					$this->load->view('profile/footer', $data);
+				}
+			}
 		}
 	}
 
@@ -111,7 +125,7 @@ class profile extends CI_Controller
 			$this->load->model('user_model');
 
 			$user_id 		= $this->user_model->fetch_user_id_with_middle_name($middle_name);
-			$name 			= $this->input->post('name',true);
+			$full_name		= $this->input->post('name',true);
 			$title 			= $this->input->post('title',true);
 			$email 			= $this->input->post('email',true);
 			$message 		= $this->input->post('message',true);
@@ -121,7 +135,7 @@ class profile extends CI_Controller
 			if($this->captcha_model->check($code))
 			{
 				$this->load->model('message_model');
-				$message = $this->message_model->insert_message($user_id, $title, $email, $message, $description);
+				$message = $this->message_model->insert_message($user_id, $full_name, $title, $email, $message, $description);
 				if($message==1)
 				{
 					redirect(base_url() . 'profile/' . $middle_name . '/2#message_form');

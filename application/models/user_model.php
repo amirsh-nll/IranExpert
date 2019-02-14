@@ -24,7 +24,8 @@ class user_model extends CI_Model
 			'password'		=>	do_hash($password, 'md5'),
 			'middle_name'	=>	$middle_name,
 			'status'		=>	1,
-			'time'			=>	now()
+			'time'			=>	now(),
+			'description'	=>	''
 		);
 
 		$this->db->insert('user', $data);
@@ -115,6 +116,67 @@ class user_model extends CI_Model
 			$email = $row->email;
 		}
 		return $email;
+	}
+
+	public function change_password($user_id, $old, $new)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+		$result = $result->result_array();
+		$result = $result[0];
+
+		if($result['password'] == do_hash($old, 'md5'))
+		{
+			$data = array(
+				'password'	=>	do_hash($new, 'md5')
+			);
+			$this->db->set($data);
+			$this->db->where('id', $user_id);
+			$this->db->update('user');
+			
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function check_suspend($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+
+		foreach($result->result() as $row)
+		{
+			$status = $row->status;
+		}
+		return $status;
+	}
+
+	public function suspend_accont($user_id, $password, $reason)
+	{
+		$this->db->where('id', $user_id);
+		$result = $this->db->get('user', 1);
+		$result = $result->result_array();
+		$result = $result[0];
+
+		if($result['password'] == do_hash($password, 'md5'))
+		{
+			$data = array(
+				'status'		=>	0,
+				'description'	=>	'Suspend Reason : ' . $reason
+			);
+			$this->db->set($data);
+			$this->db->where('id', $user_id);
+			$this->db->update('user');
+			
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }
 

@@ -15,19 +15,19 @@
 	);
 	for($i=1;$i<=12;$i++)
 	{
-		$article_start_month_item[$i]=$i;
+		$article_start_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$article_start_year_item[$i]=$i;
+		$article_start_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$article_end_month_item[$i]=$i;
+		$article_end_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$article_end_year_item[$i]=$i;
+		$article_end_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$article_description = array(
 		'name'			=>	'article_description',

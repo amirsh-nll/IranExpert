@@ -18,15 +18,15 @@
 	);
 	for($i=1;$i<=31;$i++)
 	{
-		$birth_day_item[$i]=$i;
+		$birth_day_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1;$i<=12;$i++)
 	{
-		$birth_month_item[$i]=$i;
+		$birth_month_item[$i]=$this->jdf->tr_num($i);
 	}
 	for($i=1395;$i>=1301;$i--)
 	{
-		$birth_year_item[$i]=$i;
+		$birth_year_item[$i]=$this->jdf->tr_num($i);
 	}
 	$gender_item = array(
 		'0'				=>	'نامشخص',
