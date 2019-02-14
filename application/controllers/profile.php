@@ -223,6 +223,16 @@ class profile extends CI_Controller
 				$copyright = "آقا/خانم " . $person['first_name'] . $person['last_name'];
 			}
 		}
+
+		if(empty($person['webpage_url']))
+		{
+			$webpage = current_url();
+		}
+		else
+		{
+			$webpage = $person['webpage_url'];
+		}
+
 		if(empty($person['about']))
 		{
 			$about = "این صفحه رزومه آنلاین بنده می باشد.";
@@ -341,6 +351,7 @@ class profile extends CI_Controller
 			'activity'		=>	$activity,
 			'marriage'		=>	$marriage,
 			'gender'		=>	$gender,
+			'webpage'		=>	$webpage,
 			'about'			=>	$about,
 			'email'			=>	$email,
 			'mobile'		=>	$mobile,

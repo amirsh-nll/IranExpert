@@ -7,6 +7,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!--Meta-->
 		<!--Assets-->
+		<?php
+			if($page!='index')
+			{
+				echo '<style type="text/css"> body{background:#fafafa no-repeat;} .header{padding-bottom:0px !important;} </style>';
+			}
+			else
+			{
+				echo '<style type="text/css"> body{background:url(' . $url . 'assets/image/bg.png) #fafafa no-repeat; background-position:center 150px;} .header{padding-bottom:400px;} </style>';
+			}
+		?>
 		<link rel="stylesheet" href="<?=$url; ?>assets/css/web.css" />
 		<link rel="stylesheet" href="<?=$url; ?>assets/css/font-awesome.css">
 		<link rel="stylesheet" href="<?=$url; ?>assets/css/font-awesome.min.css">
@@ -17,7 +27,6 @@
 		<script type="text/javascript" src="<?=$url; ?>assets/js/doc.js"></script>
 		<!--Js-->
 	</head>
-
 	<body>
 		<div class="header">
 			<div class="right_header">
@@ -34,6 +43,8 @@
 					<li><a href="<?=$url; ?>rules" title="قوانین">قوانین</a></li>
 					<li id="pipe">|</li>
 					<li><a href="<?=$url; ?>about" title="درباره ما">درباره ما</a></li>
+					<li id="pipe">|</li>
+					<li><a href="<?=$url; ?>contact" title="تماس با ما">تماس با ما</a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>
@@ -41,10 +52,17 @@
 
 		<div class="center_line">&nbsp;</div>
 
-		<div class="slideshow">
-			<ul>
-				<li><img src="<?=$url; ?>assets/image/slide1.png" title="اسلاید شماره 1" alt="اسلاید شماره 1"></li>
-    			<li><img src="<?=$url; ?>assets/image/slide2.png" title="اسلاید شماره 2" alt="اسلاید شماره 2"></li>
-			</ul>
-		</div>
+		<?php
+			if($page=='index')
+			{
+				?>
+				<div class="slideshow">
+					<ul>
+						<li><img src="<?=$url; ?>assets/image/slide1.png" title="اسلاید شماره 1" alt="اسلاید شماره 1"></li>
+		    			<li><img src="<?=$url; ?>assets/image/slide2.png" title="اسلاید شماره 2" alt="اسلاید شماره 2"></li>
+					</ul>
+				</div>
+				<?php
+			}
+		?>
 		<div class="clear"></div>

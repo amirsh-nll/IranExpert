@@ -60,7 +60,7 @@
 	if($social_item!=0)
 	{
 		?>
-		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
 				<td>شبکه اجتماعی</td>
 				<td>آدرس</td>
@@ -94,7 +94,7 @@
 	else
 	{
 		?>
-		<table cellpadding="0" cellspacing="0" class="retrive_data_table">
+		<table width="100%" cellpadding="0" cellspacing="0" class="retrive_data_table">
 			<tr>
 				<td style="width:28%;">شبکه اجتماعی</td>
 				<td style="width:65%;">آدرس</td>

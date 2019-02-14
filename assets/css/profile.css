@@ -58,6 +58,12 @@ a
 	font-size:20px;
 	line-height:10px;
 }
+.intero_section2 a
+{
+	color:#000;
+	cursor:pointer;
+	word-wrap:break-word;
+}
 .content
 {
 	margin:0 auto;

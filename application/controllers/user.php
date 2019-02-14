@@ -138,6 +138,17 @@ class user extends IREX_Controller
 				)
 			),
 			array(
+				'field'		=>	'webpage_url',
+				'label'		=>	'وبلاگ/وبسایت',
+				'rules'		=>	'required|prep_url|min_length[5]|max_length[500]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'prep_url'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
 				'field'		=>	'person_about',
 				'label'		=>	'درباره من',
 				'rules'		=>	'max_length[1000]',
@@ -162,10 +173,11 @@ class user extends IREX_Controller
 			$activity_id= 	$this->input->post('person_activity_id', true);
 			$gender 	= 	$this->input->post('person_gender', true);
 			$marriage 	= 	$this->input->post('person_marriage', true);
+			$webpage_url=	$this->input->post('webpage_url', true);
 			$about 		=	$this->input->post('person_about', true);
 
 			$this->load->model('person_model');
-			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $about);
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $webpage_url, $about);
 
 			redirect(base_url() . 'panel/person/2#content_view');
 		}
@@ -1537,10 +1549,10 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'social_url',
 				'label'		=>	'آدرس شبکه اجتماعی',
-				'rules'		=>	'required|valid_url|min_length[5]|max_length[255]',
+				'rules'		=>	'required|prep_url|min_length[5]|max_length[500]',
 				'errors'	=>	array(
 					'required'		=>	'فیلد %s معتبر نمی باشد.',
-					'valid_url'		=>	'فیلد %s معتبر نمی باشد.',
+					'prep_url'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)
@@ -1596,10 +1608,10 @@ class user extends IREX_Controller
 			array(
 				'field'		=>	'social_url',
 				'label'		=>	'آدرس شبکه اجتماعی',
-				'rules'		=>	'required|valid_url|min_length[5]|max_length[255]',
+				'rules'		=>	'required|prep_url|min_length[5]|max_length[500]',
 				'errors'	=>	array(
 					'required'		=>	'فیلد %s معتبر نمی باشد.',
-					'valid_url'		=>	'فیلد %s معتبر نمی باشد.',
+					'prep_url'		=>	'فیلد %s معتبر نمی باشد.',
 					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
 				)

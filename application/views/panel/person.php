@@ -41,6 +41,12 @@
 		'1'				=>	'مجرد',
 		'2'				=>	'متاهل'
 	);
+	$webpage_url_input = array(
+		'name'			=>	'webpage_url',
+		'placeholder'	=>	'آدرس http://test.com/user',
+		'maxlength'		=>	'500',
+		'value'			=>	$webpage_url_value
+	);
 	$about_input = array(
 		'name'			=>	'person_about',
 		'maxlength'		=>	'1000',
@@ -76,6 +82,10 @@
 	<tr>
 		<td><strong>وضعیت تاهل</strong></td>
 		<td><?php echo form_dropdown('person_marriage', $marriage_item, $marriage_value); ?></td>
+	</tr>
+	<tr>
+		<td><strong>وبسایت/وبلاگ</strong></td>
+		<td><?php echo form_input($webpage_url_input); ?></td>
 	</tr>
 	<tr>
 		<td><strong>درباره من</strong></td>

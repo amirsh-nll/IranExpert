@@ -27,6 +27,7 @@ class person_model extends CI_Model
 			'activity_id'	=>	1,
 			'gender'		=>	0,
 			'marriage'		=>	0,
+			'webpage_url'	=>	'',
 			'about'			=>	''
 		);
 
@@ -48,7 +49,7 @@ class person_model extends CI_Model
 		}
 	}
 
-	public function update_person($user_id, $first_name, $lastname, $birthday, $activity_id, $gender, $marriage, $about)
+	public function update_person($user_id, $first_name, $lastname, $birthday, $activity_id, $gender, $marriage, $webpage_url, $about)
 	{
 		$data = array(
 			'first_name'	=>	$first_name,
@@ -57,6 +58,7 @@ class person_model extends CI_Model
 			'activity_id'	=>	$activity_id,
 			'gender'		=>	$gender,
 			'marriage'		=>	$marriage,
+			'webpage_url'	=>	$webpage_url,
 			'about'			=>	$about
 		);
 		$this->db->set($data);

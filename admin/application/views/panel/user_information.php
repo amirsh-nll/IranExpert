@@ -37,6 +37,10 @@
 		<td><span dir="ltr"><?=$email; ?></span></td>
 	</tr>
 	<tr>
+		<td>وبسایت/وبلاگ:</td>
+		<td><span dir="ltr"><?=$webpage_url; ?></span></td>
+	</tr>
+	<tr>
 		<td>کد پستی:</td>
 		<td><?=$postal_code; ?></td>
 	</tr>

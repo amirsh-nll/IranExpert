@@ -65,6 +65,8 @@ $route['report/(:any)'] 			= 'web/report/$1';
 $route['report/(:any)/(:num)'] 		= 'web/report/$1/$2';
 $route['rules'] 					= 'web/rules';
 $route['about'] 					= 'web/about';
+$route['contact'] 					= 'web/contact';
+$route['contact/(:num)'] 			= 'web/contact/$1';
 
 $route['panel'] 					= 'panel/index';
 

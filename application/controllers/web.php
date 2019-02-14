@@ -22,7 +22,8 @@ class web extends CI_Controller
 	{
 		$data = array(
 			'url'		=>	base_url(),
-			'title'		=>	'پروفایل آنلاین ایرانیان'
+			'title'		=>	'پروفایل آنلاین ایرانیان',
+			'page'		=>	'index'
 			);
 
 		$this->statistics();
@@ -228,8 +229,9 @@ class web extends CI_Controller
 	public function rules()
 	{
 		$data = array(
-			'url'=>base_url(),
-			'title'=>'پروفایل آنلاین ایرانیان - قوانین'
+			'url'		=>	base_url(),
+			'title'		=>	'پروفایل آنلاین ایرانیان - قوانین',
+			'page'		=>	'rules'
 			);
 
 		$this->statistics();
@@ -242,8 +244,9 @@ class web extends CI_Controller
 	public function about()
 	{
 		$data = array(
-			'url'=>base_url(),
-			'title'=>'پروفایل آنلاین ایرانیان - درباره ما'
+			'url'		=>	base_url(),
+			'title'		=>	'پروفایل آنلاین ایرانیان - درباره ما',
+			'page'		=>	'about'
 			);
 		
 		$this->statistics();
@@ -251,6 +254,138 @@ class web extends CI_Controller
 		$this->load->view('site/header',$data);
 		$this->load->view('site/about',$data);
 		$this->load->view('site/footer',$data);
+	}
+
+	public function contact($notice=0)
+	{
+		$notice = xss_clean($notice);
+
+		$captcha = array(
+	        'img_path'      => './captcha/',
+	        'img_url'       => 'http://localhost/captcha/',
+	        'word_length'   => 5,
+	        'font_path'		=> './assets/font/stencilstd.otf',
+	        'colors'        => array(
+	                'background' 	=> array(255, 255, 255),
+                	'border' 		=> array(255, 255, 255),
+                	'text' 			=> array(0, 0, 0),
+                	'grid' 			=> array(255, 40, 40)
+	        )
+		);
+		$cap = create_captcha($captcha);
+
+		$capcha_data = array(
+		        'captcha_time'  => $cap['time'],
+		        'ip_address'    => $this->input->ip_address(),
+		        'word'          => $cap['word']
+		);
+		$this->load->model('captcha_model');
+		$this->captcha_model->insert($capcha_data);
+
+		$data = array(
+			'url'		=>	base_url(),
+			'title'		=>	'پروفایل آنلاین ایرانیان - تماس با ما',
+			'page'		=>	'contact',
+			'captcha'	=>	$cap,
+			'notice'	=>	$notice
+			);
+		
+		$this->statistics();
+
+		$this->load->view('site/header',$data);
+		$this->load->view('site/contact',$data);
+		$this->load->view('site/footer',$data);
+	}
+
+	public function send_message()
+	{
+		$rules = array(
+				array(
+					'field'		=>	'name',
+					'label'		=>	'نام شما',
+					'rules'		=>	'required|min_length[3]|max_length[100]',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'title',
+					'label'		=>	'موضوع پیام',
+					'rules'		=>	'min_length[3]|max_length[100]',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'email',
+					'label'		=>	'ایمیل',
+					'rules'		=>	'required|valid_email|min_length[5]|max_length[70]',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.',
+						'valid_email'	=>	'فیلد %s معتبر نمی باشد.',
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'message',
+					'label'		=>	'پیام شما',
+					'rules'		=>	'min_length[5]|max_length[500]',
+					'errors'	=>	array(
+						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+				array(
+					'field'		=>	'captcha',
+					'label'		=>	'کد امنیتی',
+					'rules'		=>	'required',
+					'errors'	=>	array(
+						'required'		=>	'فیلد %s معتبر نمی باشد.'
+						)
+					),
+			);
+
+		$this->form_validation->set_rules($rules);
+
+		$this->load->model('captcha_model');
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'contact/1#message_form');
+		}
+		else
+		{
+			$user_id 		= 1;
+			$full_name		= $this->input->post('name',true);
+			$title 			= $this->input->post('title',true);
+			$email 			= $this->input->post('email',true);
+			$message 		= $this->input->post('message',true);
+			$captcha 		= $this->input->post('captcha',true);
+			$description 	= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+
+			if($this->captcha_model->check($code))
+			{
+				$this->load->model('message_model');
+				$message = $this->message_model->insert_message($user_id, $full_name, $title, $email, $message, $description);
+				if($message==1)
+				{
+					redirect(base_url() . 'contact/2#message_form');
+				}
+				else
+				{
+					redirect(base_url() . 'contact/1#message_form');
+				}
+			}
+			else
+			{
+				redirect(base_url() . 'contact/3#message_form');
+			}
+		}
 	}
 }
 

@@ -102,6 +102,7 @@ class panel extends IREX_Controller
 			'activity_id_value'	=>	$person['activity_id'],
 			'gender_value'		=>	$person['gender'],
 			'marriage_value'	=>	$person['marriage'],
+			'webpage_url_value'	=>	$person['webpage_url'],
 			'about_value'		=>	$person['about'],
 			'activity'			=>	$activity
 		);

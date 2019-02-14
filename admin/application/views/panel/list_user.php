@@ -30,7 +30,15 @@
 				<?php
 					for($i=1;$i<=$page_count;$i++)
 					{
-						echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td>';
+
+						if($i/18==round($i/18))
+						{
+							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td></tr><tr>';
+						}
+						else
+						{
+							echo '<td><a title="صفحه ' . $i . '" href="' . $url . 'panel/list_user/' . $i . '">' . $this->jdf->tr_num($i) . '</a></td>';
+						}
 					}
 				?>
 			</tr>
@@ -47,7 +55,7 @@
 				<td>عملیات مدیریتی</td>
 			</tr>
 			<tr>
-				<td colspan="5">هیچ کاربری برای نمایش موجود نیست.</td>
+				<td colspan="3">هیچ کاربری برای نمایش موجود نیست.</td>
 			</tr>
 		</table>
 		<?php

@@ -197,6 +197,9 @@ class panel extends IREX_Controller
 				$copyright = "آقا/خانم " . $person['first_name'] . $person['last_name'];
 			}
 		}
+
+		$webpage_url = $person['webpage_url'];
+
 		if(empty($person['about']))
 		{
 			$about = "این صفحه رزومه آنلاین بنده می باشد.";
@@ -270,6 +273,7 @@ class panel extends IREX_Controller
 			'activity'			=>	$activity,
 			'marriage'			=>	$marriage,
 			'gender'			=>	$gender,
+			'webpage_url'		=>	$webpage_url,
 			'about'				=>	$about,
 			'email'				=>	$email,
 			'mobile'			=>	$mobile,
@@ -329,6 +333,7 @@ class panel extends IREX_Controller
 			'marriage_value'		=>	$person['marriage'],
 			'gender_value'			=>	$person['gender'],
 			'about_value'			=>	$person['about'],
+			'webpage_url_value'		=>	$person['webpage_url'],
 			'mobile_number_value'	=>	$contact['mobile_number'],
 			'phone_number_value'	=>	$contact['phone_number'],
 			'postal_code_value'		=>	$contact['postal_code'],
@@ -630,6 +635,212 @@ class panel extends IREX_Controller
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/report', $data);
 		$this->load->view('panel/footer', $data);
+	}
+
+	public function activity($page=1, $notice=0)
+	{
+		$notice = xss_clean($notice);
+		$page 	= xss_clean($page);
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('activity_model');
+		$activity = $this->activity_model->read_activity_list($page);
+		
+		if($activity==0 && $page != 1)
+		{
+			redirect(base_url() . 'panel/activity/1');
+		}
+
+		$activity_count = $this->activity_model->activity_count();
+		$page 			= $activity_count / 10;
+		if($page * 10 - 9 < $activity_count)
+		{
+			$page+=1;
+		}
+
+		$i=0;
+		$activities = '';
+
+		foreach ($activity as $my_activity) {
+			$activities[$i] = array(
+				'id'		=>	$my_activity['id'],
+				'name'		=>	$my_activity['name']
+			);
+			$i+=1;
+		}
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - زمینه فعالیت',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'activity'			=>	$activities,
+			'page'				=>	$page,
+			'page_count'		=>	$page
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/activity', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function activity_edit($activity_id='', $notice=0)
+	{
+		$activity_id = xss_clean($activity_id);
+		$notice = xss_clean($notice);
+		if(empty($activity_id))
+		{
+			redirect(base_url() . 'panel/activity');
+		}
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('activity_model');
+		$activity = $this->activity_model->read_once_activity($activity_id);
+		$this->session->set_userdata('activity_id_for_edit', $activity['id']);
+
+		$data = array(
+			'title'					=>	'پنل مدیریت - ویرایش زمینه فعالیت',
+			'url'					=>	base_url(),
+			'message_unread'		=>	$message_unread,
+			'notice'				=>	$notice,
+			'activity_name_value'	=>	$activity['name']
+		);
+
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/activity_edit', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function delete_activity($activity_id=0)
+	{
+		$activity_id = xss_clean($activity_id);
+
+		if($activity_id==0 || $activity_id==1 || !is_numeric($activity_id))
+		{
+			redirect(base_url() . 'panel/activity');
+		}
+
+		$this->load->model('person_model');
+		$person = $this->person_model->activity_id_free($activity_id);
+
+		$this->load->model('activity_model');
+		$activity = $this->activity_model->delete_activity($activity_id);
+
+		if($activity==0)
+		{
+			redirect(base_url() . 'panel/activity/1/3#retrive_data_table');
+		}
+		else
+		{
+			redirect(base_url() . 'panel/activity/1/4#retrive_data_table');
+		}
+	}
+
+	public function province($page=1, $notice=0)
+	{
+		$notice = xss_clean($notice);
+		$page 	= xss_clean($page);
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('province_model');
+		$province = $this->province_model->read_province_list($page);
+		
+		if($province==0 && $page != 1)
+		{
+			redirect(base_url() . 'panel/province/1');
+		}
+
+		$province_count = $this->province_model->province_count();
+		$page 			= $province_count / 10;
+		if($page * 10 - 9 < $province_count)
+		{
+			$page+=1;
+		}
+
+		$i=0;
+		$provinces = '';
+
+		foreach ($province as $my_province) {
+			$provinces[$i] = array(
+				'id'		=>	$my_province['id'],
+				'name'		=>	$my_province['name']
+			);
+			$i+=1;
+		}
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - استان ها',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'province'			=>	$provinces,
+			'page'				=>	$page,
+			'page_count'		=>	$page
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/province', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function province_edit($province_id='', $notice=0)
+	{
+		$province_id = xss_clean($province_id);
+		$notice = xss_clean($notice);
+		if(empty($province_id))
+		{
+			redirect(base_url() . 'panel/province');
+		}
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('province_model');
+		$province = $this->province_model->read_once_province($province_id);
+		$this->session->set_userdata('province_id_for_edit', $province['id']);
+
+		$data = array(
+			'title'					=>	'پنل مدیریت - ویرایش زمینه فعالیت',
+			'url'					=>	base_url(),
+			'message_unread'		=>	$message_unread,
+			'notice'				=>	$notice,
+			'province_name_value'	=>	$province['name']
+		);
+
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/province_edit', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function delete_province($province_id=0)
+	{
+		$province_id = xss_clean($province_id);
+
+		if($province_id==0 || $province_id==1 || !is_numeric($province_id))
+		{
+			redirect(base_url() . 'panel/province');
+		}
+
+		$this->load->model('contact_model');
+		$contact = $this->contact_model->province_id_free($province_id);
+
+		$this->load->model('province_model');
+		$province = $this->province_model->delete_province($province_id);
+
+		if($province==0)
+		{
+			redirect(base_url() . 'panel/province/1/3#retrive_data_table');
+		}
+		else
+		{
+			redirect(base_url() . 'panel/province/1/4#retrive_data_table');
+		}
 	}
 
 	public function out()

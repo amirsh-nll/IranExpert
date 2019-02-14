@@ -41,6 +41,8 @@
 						<li><a href="<?=$url; ?>panel/list_user" titile="لیست کاربران">لیست کاربران</a></li>
 						<li><a href="<?=$url; ?>panel/list_image" titile="لیست تصاویر">لیست تصاویر</a></li>
 						<li><a href="<?=$url; ?>panel/report" titile="گزارش ها">گزارش ها</a></li>
+						<li><a href="<?=$url; ?>panel/activity" titile="زمینه های فعالیت">زمینه های فعالیت</a></li>
+						<li><a href="<?=$url; ?>panel/province" titile="استان ها">استان ها</a></li>
 						<li><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
 						<li><a href="<?=$url; ?>panel/out" titile="خروج">خروج</a></li>
 					</ul>

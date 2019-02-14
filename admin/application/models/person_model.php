@@ -27,6 +27,7 @@ class person_model extends CI_Model
 			'activity_id'	=>	1,
 			'gender'		=>	0,
 			'marriage'		=>	0,
+			'webpage_url'	=>	'',
 			'about'			=>	''
 		);
 
@@ -48,7 +49,7 @@ class person_model extends CI_Model
 		}
 	}
 
-	public function update_person($user_id, $first_name, $lastname, $birthday, $activity_id, $gender, $marriage, $about)
+	public function update_person($user_id, $first_name, $lastname, $birthday, $activity_id, $gender, $marriage, $webpage_url, $about)
 	{
 		$data = array(
 			'first_name'	=>	$first_name,
@@ -57,6 +58,7 @@ class person_model extends CI_Model
 			'activity_id'	=>	$activity_id,
 			'gender'		=>	$gender,
 			'marriage'		=>	$marriage,
+			'webpage_url'	=>	$webpage_url,
 			'about'			=>	$about
 		);
 		$this->db->set($data);
@@ -115,6 +117,38 @@ class person_model extends CI_Model
 			}
 		}
 		return $i;
+	}
+
+	public function activity_id_free($activity_id)
+	{
+		$this->db->where('activity_id', $activity_id);
+		$result = $this->db->get('person');
+
+		if($result->num_rows()>0)
+		{
+			$result = $result->result_array();
+			foreach ($result as $my_result) {
+				$data = array(
+					'id'			=>	$my_result['id'],
+					'user_id'		=>	$my_result['user_id'],
+					'first_name'	=>	$my_result['first_name'],
+					'last_name'		=>	$my_result['last_name'],
+					'birthday'		=>	$my_result['birthday'],
+					'activity_id'	=>	1,
+					'gender'		=>	$my_result['gender'],
+					'marriage'		=>	$my_result['marriage'],
+					'webpage_url'	=>	$my_result['webpage_url'],
+					'about'			=>	$my_result['about']
+				);
+				$this->db->set($data);
+				$this->db->where('id', $my_result['id']);
+				$this->db->update('person');
+			}
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }
 ?>

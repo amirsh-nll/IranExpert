@@ -152,6 +152,16 @@ class admin extends CI_Controller
 				)
 			),
 			array(
+				'field'		=>	'webpage_url',
+				'label'		=>	'وبلاگ/وبسایت',
+				'rules'		=>	'prep_url|min_length[5]|max_length[500]',
+				'errors'	=>	array(
+					'prep_url'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+				)
+			),
+			array(
 				'field'		=>	'person_about',
 				'label'		=>	'درباره من',
 				'rules'		=>	'max_length[1000]',
@@ -234,6 +244,7 @@ class admin extends CI_Controller
 			$activity_id		= 	$this->input->post('person_activity_id', true);
 			$gender 			= 	$this->input->post('person_gender', true);
 			$marriage 			= 	$this->input->post('person_marriage', true);
+			$webpage_url 		=	$this->input->post('webpage_url', true);
 			$about 				=	$this->input->post('person_about', true);
 			$mobile_number 		= 	$this->input->post('contact_mobile_number', true);
 			$phone_number 		= 	$this->input->post('contact_phone_number', true);
@@ -243,7 +254,7 @@ class admin extends CI_Controller
 			$address 			= 	$this->input->post('contact_address', true);
 
 			$this->load->model('person_model');
-			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $about);
+			$this->person_model->update_person($user_id, $first_name, $last_name, $birthday, $activity_id, $gender, $marriage, $webpage_url, $about);
 
 			$this->load->model('contact_model');
 			$this->contact_model->update_contact($user_id, $mobile_number, $phone_number, $postal_code, $province_id, $city_name, $address);
@@ -339,6 +350,136 @@ class admin extends CI_Controller
 			{
 				redirect(base_url() . 'panel/user_message/' . $middle_name . '/1');
 			}
+		}
+	}
+
+	public function insert_activity()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'activity',
+				'label'		=>	'زمینه فعالیت',
+				'rules'		=>	'required|min_length[2]|max_length[70]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/activity/1/1');
+		}
+		else
+		{
+			$activity = $this->input->post('activity', true);
+
+			$this->load->model('activity_model');
+			$this->activity_model->insert_activity($activity);
+
+			redirect(base_url() . 'panel/activity/1/2');
+		}
+	}
+
+	public function edit_activity()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'activity',
+				'label'		=>	'زمینه فعالیت',
+				'rules'		=>	'required|min_length[2]|max_length[70]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/activity/1/1');
+		}
+		else
+		{
+			$activity_id	= $this->session->userdata('activity_id_for_edit');
+			$activity_name 	= $this->input->post('activity', true);
+
+			$this->load->model('activity_model');
+			$this->activity_model->update_activity($activity_id, $activity_name);
+
+			redirect(base_url() . 'panel/activity/1/2');
+		}
+	}
+
+	public function insert_province()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'province',
+				'label'		=>	'نام استان',
+				'rules'		=>	'required|min_length[2]|max_length[70]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/province/1/1');
+		}
+		else
+		{
+			$province = $this->input->post('province', true);
+
+			$this->load->model('province_model');
+			$this->province_model->insert_province($province);
+
+			redirect(base_url() . 'panel/province/1/2');
+		}
+	}
+
+	public function edit_province()
+	{
+		$rules = array(
+			array(
+				'field'		=>	'province',
+				'label'		=>	'نام استان',
+				'rules'		=>	'required|min_length[2]|max_length[70]',
+				'errors'	=>	array(
+					'required'		=>	'فیلد %s معتبر نمی باشد.',
+					'min_length'	=>	'فیلد %s معتبر نمی باشد.',
+					'max_length'	=>	'فیلد %s معتبر نمی باشد.'
+					)
+			)
+		);
+
+		$this->form_validation->set_rules($rules);
+
+		if($this->form_validation->run()==false)
+		{
+			redirect(base_url() . 'panel/province/1/1');
+		}
+		else
+		{
+			$province_id	= $this->session->userdata('province_id_for_edit');
+			$province_name 	= $this->input->post('province', true);
+
+			$this->load->model('province_model');
+			$this->province_model->update_province($province_id, $province_name);
+
+			redirect(base_url() . 'panel/province/1/2');
 		}
 	}
 }

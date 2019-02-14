@@ -12,8 +12,6 @@ body
 	direction:rtl;
 	margin:0;
 	padding:0;
-	background:url(../image/bg.png) #fafafa no-repeat;
-	background-position:center 150px;
 	font-family:'irex', tahoma;
 }
 a
@@ -27,7 +25,6 @@ a
 .header
 {
 	margin:50px auto;
-	padding-bottom:400px;
 }
 .left_header ul, .left_header li
 {
@@ -40,7 +37,7 @@ a
 .left_header li a
 {
 	color:#000;
-	font-size:27px;
+	font-size:25px;
 }
 .center_line
 {
@@ -89,6 +86,8 @@ a
 	background:#3e56a6;
 	color:#fff;
 	display:block;
+	padding:0px;
+	margin-top:0px;
 }
 .shortcut
 {
@@ -109,6 +108,42 @@ a
 	border-radius:3px;
 	text-align:center;
 	margin:0 auto;
+}
+.content input
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:50%;
+	outline:none;
+	border-right:5px solid #555 !important;
+	border:1px solid #555;
+	padding:4px;
+	margin:5px;
+}
+.content textarea
+{
+	font-size:20px;
+	font-family:'irex', tahoma;
+	width:90%;
+	outline:none;
+	border-right:5px solid #555 !important;
+	border:1px solid #555;
+	height:200px;
+	resize:none;
+	margin:5px;
+}
+.content img
+{
+	display:block;
+	margin:5px;
+}
+.content input[type="submit"]
+{
+	border:1px solid #555 !important;
+	cursor:pointer;
+	width:20%;
+	margin-left:40px;
+	float:left;
 }
 
 /* Responsive */
