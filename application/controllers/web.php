@@ -12,12 +12,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class web extends CI_Controller
 {
+	private function statistics()
+	{
+		$this->load->model('statistics_model');
+		$this->statistics_model->statistics_calculator(1);
+	}
+
 	public function index()
 	{
 		$data = array(
 			'url'		=>	base_url(),
 			'title'		=>	'پروفایل آنلاین ایرانیان'
 			);
+
+		$this->statistics();
+
 		$this->load->view('site/header',$data);
 		$this->load->view('site/home',$data);
 		$this->load->view('site/footer',$data);
@@ -64,6 +73,8 @@ class web extends CI_Controller
 		);
 		$this->load->model('captcha_model');
 		$this->captcha_model->insert($capcha_data);
+
+		$this->statistics();
 
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/register',$data);
@@ -112,6 +123,8 @@ class web extends CI_Controller
 		$this->load->model('captcha_model');
 		$this->captcha_model->insert($capcha_data);
 
+		$this->statistics();
+
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/login',$data);
 	}
@@ -157,6 +170,8 @@ class web extends CI_Controller
 		);
 		$this->load->model('captcha_model');
 		$this->captcha_model->insert($capcha_data);
+
+		$this->statistics();
 
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/report',$data);
@@ -204,13 +219,10 @@ class web extends CI_Controller
 		$this->load->model('captcha_model');
 		$this->captcha_model->insert($capcha_data);
 
+		$this->statistics();
+
 		$this->load->view('site/form_header',$data);
 		$this->load->view('site/forget',$data);
-	}
-
-	public function forget_password($forget_key)
-	{
-		
 	}
 
 	public function rules()
@@ -219,6 +231,9 @@ class web extends CI_Controller
 			'url'=>base_url(),
 			'title'=>'پروفایل آنلاین ایرانیان - قوانین'
 			);
+
+		$this->statistics();
+
 		$this->load->view('site/header',$data);
 		$this->load->view('site/rules',$data);
 		$this->load->view('site/footer',$data);
@@ -230,6 +245,9 @@ class web extends CI_Controller
 			'url'=>base_url(),
 			'title'=>'پروفایل آنلاین ایرانیان - درباره ما'
 			);
+		
+		$this->statistics();
+
 		$this->load->view('site/header',$data);
 		$this->load->view('site/about',$data);
 		$this->load->view('site/footer',$data);

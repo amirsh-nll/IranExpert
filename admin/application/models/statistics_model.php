@@ -29,5 +29,35 @@ class statistics_model extends CI_Model
 
 		$this->db->insert('statistics', $data);
 	}
+
+	public function read_main_website_statistics()
+	{
+		$this->db->where('user_id', 1);
+		$result = $this->db->get('statistics', 1);
+		$result = $result->result_array();
+		$result = $result[0];
+		
+		return $result;
+	}
+
+	public function read_all_user_statistics()
+	{
+		$result = $this->db->get('statistics');
+		$result = $result->result_array();
+
+		$statistics = array(
+			'today'		=>	0,
+			'yesterday'	=>	0,
+			'total'		=>	0
+		);
+		
+		foreach ($result as $my_result) {
+			$statistics['today']	+= $my_result['today'];
+			$statistics['yesterday']+= $my_result['yesterday']; 
+			$statistics['total']	+= $my_result['total']; 
+		}
+		
+		return $statistics;
+	}
 }
 ?>

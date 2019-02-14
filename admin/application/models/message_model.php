@@ -38,7 +38,7 @@ class message_model extends CI_Model
 	public function read_admin_message($user_id)
 	{
 		$this->db->where('user_id', $user_id);
-		$result = $this->db->get('message', 20);
+		$result = $this->db->get('message');
 
 		if($result->num_rows()>0)
 		{
@@ -100,6 +100,17 @@ class message_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+
+	public function report_message($user_id, $message_id)
+	{
+		$data = array(
+			'report'	=>	1
+		);
+		$this->db->set($data);
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $message_id);
+		$this->db->update('message');
 	}
 }
 ?>

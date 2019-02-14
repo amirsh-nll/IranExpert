@@ -63,5 +63,58 @@ class person_model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$this->db->update('person');
 	}
+
+	public function birthday_today()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_day = $this->jdf->tr_numes($this->jdf->jdate('j', now()));
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month && $birthday[2] == $this_day)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
+	}
+
+	public function birthday_yesterday()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_day = $this->jdf->tr_numes($this->jdf->jdate('j', now()));
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month && $birthday[2] == $this_day-1)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
+	}
+
+	public function birthday_month()
+	{
+		$result = $this->db->get('person');
+		$result = $result->result_array();
+		$this_month = $this->jdf->tr_numes($this->jdf->jdate('n', now()));
+
+		$i=0;
+		foreach ($result as $my_result) {
+			$birthday = explode('/', $my_result['birthday']);
+			if($birthday[1] == $this_month)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
+	}
 }
 ?>

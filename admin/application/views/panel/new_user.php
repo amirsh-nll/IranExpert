@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) افزودن کاربر جدید</h2>
+<h2>پنل مدیریت -) افزودن کاربر جدید</h2>
 <?php 
 	echo form_open('admin/new_user', 'method="post" class="panel_form"');
 	$email_input = array(

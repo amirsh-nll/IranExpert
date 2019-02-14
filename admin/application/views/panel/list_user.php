@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) لیست کاربران</h2>
+<h2>پنل مدیریت -) لیست کاربران</h2>
 <?php
 	if($user!=0)
 	{
@@ -7,12 +7,14 @@
 			<tr>
 				<td>نام کاربری</td>
 				<td>ایمیل</td>
+				<td>اخرین ورود به سایت</td>
 				<td>عملیات مدیریتی</td>
 			</tr>
 			<?php foreach ($user as $my_user): ?>
-				<tr>
-					<td style="width:30%; padding:5px; text-align:center;"><?php echo $my_user['middle_name']; ?></td>
-					<td style="width:50%; padding:5px; text-align:center;"><?php echo $my_user['email']; ?></td>
+				<tr style="font-size:19px;">
+					<td style="width:20%; padding:5px; text-align:center;"><?php echo $my_user['middle_name']; ?></td>
+					<td style="width:40%; padding:5px; text-align:center;"><?php echo $my_user['email']; ?></td>
+					<td style="width:20%; padding:5px; text-align:center;"><?php echo $my_user['last_login']; ?></td>
 					<td style="width:20%; text-align:center;">
 						<a href="<?=$url; ?>panel/view_user_information/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_eye" title="نمایش اطلاعات"><span class="fa fa-lg fa-eye"></span></a>
 						<a href="<?=$url; ?>panel/user_edit/<?php echo $my_user['middle_name']; ?>" class="retrive_data_table_edit" title="ویرایش اطلاعات"><span class="fa fa-lg fa-edit"></span></a>

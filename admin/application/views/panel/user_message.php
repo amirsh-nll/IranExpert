@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) لیست کاربران -) ارسال پیام</h2>
+<h2>پنل مدیریت -) لیست کاربران -) ارسال پیام</h2>
 <?php
 	echo form_open('admin/user_message', 'method="post" class="panel_form"');
 	$title_input = array(

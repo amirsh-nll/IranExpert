@@ -170,11 +170,11 @@ a
 {
 	color:#1f3a93;
 }
-.retrive_data_table_edit
+.retrive_data_table_edit, .retrive_data_table_read
 {
 	color:#d35400;
 }
-.retrive_data_table_ban
+.retrive_data_table_ban, .retrive_data_table_delete
 {
 	color:#cf000f;
 }
@@ -266,6 +266,14 @@ border-top:1px solid #000;
 .chart td:nth-child(4)
 {
 	border-right:1px solid #000;
+}
+.chart .bar0
+{
+	color:#fff;
+	margin:0 auto;
+	text-align:center;
+	width:70px;
+	background:#fff;
 }
 .chart .bar1
 {

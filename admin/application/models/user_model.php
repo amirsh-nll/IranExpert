@@ -110,6 +110,20 @@ class user_model extends CI_Model
 		return $result->num_rows();
 	}
 
+	public function user_active_count()
+	{
+		$this->db->where('status', 1);
+		$result = $this->db->get('user');
+		return $result->num_rows();
+	}
+
+	public function user_deactive_count()
+	{
+		$this->db->where('status', 0);
+		$result = $this->db->get('user');
+		return $result->num_rows();
+	}
+
 	public function fetch_user_id_with_middle_name($middle_name)
 	{
 		$this->db->where('middle_name', $middle_name);
@@ -178,6 +192,51 @@ class user_model extends CI_Model
 		$this->db->set($data);
 		$this->db->where('id', $user_id);
 		$this->db->update('user');
+	}
+
+	public function register_today()
+	{
+		$result = $this->db->get('user');
+		$result = $result->result_array();
+
+		$i=0;
+		foreach ($result as $my_result) {
+			if($my_result['time'] >= now() - 86400)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
+	}
+
+	public function register_month()
+	{
+		$result = $this->db->get('user');
+		$result = $result->result_array();
+
+		$i=0;
+		foreach ($result as $my_result) {
+			if($my_result['time'] >= now() - 2592000)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
+	}
+
+	public function register_year()
+	{
+		$result = $this->db->get('user');
+		$result = $result->result_array();
+
+		$i=0;
+		foreach ($result as $my_result) {
+			if($my_result['time'] >= now() - 31536000)
+			{
+				$i+=1;
+			}
+		}
+		return $i;
 	}
 
 	public function change_password($user_id, $old, $new)

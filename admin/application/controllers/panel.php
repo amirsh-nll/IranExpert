@@ -24,7 +24,7 @@ class panel extends IREX_Controller
 		$message_unread = $this->message_model->message_unread($user_id);
 
 		$data = array(
-			'title'				=>	'پیشخوان - پنل مدیریت',
+			'title'				=>	'پنل مدیریت - پیشخوان',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread
 		);
@@ -41,7 +41,7 @@ class panel extends IREX_Controller
 		$message_unread = $this->message_model->message_unread($user_id);
 
 		$data = array(
-			'title'				=>	'پیشخوان - افزودن کاربر جدید',
+			'title'				=>	'پنل مدیریت - افزودن کاربر جدید',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'notice'			=>	$notice
@@ -77,12 +77,26 @@ class panel extends IREX_Controller
 			$page+=1;
 		}
 
+		$i=0;
+		$users = '';
+		$this->load->model('login_model');
+
+		foreach ($user as $my_user) {
+			$users[$i] = array(
+				'id'			=>	$my_user['id'],
+				'middle_name'	=>	$my_user['middle_name'],
+				'email'			=>	$my_user['email'],
+				'last_login'	=>	$this->login_model->last_login($my_user['id'])
+			);
+			$i+=1;
+		}
+
 		$data = array(
-			'title'				=>	'پیشخوان - لیست کاربران',
+			'title'				=>	'پنل مدیریت - لیست کاربران',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'page'				=>	$page,
-			'user'				=>	$user,
+			'user'				=>	$users,
 			'page_count'		=>	$page
 		);
 		$this->load->view('panel/header', $data);
@@ -424,7 +438,7 @@ class panel extends IREX_Controller
 		}
 
 		$data = array(
-			'title'				=>	'پیشخوان - نمایش اطلاعات کاربر',
+			'title'				=>	'پنل مدیریت - نمایش اطلاعات کاربر',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'status'			=>	$status,
@@ -475,7 +489,7 @@ class panel extends IREX_Controller
 		$contact = $contact[0];
 
 		$data = array(
-			'title'					=>	'پیشخوان - نمایش اطلاعات کاربر',
+			'title'					=>	'پنل مدیریت - ویرایش اطلاعات کاربر',
 			'url'					=>	base_url(),
 			'message_unread'		=>	$message_unread,
 			'middle_name_value'		=>	$middle_name,
@@ -525,7 +539,7 @@ class panel extends IREX_Controller
 		$this->session->set_userdata('user_for_edit', $user_id_for_read);
 
 		$data = array(
-			'title'				=>	'پیشخوان - مسدود سازی',
+			'title'				=>	'پنل مدیریت - مسدود سازی',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'middle_name'		=>	$middle_name,
@@ -558,7 +572,7 @@ class panel extends IREX_Controller
 		$this->session->set_userdata('user_for_edit', $user_id_for_read);
 
 		$data = array(
-			'title'				=>	'پیشخوان - ارسال پیام',
+			'title'				=>	'پنل مدیریت - ارسال پیام',
 			'url'				=>	base_url(),
 			'message_unread'	=>	$message_unread,
 			'middle_name'		=>	$middle_name,
@@ -566,6 +580,225 @@ class panel extends IREX_Controller
 		);
 		$this->load->view('panel/header', $data);
 		$this->load->view('panel/user_message', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function message($notice=0)
+	{
+		$notice  = xss_clean($notice);
+		$user_id = $this->session->userdata('user_id');
+
+		if(!is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->load->model('message_model');
+		$message = $this->message_model->read_admin_message($user_id);
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - پیام ها',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'message_item'		=>	$message
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/message', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function read_message($message_id=0, $notice=0)
+	{
+		$notice = xss_clean($notice);
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		if(!is_numeric($message_id) || $message_id==0 || !is_numeric($notice))
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->load->model('message_model');
+		$message = $this->message_model->fetch_record_with_id($user_id, $message_id);
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		if($message==0)
+		{
+			redirect(base_url() . 'panel/message');
+		}
+
+		$this->message_model->mark_read($user_id, $message_id);
+
+		$data = array
+		(
+			'title'				=>	'پنل مدیریت - پیام ها',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'notice'			=>	$notice,
+			'message_item'		=>	$message
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/read_message', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function report_message($message_id)
+	{
+		$message_id = xss_clean($message_id);
+		if(is_numeric($message_id))
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$this->load->model('message_model');
+			$message = $this->message_model->ownership_message($user_id, $message_id);
+			if($message==0)
+			{
+				redirect(base_url() . 'panel/message');
+			}
+			else
+			{
+				$this->message_model->report_message($user_id, $message_id);
+				redirect(base_url() . 'panel/read_message/' . $message_id . '/1' . '#content_view');
+			}
+		}
+		else
+		{
+			redirect(base_url() . 'panel/message');
+		}
+	}
+
+	public function list_image($page=1, $notice=0)
+	{
+		$page = xss_clean($page);
+		if(!is_numeric($page))
+		{
+			redirect(base_url() . 'panel/list_image/1');
+		}
+		$current_page = $page;
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+		
+		$this->load->model('image_model');
+		$image = $this->image_model->read_all_image($page);
+		if($image==0 && $page != 1)
+		{
+			redirect(base_url() . 'panel/list_image/1');
+		}
+
+		$image_count = $this->image_model->image_count();
+		$page 		 = $image_count / 10;
+		if($page * 10 - 9 < $image_count)
+		{
+			$page+=1;
+		}
+
+		$this->load->model('user_model');
+		$i = 0;
+
+		foreach ($image as $my_image) {
+			$images[$i]['middle_name'] 	= $this->user_model->fetch_middle_name_with_user_id($my_image['user_id']);
+			$images[$i]['file_name']	= $my_image['file_name'];
+			$i+=1;
+		}
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - لیست کاربران',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'images'			=>	$images,
+			'notice'			=>	$notice,
+			'page_count'		=>	$page,
+			'current_page'		=>	$current_page
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/list_image', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
+	public function delete_image($middle_name='', $page=1)
+	{
+		$middle_name = xss_clean($middle_name);
+		$page 		 = xss_clean($page);
+		if($middle_name=='')
+		{
+			redirect(base_url() . 'panel/list_image/' . $page . '/1#notice_view');
+		}
+		else
+		{
+			$this->load->model('user_model');
+			$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
+
+			$this->load->model('image_model');
+			$this->image_model->delete_image($user_id);
+
+			redirect(base_url() . 'panel/list_image/' . $page . '/2#notice_view');
+		}
+	}
+
+	public function report()
+	{
+		$user_id = $this->session->userdata('user_id');
+
+		$this->load->model('message_model');
+		$message_unread = $this->message_model->message_unread($user_id);
+
+		$this->load->model('statistics_model');
+		$statistics_1 = $this->statistics_model->read_main_website_statistics();
+		$statistics_2 = $this->statistics_model->read_all_user_statistics();
+
+		$this->load->model('user_model');
+		$user_count = $this->user_model->user_count();
+		$user_active_count = $this->user_model->user_active_count();
+		$user_deactive_count = $this->user_model->user_deactive_count();
+		$register_today = $this->user_model->register_today();
+		$register_month = $this->user_model->register_month();
+		$register_year = $this->user_model->register_year();
+
+		$this->load->model('image_model');
+		$all_image = $this->image_model->image_count();
+		$all_default_image = $this->image_model->image_default_count();
+		$all_undefault_image = $this->image_model->image_undefault_count();
+
+		$this->load->model('login_model');
+		$login_today = $this->login_model->login_today();
+		$login_month = $this->login_model->login_month();
+		$login_year = $this->login_model->login_year();
+
+		$this->load->model('person_model');
+		$birthday_today		= $this->person_model->birthday_today();
+		$birthday_yesterday = $this->person_model->birthday_yesterday();
+		$birthday_month 	= $this->person_model->birthday_month();
+
+		$this->load->library('chart');
+		$chart_1 = $this->chart->statistics_chart($statistics_1['today'], $statistics_1['yesterday'], $statistics_1['total']);
+		$chart_2 = $this->chart->statistics_chart($statistics_2['today'], $statistics_2['yesterday'], $statistics_2['total']);
+		$chart_3 = $this->chart->user_count_chart($user_deactive_count, $user_active_count, $user_count);
+		$chart_4 = $this->chart->image_chart($all_image, $all_undefault_image, $all_default_image);
+		$chart_5 = $this->chart->login_chart($login_today, $login_month, $login_year);
+		$chart_6 = $this->chart->register_chart($register_today, $register_month, $register_year);
+		$chart_7 = $this->chart->birthday_chart($birthday_today, $birthday_yesterday, $birthday_month);
+
+		$data = array
+		(
+			'url'				=>	base_url(),
+			'title'				=>	'پنل مدیریت - گزارش های سایت',
+			'chart_1'			=>	$chart_1,
+			'chart_2'			=>	$chart_2,
+			'chart_3'			=>	$chart_3,
+			'chart_4'			=>	$chart_4,
+			'chart_5'			=>	$chart_5,
+			'chart_6'			=>	$chart_6,
+			'chart_7'			=>	$chart_7,
+			'message_unread'	=>	$message_unread
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/report', $data);
 		$this->load->view('panel/footer', $data);
 	}
 

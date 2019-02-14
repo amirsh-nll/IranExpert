@@ -1,4 +1,4 @@
-<h2>پنل کاربری -) لیست کاربران -) ویرایش اطلاعات</h2>
+<h2>پنل مدیریت -) لیست کاربران -) ویرایش اطلاعات</h2>
 <?php 
 	echo form_open('admin/user_edit', 'method="post" class="panel_form"');
 	$middle_name_input = array(
