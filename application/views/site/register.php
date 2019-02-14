@@ -8,19 +8,23 @@
 					<?php
 						$email_input = array(
 							'name'=>'email',
-							'placeholder'=>'ایمیل'
+							'placeholder'=>'ایمیل',
+							'required'=>'required'
 						);
 						$password_input = array(
 							'name'=>'password',
-							'placeholder'=>'رمز عبور'
+							'placeholder'=>'رمز عبور',
+							'required'=>'required'
 						);
 						$repassword_input = array(
 							'name'=>'repassword',
-							'placeholder'=>'تکرار رمز عبور'
+							'placeholder'=>'تکرار رمز عبور',
+							'required'=>'required'
 						);
 						$captcha_input = array(
 							'name'=>'captcha',
-							'placeholder'=>'گد امنیتی'
+							'placeholder'=>'گد امنیتی',
+							'required'=>'required'
 						);
 						$submit_input = array(
 							'name'=>'submit',
@@ -31,6 +35,12 @@
 						echo form_password($repassword_input);
 						echo $captcha['image'];
 						echo form_input($captcha_input);
+						
+						if(!empty(validation_errors()))
+						{
+							echo '<p style="color:#f55;">اطلاعات وارد شده معتبر نمی باشند.</p>';
+						}
+
 					?>
 					<p><a href="<?=$url; ?>web/index" title="Back To HomePage">بازگشت به صفحه اصلی</a></p>
 					<p><a href="<?=$url; ?>web/login" title="Login iranExpert">ورود به سامانه</a></p>
