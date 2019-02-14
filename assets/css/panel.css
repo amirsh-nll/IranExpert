@@ -210,15 +210,15 @@ a
 {
 	padding-right:20px;
 }
-.report_message
+.violation_message
 {
 	font-size:15px;
 }
-.report_message a
+.violation_message a
 {
 	color:#f00;
 }
-.report_message span
+.violation_message span
 {
 	margin-left:10px;
 }
@@ -324,7 +324,7 @@ border-top:1px solid #000;
 	{
 		float:right;
 	}
-	.navbar, .suspend_accont, .report_message, .panel_form input[type="submit"], .return_key, .left_content
+	.navbar, .suspend_accont, .violation_message, .panel_form input[type="submit"], .return_key, .left_content
 	{
 		float:left;
 	}
@@ -357,7 +357,7 @@ border-top:1px solid #000;
 	{
 		float:right;
 	}
-	.navbar, .suspend_accont, .report_message, .panel_form input[type="submit"], .return_key, .left_content
+	.navbar, .suspend_accont, .violation_message, .panel_form input[type="submit"], .return_key, .left_content
 	{
 		float:left;
 	}
@@ -395,7 +395,7 @@ border-top:1px solid #000;
 	{
 		float:right;
 	}
-	.navbar, .suspend_accont, .report_message, .panel_form input[type="submit"], .return_key, .left_content
+	.navbar, .suspend_accont, .violation_message, .panel_form input[type="submit"], .return_key, .left_content
 	{
 		float:left;
 	}
@@ -474,7 +474,7 @@ border-top:1px solid #000;
 	{
 		float:right;
 	}
-	.suspend_accont, .report_message, .panel_form input[type="submit"], .return_key
+	.suspend_accont, .violation_message, .panel_form input[type="submit"], .return_key
 	{
 		float:left;
 	}

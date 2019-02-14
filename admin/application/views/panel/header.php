@@ -59,9 +59,8 @@
 			case 'certificate':{$active_menu_number = 9;}			break;
 			case 'certificate_manage':{$active_menu_number = 9;}	break;
 			case 'violation_accont':{$active_menu_number = 10;}		break;
-			case 'violation_message':{$active_menu_number = 11;}	break;
-			case 'message':{$active_menu_number = 12;}				break;
-			case 'read_message':{$active_menu_number = 12;}			break;
+			case 'message':{$active_menu_number = 11;}				break;
+			case 'read_message':{$active_menu_number = 11;}			break;
 			default:{$active_menu_number = 1;}						break;
 		}
 	?>
@@ -97,8 +96,7 @@
 						<li <?php if($active_menu_number==8){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/slideshow" titile="اسلاید شو">اسلاید شو</a></li>
 						<li <?php if($active_menu_number==9){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/certificate" titile="مجوزهای رسمیت">مجوزهای رسمیت</a></li>
 						<li <?php if($active_menu_number==10){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/violation_accont" titile="تخلف کاربران">تخلف کاربران</a></li>
-						<li <?php if($active_menu_number==11){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/violation_message" titile="تخلف پیام ها">تخلف پیام ها</a></li>
-						<li <?php if($active_menu_number==12){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
+						<li <?php if($active_menu_number==11){echo 'class="active_menu"';} ?>><a href="<?=$url; ?>panel/message" titile="پیام ها">پیام ها</a></li>
 						<li class="system_menu"><a target="_blank" href="<?php echo $system_address; ?>" titile="مشاهده سامانه">مشاهده سامانه</a></li>
 						<li class="out_menu"><a href="<?=$url; ?>panel/out" titile="خروج">خروج</a></li>
 					</ul>

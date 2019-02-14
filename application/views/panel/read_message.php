@@ -13,8 +13,6 @@
 	}
 ?>
 
-<p class="report_message"><a title="گزارش تخلف" href="<?php echo $url . 'user/report_message/' . $message_item['id']; ?>"><span>گزارش تخلف این پیام</span><span class="fa fa-lg fa-bullhorn"></span></a></p>
-
 <table width="100%" class="retrive_once_message">
 	<tr>
 		<td>نام فرستنده</td>
@@ -41,14 +39,5 @@
 <a class="return_key" href="<?=$url . 'panel/message#table_view'; ?>" title="بازگشت">بازگشت</a>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<?php
-	if ($notice == 1)
-	{
-		echo '<p style="color:#3acc17;">این پیام به عنوان تخلف به ما گزارش شد، در آینده ای نزدیک نتیجه را به اطلاعتان خواهیم رساند.</p>';
-	}
-?>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>راهنمایی:</strong></p>
 <p>شما می توانید با پاسخدهی به پیام های خود به کمک ایمیلتان بین بازدیدکنددگان معتبر باشید.</p>
-<p>در صورتی که محتوای پیام یا بخشی از آن دارای محتوای متخلفانه است آن را به ما گزارش تا پیگیر موضوع باشیم.</p>

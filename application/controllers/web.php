@@ -134,18 +134,17 @@ class web extends CI_Controller
 		$this->load->view('site/login',$data);
 	}
 
-	public function report($middle_name='', $notice=0)
+	public function violation($middle_name='', $notice=0)
 	{
 		$notice 		= xss_clean($notice);
 		$middle_name 	= xss_clean($middle_name);
-		$login 			= $this->session->userdata('login');
 
 		if(empty($middle_name))
 		{
 			redirect(base_url() . 'index');
 		}
 
-		$this->session->set_userdata('report_middle_name', $middle_name);
+		$this->session->set_userdata('violation_middle_name', $middle_name);
 
 		$captcha = array(
 	        'img_path'      => './captcha/',
@@ -179,7 +178,7 @@ class web extends CI_Controller
 		$this->statistics();
 
 		$this->load->view('site/form_header',$data);
-		$this->load->view('site/report',$data);
+		$this->load->view('site/violation',$data);
 	}
 
 	public function forget($notice=0)

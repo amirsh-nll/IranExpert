@@ -1060,6 +1060,59 @@ class panel extends IREX_Controller
 		$this->load->view('panel/footer', $data);
 	}
 
+	public function violation_accont($page=1)
+	{
+		$page = xss_clean($page);
+		if(!is_numeric($page))
+		{
+			redirect(base_url() . 'panel/violation_accont/1');
+		}
+
+		$this->load->model('message_model');
+		$user_id 		= $this->session->userdata('user_id');
+		$message_unread = $this->message_model->message_unread($user_id);
+		
+		$this->load->model('violation_model');
+		$violation = $this->violation_model->read_violation_list($page);
+		if($violation==0 && $page != 1)
+		{
+			redirect(base_url() . 'panel/violation_accont/1');
+		}
+
+		$violation_count  = $this->violation_model->violation_count();
+		$page 				= $violation_count / 10;
+		if($page * 10 - 9 < $violation_count)
+		{
+			$page+=1;
+		}
+
+		$i=0;
+		$violations='';
+		$this->load->model('user_model');
+
+		foreach ($violation as $my_violation) {
+			$violations[$i] = array(
+				'middle_name'	=>	$this->user_model->fetch_middle_name_with_user_id($my_violation['user_id']),
+				'id'			=>	$my_violation['id'],
+				'reason'		=>	$my_violation['reason'],
+				'type'			=>	$my_violation['type']
+			);
+			$i+=1;
+		}
+
+		$data = array(
+			'title'				=>	'پنل مدیریت - مجوزهای رسمیت',
+			'url'				=>	base_url(),
+			'message_unread'	=>	$message_unread,
+			'page'				=>	$page,
+			'violation'			=>	$violations,
+			'page_count'		=>	$page
+		);
+		$this->load->view('panel/header', $data);
+		$this->load->view('panel/violation_accont', $data);
+		$this->load->view('panel/footer', $data);
+	}
+
 	public function out()
 	{
 		$this->session->set_userdata('user_id');

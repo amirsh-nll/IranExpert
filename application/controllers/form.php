@@ -188,11 +188,11 @@ class form extends CI_Controller
 		}
 	}
 
-	public function report()
+	public function violation()
 	{
 		$rules = array(
 				array(
-					'field'		=>	'report_type',
+					'field'		=>	'violation_type',
 					'label'		=>	'نوع تخلف',
 					'rules'		=>	'required|numeric',
 					'errors'	=>	array(
@@ -201,9 +201,9 @@ class form extends CI_Controller
 						)
 					),
 				array(
-					'field'		=>	'report_reason',
+					'field'		=>	'violation_reason',
 					'label'		=>	'شرح تخلف',
-					'rules'		=>	'min_length[3]|max_length[1000]',
+					'rules'		=>	'max_length[1000]',
 					'errors'	=>	array(
 						'min_length'	=>	'فیلد %s معتبر نمی باشد.',
 						'max_length'	=>	'فیلد %s معتبر نمی باشد.'
@@ -223,7 +223,7 @@ class form extends CI_Controller
 
 		$this->load->model('captcha_model');
 		
-		$middle_name = $this->session->userdata('report_middle_name');
+		$middle_name = $this->session->userdata('violation_middle_name');
 		if(empty($middle_name))
 		{
 			redirect(base_url() . 'index');
@@ -231,28 +231,28 @@ class form extends CI_Controller
 
 		if($this->form_validation->run()==false)
 		{
-			redirect(base_url() . 'report/' . $middle_name . '/1');
+			redirect(base_url() . 'violation/' . $middle_name . '/1');
 		}
 		else
 		{
-			$report_type 	= $this->input->post('report_type', true);
-			$report_reason 	= $this->input->post('report_reason', true);
-			$code 			= $this->input->post('captcha', true);
-			$description 	= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
+			$violation_type 	= $this->input->post('violation_type', true);
+			$violation_reason 	= $this->input->post('violation_reason', true);
+			$code 				= $this->input->post('captcha', true);
+			$description 		= $this->agent->agent_string() . '// IP:' . $this->input->ip_address();
 
 			if($this->captcha_model->check($code))
 			{
 				$this->load->model('user_model');
 				$user_id = $this->user_model->fetch_user_id_with_middle_name($middle_name);
 
-				$this->load->model('report_model');
-				$this->report_model->report_user($user_id, $report_type, $report_reason, $description);
+				$this->load->model('violation_model');
+				$this->violation_model->violation_user($user_id, $violation_type, $violation_reason, $description);
 
-				redirect(base_url() . 'report/' . $middle_name . '/3');
+				redirect(base_url() . 'violation/' . $middle_name . '/3');
 			}
 			else
 			{
-				redirect(base_url() . 'report/' . $middle_name . '/2');
+				redirect(base_url() . 'violation/' . $middle_name . '/2');
 			}
 		}
 	}

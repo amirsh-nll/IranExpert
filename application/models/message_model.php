@@ -23,7 +23,6 @@ class message_model extends CI_Model
 			'user_id'		=>	$user_id,
 			'time'			=>	now(),
 			'status'		=>	1,
-			'report'		=>	0,
 			'full_name'		=>	$full_name,
 			'title'			=>	$title,
 			'email'			=>	$email,
@@ -100,17 +99,6 @@ class message_model extends CI_Model
 		{
 			return 0;
 		}
-	}
-
-	public function report_message($user_id, $message_id)
-	{
-		$data = array(
-			'report'	=>	1
-		);
-		$this->db->set($data);
-		$this->db->where('user_id', $user_id);
-		$this->db->where('id', $message_id);
-		$this->db->update('message');
 	}
 }
 ?>
